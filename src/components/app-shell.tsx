@@ -15,6 +15,7 @@ import {
   Command,
   Sparkles,
   ChevronDown,
+  Briefcase,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { TEAMS, useTeam, type Team } from "@/lib/team-context";
@@ -23,6 +24,7 @@ import limnnLogo from "@/assets/limnn-logo.png";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/opportunities", label: "Opportunities", icon: Briefcase },
   { to: "/queue", label: "Queue", icon: Inbox },
   { to: "/contacts", label: "Contacts", icon: Users },
   { to: "/cadences", label: "Cadences", icon: ListChecks },
