@@ -1,6 +1,6 @@
 import "@fontsource/instrument-serif/400.css";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/jetbrains-mono/index.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
