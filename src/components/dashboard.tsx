@@ -45,7 +45,7 @@ export function Dashboard() {
             {t.label} workspace
           </div>
           <h1 className="font-serif text-5xl text-foreground leading-tight">
-            {greeting()}, Anees.
+            {greeting}, Anees.
           </h1>
           <p className="text-muted-foreground mt-1">{teamGreeting(team)}</p>
         </div>
