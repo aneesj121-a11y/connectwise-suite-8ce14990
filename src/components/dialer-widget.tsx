@@ -33,7 +33,7 @@ export function DialerWidget() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 left-6 lg:left-[268px] z-40 h-14 pl-4 pr-5 rounded-full shadow-xl text-primary-foreground inline-flex items-center gap-2.5 hover:scale-[1.02] transition"
+          className="fixed bottom-6 left-2 z-40 h-14 pl-4 pr-5 rounded-full shadow-xl text-primary-foreground inline-flex items-center gap-2.5 hover:scale-[1.02] transition"
           style={{ background: "var(--ink)" }}
         >
           <span
@@ -51,7 +51,7 @@ export function DialerWidget() {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-6 left-6 lg:left-[268px] z-40 w-[340px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+        <div className="fixed bottom-6 left-2 z-40 w-[340px] rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
           <div
             className="px-4 py-3 flex items-center justify-between text-primary-foreground"
             style={{ background: "var(--ink)" }}
