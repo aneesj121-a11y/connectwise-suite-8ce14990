@@ -22,10 +22,11 @@ export function Dashboard() {
   const { team } = useTeam();
   const t = TEAMS[team];
 
-  const greeting = () => {
+  const [greeting, setGreeting] = useState("Hello");
+  useEffect(() => {
     const h = new Date().getHours();
-    return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
-  };
+    setGreeting(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening");
+  }, []);
 
   return (
     <div className="container-page py-8 space-y-8">
