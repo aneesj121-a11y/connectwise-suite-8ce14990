@@ -282,17 +282,21 @@ function AccountsHealthCard() {
             </div>
             <div className="col-span-2 font-mono text-sm">{r.arr}</div>
             <div className="col-span-4 flex items-center gap-2">
-              <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+              <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: "#EEF2F7" }}>
                 <div
-                  className="h-full rounded-full"
+                  className="h-full rounded-full transition-all"
                   style={{
                     width: `${r.health}%`,
                     background:
-                      r.health >= 80 ? "var(--success)" : r.health >= 60 ? "var(--warning)" : "var(--destructive)",
+                      r.health >= 80
+                        ? "#A7D8B6" /* soft mint */
+                        : r.health >= 60
+                        ? "#F5D6A0" /* soft sand */
+                        : "#F2A8A8" /* soft coral */,
                   }}
                 />
               </div>
-              <span className="text-xs font-medium w-7 text-right">{r.health}</span>
+              <span className="text-xs font-medium w-7 text-right" style={{ color: "#64748B" }}>{r.health}</span>
             </div>
             <div className="col-span-2 text-xs text-muted-foreground">Renews {r.renewal}</div>
             <div className="col-span-1 text-right">
