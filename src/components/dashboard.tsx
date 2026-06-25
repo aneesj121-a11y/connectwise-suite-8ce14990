@@ -4,6 +4,7 @@ import {
   Phone,
   PhoneIncoming,
   PhoneOutgoing,
+  PhoneMissed,
   TrendingUp,
   Clock,
   Target,
@@ -15,6 +16,7 @@ import {
   Sparkles,
   CheckCircle2,
   Circle,
+  Play,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
