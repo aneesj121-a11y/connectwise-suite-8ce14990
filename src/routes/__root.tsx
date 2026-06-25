@@ -1,3 +1,7 @@
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/jetbrains-mono/index.css";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -11,6 +15,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { TeamProvider } from "@/lib/team-context";
+import { AppShell } from "@/components/app-shell";
 
 function NotFoundComponent() {
   return (
@@ -118,8 +124,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <TeamProvider>
+        <AppShell>
+          <Outlet />
+        </AppShell>
+      </TeamProvider>
     </QueryClientProvider>
   );
 }
