@@ -44,7 +44,7 @@ export function Dashboard() {
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: t.accentVar }} />
             {t.label} workspace
           </div>
-          <h1 className="font-serif text-5xl text-foreground leading-tight">
+          <h1 className="font-display text-5xl text-foreground leading-tight">
             {greeting}, Anees.
           </h1>
           <p className="text-muted-foreground mt-1">{teamGreeting(team)}</p>
@@ -139,7 +139,7 @@ function KpiCard({ label, value, sub, icon: Icon, tone, accent }: Kpi & { accent
         <span className="text-xs text-muted-foreground">{label}</span>
         <Icon className="h-3.5 w-3.5" style={{ color: accent }} />
       </div>
-      <div className="mt-2 font-serif text-3xl tracking-tight">{value}</div>
+      <div className="mt-2 font-display text-3xl tracking-tight">{value}</div>
       {sub && <div className={["text-[11px] mt-0.5", toneClass].join(" ")}>{sub}</div>}
     </div>
   );
@@ -169,13 +169,13 @@ function SalesPipelineCard() {
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
               Quota · {quota.period}
             </div>
-            <div className="font-serif text-2xl tracking-tight mt-0.5">
+            <div className="font-display text-2xl tracking-tight mt-0.5">
               {fmt(quota.closed)}{" "}
               <span className="text-muted-foreground text-base">of {fmt(quota.target)}</span>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-serif tracking-tight" style={{ color: "var(--sales)" }}>
+            <div className="text-2xl font-display tracking-tight" style={{ color: "var(--sales)" }}>
               {closedPct}%
             </div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground">attained</div>
@@ -473,7 +473,7 @@ function Card({
     <section className="surface-card p-5">
       <div className="flex items-end justify-between mb-3">
         <div>
-          <h3 className="font-serif text-2xl tracking-tight">{title}</h3>
+          <h3 className="font-display text-2xl tracking-tight">{title}</h3>
           {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
         </div>
         {action && (
