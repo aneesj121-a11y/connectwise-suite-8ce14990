@@ -9,9 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OpportunitiesIdRouteImport } from './routes/opportunities.$id'
 
+const OpportunitiesRoute = OpportunitiesRouteImport.update({
+  id: '/opportunities',
+  path: '/opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CallRoute = CallRouteImport.update({
   id: '/call',
   path: '/call',
@@ -22,35 +29,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpportunitiesIdRoute = OpportunitiesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => OpportunitiesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/call': typeof CallRoute
+  '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/call': typeof CallRoute
+  '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/call': typeof CallRoute
+  '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/call'
+  fullPaths: '/' | '/call' | '/opportunities' | '/opportunities/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/call'
-  id: '__root__' | '/' | '/call'
+  to: '/' | '/call' | '/opportunities' | '/opportunities/$id'
+  id: '__root__' | '/' | '/call' | '/opportunities' | '/opportunities/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CallRoute: typeof CallRoute
+  OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/opportunities': {
+      id: '/opportunities'
+      path: '/opportunities'
+      fullPath: '/opportunities'
+      preLoaderRoute: typeof OpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/call': {
       id: '/call'
       path: '/call'
@@ -65,12 +91,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/opportunities/$id': {
+      id: '/opportunities/$id'
+      path: '/$id'
+      fullPath: '/opportunities/$id'
+      preLoaderRoute: typeof OpportunitiesIdRouteImport
+      parentRoute: typeof OpportunitiesRoute
+    }
   }
 }
+
+interface OpportunitiesRouteChildren {
+  OpportunitiesIdRoute: typeof OpportunitiesIdRoute
+}
+
+const OpportunitiesRouteChildren: OpportunitiesRouteChildren = {
+  OpportunitiesIdRoute: OpportunitiesIdRoute,
+}
+
+const OpportunitiesRouteWithChildren = OpportunitiesRoute._addFileChildren(
+  OpportunitiesRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CallRoute: CallRoute,
+  OpportunitiesRoute: OpportunitiesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
