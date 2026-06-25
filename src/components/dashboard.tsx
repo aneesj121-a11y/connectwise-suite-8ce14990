@@ -425,6 +425,91 @@ function SystemHealth() {
   );
 }
 
+function RecentCallsCard({ team }: { team: Team }) {
+  type CallRow = {
+    name: string;
+    sub: string;
+    direction: "in" | "out" | "missed";
+    duration: string;
+    when: string;
+    outcome: string;
+  };
+
+  const calls: Record<Team, CallRow[]> = {
+    sales: [
+      { name: "Pat Prospect", sub: "Acme Corp · Discovery", direction: "out", duration: "12:04", when: "12m ago", outcome: "Booked demo" },
+      { name: "Sam Vendor", sub: "Globex · Proposal", direction: "in", duration: "06:51", when: "48m ago", outcome: "Sent pricing" },
+      { name: "Dana Boss", sub: "Initech · Negotiation", direction: "out", duration: "00:00", when: "1h ago", outcome: "Voicemail" },
+      { name: "Ravi Lee", sub: "Umbrella · Discovery", direction: "out", duration: "04:22", when: "2h ago", outcome: "Follow-up set" },
+      { name: "Jess Park", sub: "Hooli · Qualified", direction: "missed", duration: "—", when: "3h ago", outcome: "Missed" },
+    ],
+    support: [
+      { name: "+1 415 555 0142", sub: "Acme Corp · P1 · Login outage", direction: "in", duration: "08:12", when: "4m ago", outcome: "Escalated T2" },
+      { name: "+44 20 7946 0011", sub: "Globex · P2 · Billing", direction: "in", duration: "05:30", when: "26m ago", outcome: "Resolved" },
+      { name: "+1 312 555 0190", sub: "Hooli · P2 · API errors", direction: "in", duration: "11:48", when: "1h ago", outcome: "Workaround sent" },
+      { name: "+1 646 555 0123", sub: "Initech · P3 · How-to", direction: "in", duration: "03:02", when: "1h ago", outcome: "Resolved" },
+      { name: "+33 1 70 36 0011", sub: "Umbrella · P1 · Webhook", direction: "missed", duration: "—", when: "2h ago", outcome: "Callback queued" },
+    ],
+    cs: [
+      { name: "Mia Chen", sub: "Acme Corp · QBR prep", direction: "out", duration: "22:15", when: "30m ago", outcome: "QBR confirmed" },
+      { name: "Tom Reyes", sub: "Globex · Health check", direction: "out", duration: "14:08", when: "1h ago", outcome: "Expansion lead" },
+      { name: "Initech CSM line", sub: "Initech · Save call", direction: "in", duration: "18:42", when: "2h ago", outcome: "At-risk noted" },
+      { name: "Priya Shah", sub: "Umbrella · Onboarding", direction: "out", duration: "31:20", when: "3h ago", outcome: "Milestone hit" },
+      { name: "Hooli CS line", sub: "Hooli · Renewal", direction: "missed", duration: "—", when: "4h ago", outcome: "Retry tomorrow" },
+    ],
+  };
+
+  const rows = calls[team];
+  const t = TEAMS[team];
+
+  const dirIcon = (d: CallRow["direction"]) =>
+    d === "in" ? PhoneIncoming : d === "out" ? PhoneOutgoing : PhoneMissed;
+  const dirColor = (d: CallRow["direction"]) =>
+    d === "missed" ? "var(--destructive)" : d === "in" ? "#10B981" : t.accentVar;
+
+  return (
+    <Card title="Recent calls" subtitle="Your last 5 conversations" action="Call history →">
+      <div className="divide-y divide-border">
+        {rows.map((c, i) => {
+          const Icon = dirIcon(c.direction);
+          return (
+            <div key={i} className="py-3 grid grid-cols-12 gap-3 items-center">
+              <div className="col-span-1">
+                <span
+                  className="h-8 w-8 rounded-full grid place-items-center"
+                  style={{
+                    background: "color-mix(in oklab, " + dirColor(c.direction) + " 14%, transparent)",
+                    color: dirColor(c.direction),
+                  }}
+                >
+                  <Icon className="h-4 w-4" />
+                </span>
+              </div>
+              <div className="col-span-4">
+                <div className="font-medium text-sm">{c.name}</div>
+                <div className="text-xs text-muted-foreground truncate">{c.sub}</div>
+              </div>
+              <div className="col-span-2 font-mono text-sm tabular-nums">{c.duration}</div>
+              <div className="col-span-2">
+                <span className="chip">{c.outcome}</span>
+              </div>
+              <div className="col-span-2 text-xs text-muted-foreground text-right font-mono">{c.when}</div>
+              <div className="col-span-1 text-right">
+                <button
+                  className="h-7 w-7 rounded-md grid place-items-center hover:bg-accent text-muted-foreground"
+                  title="Play recording"
+                >
+                  <Play className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Card>
+  );
+}
+
 function ActivityFeed({ team }: { team: Team }) {
   const items =
     team === "sales"
