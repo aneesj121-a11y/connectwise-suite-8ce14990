@@ -19,6 +19,7 @@ import {
 import { useState, type ReactNode } from "react";
 import { TEAMS, useTeam, type Team } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
+import limnnLogo from "@/assets/limnn-logo.png";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -27,6 +28,11 @@ const NAV = [
   { to: "/cadences", label: "Cadences", icon: ListChecks },
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
 ] as const;
+
+const SIDEBAR_BG = "#1E293B";
+const SIDEBAR_ACTIVE = "#2C69CF";
+const SIDEBAR_INACTIVE = "#94A3B8";
+const SIDEBAR_TEXT = "#FFFFFF";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { team, setTeam } = useTeam();
@@ -37,18 +43,24 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex w-full bg-background">
       {/* Sidebar */}
-      <aside className="hidden lg:flex w-[252px] shrink-0 flex-col border-r border-border bg-sidebar">
-        <div className="px-5 pt-5 pb-3 flex items-center gap-2">
-          <div
-            className="h-9 w-9 rounded-lg grid place-items-center text-primary-foreground font-serif text-xl"
-            style={{ background: "var(--primary)" }}
+      <aside
+        className="hidden lg:flex w-[252px] shrink-0 flex-col"
+        style={{ background: SIDEBAR_BG, color: SIDEBAR_TEXT }}
+      >
+        <div className="px-5 pt-5 pb-4 flex items-center gap-2">
+          <img
+            src={limnnLogo}
+            alt="limnn"
+            className="h-7 w-auto"
+            width={1536}
+            height={512}
+          />
+          <span
+            className="ml-1 text-[11px] uppercase tracking-[0.18em]"
+            style={{ color: SIDEBAR_INACTIVE }}
           >
-            L
-          </div>
-          <div>
-            <div className="text-sm font-semibold tracking-tight">Limnn Dialer</div>
-            <div className="text-[11px] text-muted-foreground">Enterprise voice</div>
-          </div>
+            Dialer
+          </span>
         </div>
 
         {/* Team switcher */}
@@ -57,7 +69,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="px-3 mt-4 flex-1 space-y-0.5">
-          <div className="px-2 pb-1.5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+          <div
+            className="px-2 pb-1.5 text-[10px] uppercase tracking-[0.12em]"
+            style={{ color: SIDEBAR_INACTIVE }}
+          >
             Workspace
           </div>
           {NAV.map((item) => {
@@ -67,33 +82,51 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link
                 key={item.to}
                 to={item.to}
-                className={[
-                  "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors",
-                  active
-                    ? "bg-accent text-foreground font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/60",
-                ].join(" ")}
+                className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
+                style={{
+                  background: active ? SIDEBAR_ACTIVE : "transparent",
+                  color: active ? SIDEBAR_TEXT : SIDEBAR_INACTIVE,
+                  fontWeight: active ? 600 : 500,
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                    e.currentTarget.style.color = SIDEBAR_TEXT;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.color = SIDEBAR_INACTIVE;
+                  }
+                }}
               >
                 <Icon className="h-4 w-4" />
                 {item.label}
-                {active && (
-                  <span
-                    className="ml-auto h-1.5 w-1.5 rounded-full"
-                    style={{ background: t.accentVar }}
-                  />
-                )}
               </Link>
             );
           })}
 
-          <div className="px-2 pt-5 pb-1.5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+          <div
+            className="px-2 pt-5 pb-1.5 text-[10px] uppercase tracking-[0.12em]"
+            style={{ color: SIDEBAR_INACTIVE }}
+          >
             {t.label} tools
           </div>
           {teamTools(team).map((item) => (
             <Link
               key={item.label}
               to={item.to}
-              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/60"
+              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
+              style={{ color: SIDEBAR_INACTIVE }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                e.currentTarget.style.color = SIDEBAR_TEXT;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = SIDEBAR_INACTIVE;
+              }}
             >
               <item.icon className="h-4 w-4" />
               {item.label}
@@ -101,21 +134,36 @@ export function AppShell({ children }: { children: ReactNode }) {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-border">
+        <div
+          className="p-3 mt-2"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+        >
           <Link
             to="/settings"
-            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/60"
+            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
+            style={{ color: SIDEBAR_INACTIVE }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+              e.currentTarget.style.color = SIDEBAR_TEXT;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = SIDEBAR_INACTIVE;
+            }}
           >
             <Settings className="h-4 w-4" />
             Settings
           </Link>
           <div className="mt-2 flex items-center gap-2 px-2.5 py-2">
-            <div className="h-7 w-7 rounded-full bg-secondary text-secondary-foreground grid place-items-center text-xs font-medium">
+            <div
+              className="h-7 w-7 rounded-full grid place-items-center text-xs font-semibold"
+              style={{ background: SIDEBAR_ACTIVE, color: SIDEBAR_TEXT }}
+            >
               AN
             </div>
             <div className="text-xs leading-tight">
-              <div className="font-medium">Anees Naveed</div>
-              <div className="text-muted-foreground">Admin · {t.label}</div>
+              <div className="font-medium" style={{ color: SIDEBAR_TEXT }}>Anees Naveed</div>
+              <div style={{ color: SIDEBAR_INACTIVE }}>Admin · {t.label}</div>
             </div>
           </div>
         </div>
@@ -165,17 +213,22 @@ function TeamSwitcher({
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center gap-2.5 rounded-lg border border-border bg-card px-2.5 py-2 text-left hover:border-border-strong transition"
+        className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left transition"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          color: SIDEBAR_TEXT,
+        }}
       >
         <span
           className="h-2.5 w-2.5 rounded-full shrink-0"
-          style={{ background: t.accentVar }}
+          style={{ background: SIDEBAR_ACTIVE }}
         />
         <span className="flex-1 min-w-0">
-          <span className="block text-sm font-medium truncate">{t.label}</span>
-          <span className="block text-[11px] text-muted-foreground truncate">{t.tagline}</span>
+          <span className="block text-sm font-medium truncate" style={{ color: SIDEBAR_TEXT }}>{t.label}</span>
+          <span className="block text-[11px] truncate" style={{ color: SIDEBAR_INACTIVE }}>{t.tagline}</span>
         </span>
-        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+        <ChevronDown className="h-4 w-4" style={{ color: SIDEBAR_INACTIVE }} />
       </button>
       {open && (
         <div className="absolute z-30 left-0 right-0 mt-1 rounded-lg border border-border bg-popover shadow-lg overflow-hidden">

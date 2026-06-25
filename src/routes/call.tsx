@@ -64,12 +64,12 @@ function CallScreen() {
         <section className="xl:col-span-8 space-y-5">
           {/* Caller card */}
           <div className="surface-card p-6 flex items-center gap-5">
-            <div className="h-16 w-16 rounded-2xl grid place-items-center text-2xl font-serif text-primary-foreground" style={{ background: t.accentVar }}>
+            <div className="h-16 w-16 rounded-2xl grid place-items-center text-2xl font-display text-primary-foreground" style={{ background: t.accentVar }}>
               PP
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <h1 className="font-serif text-3xl tracking-tight">Pat Prospect</h1>
+                <h1 className="font-display text-3xl tracking-tight">Pat Prospect</h1>
                 <span className="chip">VP Engineering</span>
               </div>
               <div className="text-sm text-muted-foreground mt-0.5">
@@ -110,7 +110,7 @@ function CallScreen() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4" style={{ color: t.accentVar }} />
-                <h3 className="font-serif text-xl">Live transcript</h3>
+                <h3 className="font-display text-xl">Live transcript</h3>
                 <span className="chip">Auto-summary on</span>
               </div>
               <button className="text-xs text-muted-foreground hover:text-foreground">Copy</button>
@@ -178,7 +178,7 @@ function CallScreen() {
           {/* CRM context */}
           <div className="surface-card p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-serif text-xl">Context</h3>
+              <h3 className="font-display text-xl">Context</h3>
               <span className="chip">CRM synced</span>
             </div>
             <div className="space-y-3 text-sm">
@@ -198,7 +198,7 @@ function CallScreen() {
           {/* Disposition + cadence */}
           <div className="surface-card p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-serif text-xl">Wrap up</h3>
+              <h3 className="font-display text-xl">Wrap up</h3>
               <span className="text-[11px] text-muted-foreground">Required before next call</span>
             </div>
             <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">Disposition</div>
