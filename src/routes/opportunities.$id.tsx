@@ -426,7 +426,7 @@ function OpportunityDetailPage() {
                   {opp.activities.length === 0 && (
                     <li className="text-sm text-muted-foreground italic">No activity yet.</li>
                   )}
-                  {opp.activities.map((a) => (
+                  {opp.activities.map((a: any) => (
                     <li key={a.id} className="flex gap-3">
                       <div
                         className="h-8 w-8 grid place-items-center rounded-full text-[10px] font-semibold shrink-0"
