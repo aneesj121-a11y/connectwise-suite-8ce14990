@@ -155,8 +155,51 @@ function SalesPipelineCard() {
     { name: "Umbrella", contact: "Ravi Lee", stage: "Discovery", value: "$18.0k", next: "Cadence: LinkedIn touch" },
     { name: "Hooli", contact: "Jess Park", stage: "Qualified", value: "$32.0k", next: "Intro call · 6/26" },
   ];
+  // Quota — would come from manager/admin settings (quarterly here)
+  const quota = { period: "Q2 2026", target: 500_000, closed: 312_400, pipeline: 234_500 };
+  const closedPct = Math.round((quota.closed / quota.target) * 100);
+  const pipelinePct = Math.min(100 - closedPct, Math.round((quota.pipeline / quota.target) * 100));
+  const fmt = (n: number) => "$" + (n / 1000).toFixed(1) + "k";
+
   return (
     <Card title="Live pipeline" subtitle="Deals attached to your active cadences" action="Open pipeline →">
+      <div className="mb-4 rounded-lg border border-border bg-muted/40 p-4">
+        <div className="flex items-end justify-between mb-2">
+          <div>
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+              Quota · {quota.period}
+            </div>
+            <div className="font-serif text-2xl tracking-tight mt-0.5">
+              {fmt(quota.closed)}{" "}
+              <span className="text-muted-foreground text-base">of {fmt(quota.target)}</span>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-serif tracking-tight" style={{ color: "var(--sales)" }}>
+              {closedPct}%
+            </div>
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">attained</div>
+          </div>
+        </div>
+        <div className="h-2 rounded-full bg-background overflow-hidden flex">
+          <div className="h-full" style={{ width: `${closedPct}%`, background: "var(--sales)" }} />
+          <div
+            className="h-full opacity-40"
+            style={{ width: `${pipelinePct}%`, background: "var(--sales)" }}
+          />
+        </div>
+        <div className="flex items-center justify-between mt-2 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-sm" style={{ background: "var(--sales)" }} />
+            Closed {fmt(quota.closed)}
+            <span className="mx-2 opacity-40">·</span>
+            <span className="h-2 w-2 rounded-sm opacity-40" style={{ background: "var(--sales)" }} />
+            In pipeline {fmt(quota.pipeline)}
+          </span>
+          <span>Gap to target {fmt(quota.target - quota.closed - quota.pipeline)}</span>
+        </div>
+      </div>
+
       <div className="divide-y divide-border">
         {rows.map((r) => (
           <div key={r.name} className="py-3 grid grid-cols-12 gap-3 items-center">
