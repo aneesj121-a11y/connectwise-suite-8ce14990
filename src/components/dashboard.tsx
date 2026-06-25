@@ -74,6 +74,7 @@ export function Dashboard() {
           {team === "support" && <SupportQueueCard />}
           {team === "cs" && <AccountsHealthCard />}
 
+          <RecentCallsCard team={team} />
           <ActivityFeed team={team} />
         </div>
 
