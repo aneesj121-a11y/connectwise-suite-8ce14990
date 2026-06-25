@@ -78,9 +78,9 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.16 0.02 260);
 
-  /* Limnn electric blue */
-  --primary: oklch(0.5 0.27 264);
-  --primary-foreground: oklch(0.99 0 0);
+  /* Limnn brand blue #2C69CF */
+  --primary: #2c69cf;
+  --primary-foreground: #ffffff;
 
   --secondary: oklch(0.18 0.02 260);
   --secondary-foreground: oklch(0.98 0 0);
@@ -101,29 +101,32 @@
   --destructive-foreground: oklch(0.99 0 0);
 
   /* Team accents */
-  --sales: oklch(0.5 0.27 264);     /* blue */
-  --support: oklch(0.62 0.18 160);  /* emerald */
+  --sales: #2c69cf;                  /* brand blue */
+  --support: oklch(0.62 0.18 160);   /* emerald */
   --cs: oklch(0.62 0.2 30);          /* sunset/coral */
 
   --border: oklch(0.9 0.01 88);
   --border-strong: oklch(0.82 0.015 88);
   --input: oklch(0.9 0.01 88);
-  --ring: oklch(0.5 0.27 264);
+  --ring: #2c69cf;
 
-  --chart-1: oklch(0.5 0.27 264);
+  --chart-1: #2c69cf;
   --chart-2: oklch(0.62 0.18 160);
   --chart-3: oklch(0.62 0.2 30);
   --chart-4: oklch(0.72 0.17 60);
   --chart-5: oklch(0.45 0.04 260);
 
-  --sidebar: oklch(0.99 0.006 88);
-  --sidebar-foreground: oklch(0.16 0.02 260);
-  --sidebar-primary: oklch(0.5 0.27 264);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.94 0.012 88);
-  --sidebar-accent-foreground: oklch(0.16 0.02 260);
-  --sidebar-border: oklch(0.9 0.01 88);
-  --sidebar-ring: oklch(0.5 0.27 264);
+  /* Sidebar — slate #1E293B with brand-blue active states */
+  --sidebar: #1e293b;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #2c69cf;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2c69cf;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #2c69cf;
+  --sidebar-muted: #94a3b8;
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
 }
 
 @layer base {
