@@ -67,18 +67,30 @@ const fmt2 = (n: number) =>
 function OpportunityDetailPage() {
   const { opp } = Route.useLoaderData();
   const [stage, setStage] = useState<Stage>(opp.stage);
-  const [items, setItems] = useState<LineItem[]>(opp.quotes[0]?.items ?? []);
-  const [tab, setTab] = useState<"cpq" | "activity" | "email">("cpq");
+  const allQuotes = useMemo(() => buildQuotes(opp.quotes[0]), [opp]);
+  const [selectedQuoteId, setSelectedQuoteId] = useState<string>(allQuotes[0].id);
+  const selectedQuote = allQuotes.find((q) => q.id === selectedQuoteId) ?? allQuotes[0];
+  const [items, setItems] = useState<LineItem[]>(selectedQuote.items);
+  const [tab, setTab] = useState<"quotes" | "cpq" | "activity" | "email">("quotes");
+
+  const openQuote = (id: string) => {
+    const q = allQuotes.find((x) => x.id === id);
+    if (!q) return;
+    setSelectedQuoteId(id);
+    setItems(q.items);
+    setTab("cpq");
+  };
 
   const totals = useMemo(() => {
-    const q = { ...opp.quotes[0], items };
+    const q = { ...selectedQuote, items };
     return quoteTotals(q);
-  }, [items, opp.quotes]);
+  }, [items, selectedQuote]);
 
   const approvalNeeded = useMemo(() => {
     const maxDisc = Math.max(0, ...items.map((i) => i.discountPct));
     return maxDisc > 15;
   }, [items]);
+
 
   const updateItem = (id: string, patch: Partial<LineItem>) =>
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, ...patch } : i)));
