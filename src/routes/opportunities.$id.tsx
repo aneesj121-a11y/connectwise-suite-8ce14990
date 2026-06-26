@@ -293,30 +293,40 @@ function OpportunityDetailPage() {
               })}
             </div>
 
+            {tab === "quotes" && (
+              <QuotesTab
+                quotes={allQuotes}
+                onOpen={openQuote}
+                onNewVersion={() => {
+                  const next = cloneAsNewVersion(allQuotes[0]);
+                  allQuotes.unshift(next);
+                  openQuote(next.id);
+                }}
+              />
+            )}
+
             {tab === "cpq" && (
               <div className="p-5 space-y-5">
                 {/* Quote header */}
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div>
-                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                      Quote · v{opp.quotes[0]?.version ?? 1}
-                    </div>
-                    <h3 className="font-serif text-2xl tracking-tight mt-0.5">
-                      {opp.quotes[0]?.name ?? "New quote"}
-                    </h3>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      Created {opp.quotes[0]?.createdAt ?? "—"} ·{" "}
-                      <span
-                        className="px-2 py-0.5 rounded-md text-[11px] font-medium"
-                        style={{
-                          background: "color-mix(in oklab, var(--primary) 12%, transparent)",
-                          color: "var(--primary)",
-                        }}
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground inline-flex items-center gap-2">
+                      <button
+                        onClick={() => setTab("quotes")}
+                        className="inline-flex items-center gap-1 hover:text-foreground"
                       >
-                        {opp.quotes[0]?.status ?? "Draft"}
-                      </span>
+                        <ArrowLeft className="h-3 w-3" /> All quotes
+                      </button>
+                      <span>·</span>
+                      <span>Quote · v{selectedQuote.version}</span>
+                    </div>
+                    <h3 className="font-serif text-2xl tracking-tight mt-0.5">{selectedQuote.name}</h3>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      Created {selectedQuote.createdAt} ·{" "}
+                      <StatusPill status={selectedQuote.status} />
                     </div>
                   </div>
+
                   <div className="flex items-center gap-2">
                     <button className="h-9 px-3 inline-flex items-center gap-1.5 rounded-md border border-border bg-card text-sm hover:bg-accent">
                       <FileText className="h-3.5 w-3.5" /> Preview PDF
