@@ -265,10 +265,12 @@ function OpportunityDetailPage() {
           <div className="rounded-2xl border border-border bg-card">
             <div className="border-b border-border px-2 flex items-center gap-1">
               {[
-                { id: "cpq", label: "Configure · Price · Quote", icon: FileText },
-                { id: "activity", label: "Activity feed", icon: PenLine },
+                { id: "quotes", label: "Quotes", icon: FileText },
+                { id: "cpq", label: "Configure · Price · Quote", icon: PenLine },
+                { id: "activity", label: "Activity feed", icon: History },
                 { id: "email", label: "Email", icon: Mail },
               ].map((t) => {
+
                 const active = tab === t.id;
                 const Icon = t.icon;
                 return (
