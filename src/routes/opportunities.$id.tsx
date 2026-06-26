@@ -20,6 +20,15 @@ import {
   AlertTriangle,
   PenLine,
   Percent,
+  Clock,
+  Copy,
+  Eye,
+  History,
+  Download,
+  ChevronRight,
+  CircleDot,
+  GitBranch,
+  Lock,
 } from "lucide-react";
 import {
   findOpportunity,
@@ -28,8 +37,10 @@ import {
   STAGES,
   stageColor,
   type LineItem,
+  type Quote,
   type Stage,
 } from "@/lib/opportunities";
+
 
 export const Route = createFileRoute("/opportunities/$id")({
   loader: ({ params }) => {
