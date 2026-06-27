@@ -216,11 +216,11 @@ function TeamSwitcher({
             <button
               key={opt.id}
               onClick={() => onSelect(opt.id)}
-              className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left hover:bg-accent text-sm"
+              className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left hover:bg-accent text-sm text-popover-foreground"
             >
               <span className="h-2.5 w-2.5 rounded-full" style={{ background: opt.accentVar }} />
-              <span className="flex-1">
-                <span className="block font-medium">{opt.label}</span>
+              <span className="flex-1 min-w-0">
+                <span className="block font-medium text-foreground">{opt.label}</span>
                 <span className="block text-[11px] text-muted-foreground">{opt.tagline}</span>
               </span>
             </button>
