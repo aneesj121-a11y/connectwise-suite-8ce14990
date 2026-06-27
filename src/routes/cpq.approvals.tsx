@@ -176,8 +176,8 @@ function ApprovalsPage() {
           <ul className="text-sm space-y-2.5">
             <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "var(--success)" }} />Auto-approve up to 15% discount and $100k ACV.</li>
             <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "var(--primary)" }} />Manager sign-off: 15–20% discount.</li>
-            <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "oklch(0.55 0.15 280)" }} />VP Sales: 20–25% or ACV > $100k.</li>
-            <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "var(--destructive)" }} />CFO: > 25% discount or ACV > $250k.</li>
+            <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "oklch(0.55 0.15 280)" }} />VP Sales: 20–25% or ACV {'>'} $100k.</li>
+            <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "var(--destructive)" }} />CFO: {'>'} 25% discount or ACV {'>'} $250k.</li>
           </ul>
         </SectionCard>
         <SectionCard title="Recent audit trail">
