@@ -71,7 +71,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             Workspace
           </div>
-          {t.nav.map((item) => {
+          {visibleNav.map((item) => {
             const active = pathname === item.to;
             const Icon = item.icon;
             return (
