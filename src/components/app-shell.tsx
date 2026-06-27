@@ -9,7 +9,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { TEAMS, useTeam, type Team } from "@/lib/team-context";
+import { TEAMS, useTeam, type Team, type HubDef } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
 import { LimnnIntelligence } from "./limnn-intelligence";
 import limnnLogo from "@/assets/limnn-logo.png";
@@ -23,6 +23,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { team, setTeam } = useTeam();
   const t = TEAMS[team];
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   return (
@@ -50,7 +51,15 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         {/* Team switcher */}
         <div className="px-3 pt-2">
-          <TeamSwitcher open={open} setOpen={setOpen} onSelect={(v) => { setTeam(v); setOpen(false); }} />
+          <TeamSwitcher
+            open={open}
+            setOpen={setOpen}
+            onSelect={(v) => {
+              setTeam(v);
+              setOpen(false);
+              navigate({ to: TEAMS[v].defaultRoute });
+            }}
+          />
         </div>
 
         <nav className="px-3 mt-4 flex-1 space-y-0.5">
@@ -203,7 +212,7 @@ function TeamSwitcher({
       </button>
       {open && (
         <div className="absolute z-30 left-0 right-0 mt-1 rounded-lg border border-border bg-popover shadow-lg overflow-hidden">
-          {(Object.values(TEAMS) as (typeof TEAMS)[Team][]).map((opt) => (
+          {(Object.values(TEAMS) as HubDef[]).filter((h) => h.id !== "support").map((opt) => (
             <button
               key={opt.id}
               onClick={() => onSelect(opt.id)}
