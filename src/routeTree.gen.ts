@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as PlaybooksRouteImport } from './routes/playbooks'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as MarketingRouteImport } from './routes/marketing'
@@ -20,6 +21,8 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SupportPortalRouteImport } from './routes/support.portal'
+import { Route as SupportHelpdeskRouteImport } from './routes/support.helpdesk'
 import { Route as OpportunitiesIdRouteImport } from './routes/opportunities.$id'
 import { Route as MarketingSegmentsRouteImport } from './routes/marketing.segments'
 import { Route as MarketingIntentRouteImport } from './routes/marketing.intent'
@@ -53,6 +56,11 @@ import { Route as BillingFpaRouteImport } from './routes/billing.fpa'
 import { Route as BillingCollectionsRouteImport } from './routes/billing.collections'
 import { Route as BillingArapRouteImport } from './routes/billing.arap'
 
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlaybooksRoute = PlaybooksRouteImport.update({
   id: '/playbooks',
   path: '/playbooks',
@@ -107,6 +115,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SupportPortalRoute = SupportPortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => SupportRoute,
+} as any)
+const SupportHelpdeskRoute = SupportHelpdeskRouteImport.update({
+  id: '/helpdesk',
+  path: '/helpdesk',
+  getParentRoute: () => SupportRoute,
 } as any)
 const OpportunitiesIdRoute = OpportunitiesIdRouteImport.update({
   id: '/$id',
@@ -281,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
+  '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
   '/billing/fpa': typeof BillingFpaRoute
@@ -313,6 +332,8 @@ export interface FileRoutesByFullPath {
   '/marketing/intent': typeof MarketingIntentRoute
   '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/support/helpdesk': typeof SupportHelpdeskRoute
+  '/support/portal': typeof SupportPortalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -326,6 +347,7 @@ export interface FileRoutesByTo {
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
+  '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
   '/billing/fpa': typeof BillingFpaRoute
@@ -358,6 +380,8 @@ export interface FileRoutesByTo {
   '/marketing/intent': typeof MarketingIntentRoute
   '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/support/helpdesk': typeof SupportHelpdeskRoute
+  '/support/portal': typeof SupportPortalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -372,6 +396,7 @@ export interface FileRoutesById {
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
+  '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
   '/billing/fpa': typeof BillingFpaRoute
@@ -404,6 +429,8 @@ export interface FileRoutesById {
   '/marketing/intent': typeof MarketingIntentRoute
   '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/support/helpdesk': typeof SupportHelpdeskRoute
+  '/support/portal': typeof SupportPortalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -419,6 +446,7 @@ export interface FileRouteTypes {
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
+    | '/support'
     | '/billing/arap'
     | '/billing/collections'
     | '/billing/fpa'
@@ -451,6 +479,8 @@ export interface FileRouteTypes {
     | '/marketing/intent'
     | '/marketing/segments'
     | '/opportunities/$id'
+    | '/support/helpdesk'
+    | '/support/portal'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -464,6 +494,7 @@ export interface FileRouteTypes {
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
+    | '/support'
     | '/billing/arap'
     | '/billing/collections'
     | '/billing/fpa'
@@ -496,6 +527,8 @@ export interface FileRouteTypes {
     | '/marketing/intent'
     | '/marketing/segments'
     | '/opportunities/$id'
+    | '/support/helpdesk'
+    | '/support/portal'
   id:
     | '__root__'
     | '/'
@@ -509,6 +542,7 @@ export interface FileRouteTypes {
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
+    | '/support'
     | '/billing/arap'
     | '/billing/collections'
     | '/billing/fpa'
@@ -541,6 +575,8 @@ export interface FileRouteTypes {
     | '/marketing/intent'
     | '/marketing/segments'
     | '/opportunities/$id'
+    | '/support/helpdesk'
+    | '/support/portal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -555,10 +591,18 @@ export interface RootRouteChildren {
   MarketingRoute: typeof MarketingRouteWithChildren
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
   PlaybooksRoute: typeof PlaybooksRoute
+  SupportRoute: typeof SupportRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/playbooks': {
       id: '/playbooks'
       path: '/playbooks'
@@ -635,6 +679,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/support/portal': {
+      id: '/support/portal'
+      path: '/portal'
+      fullPath: '/support/portal'
+      preLoaderRoute: typeof SupportPortalRouteImport
+      parentRoute: typeof SupportRoute
+    }
+    '/support/helpdesk': {
+      id: '/support/helpdesk'
+      path: '/helpdesk'
+      fullPath: '/support/helpdesk'
+      preLoaderRoute: typeof SupportHelpdeskRouteImport
+      parentRoute: typeof SupportRoute
     }
     '/opportunities/$id': {
       id: '/opportunities/$id'
@@ -980,6 +1038,19 @@ const OpportunitiesRouteWithChildren = OpportunitiesRoute._addFileChildren(
   OpportunitiesRouteChildren,
 )
 
+interface SupportRouteChildren {
+  SupportHelpdeskRoute: typeof SupportHelpdeskRoute
+  SupportPortalRoute: typeof SupportPortalRoute
+}
+
+const SupportRouteChildren: SupportRouteChildren = {
+  SupportHelpdeskRoute: SupportHelpdeskRoute,
+  SupportPortalRoute: SupportPortalRoute,
+}
+
+const SupportRouteWithChildren =
+  SupportRoute._addFileChildren(SupportRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BillingRoute: BillingRouteWithChildren,
@@ -992,6 +1063,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketingRoute: MarketingRouteWithChildren,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
   PlaybooksRoute: PlaybooksRoute,
+  SupportRoute: SupportRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
