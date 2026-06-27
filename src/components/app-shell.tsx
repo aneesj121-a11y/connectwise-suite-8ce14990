@@ -20,11 +20,13 @@ const SIDEBAR_INACTIVE = "#94A3B8";
 const SIDEBAR_TEXT = "#FFFFFF";
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { team, setTeam } = useTeam();
+  const { team, setTeam, role, setRole } = useTeam();
   const t = TEAMS[team];
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const visibleNav = t.nav.filter((n) => !n.managerOnly || role === "manager");
+  const visibleTools = t.tools.filter((n) => !n.managerOnly || role === "manager");
 
   return (
     <div className="min-h-screen flex w-full bg-background">
