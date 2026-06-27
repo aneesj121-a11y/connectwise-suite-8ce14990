@@ -61,7 +61,8 @@ export type Team =
   | "grid"
   | "billing";
 
-export type NavLink = { to: string; label: string; icon: LucideIcon };
+export type Role = "agent" | "manager";
+export type NavLink = { to: string; label: string; icon: LucideIcon; managerOnly?: boolean };
 
 export type HubDef = {
   id: Team;
@@ -98,6 +99,7 @@ export const TEAMS: Record<Team, HubDef> = {
       { to: "/playbooks", label: "Power Dialer", icon: Phone },
       { to: "/opportunities", label: "Pipeline", icon: TrendingUp },
       { to: "/cpq", label: "CPQ Workspace", icon: FileText },
+      { to: "/cpq/approvals", label: "Deal Desk Approvals", icon: ShieldCheck, managerOnly: true },
     ],
   },
   marketing: {
@@ -209,6 +211,7 @@ export const TEAMS: Record<Team, HubDef> = {
     tools: [
       { to: "/grid", label: "My Tasks", icon: ListChecks },
       { to: "/grid/sprints", label: "Sprints", icon: Activity },
+      { to: "/grid/capacity", label: "Team Capacity", icon: Gauge, managerOnly: true },
     ],
   },
   billing: {
@@ -233,6 +236,8 @@ export const TEAMS: Record<Team, HubDef> = {
     tools: [
       { to: "/billing/collections", label: "Collections", icon: Banknote },
       { to: "/billing/invoices", label: "Invoices", icon: FileText },
+      { to: "/billing/fpa", label: "FP&A Engine", icon: LineChart, managerOnly: true },
+      { to: "/billing/revrec", label: "Rev Rec", icon: Scale, managerOnly: true },
     ],
   },
 
@@ -243,6 +248,8 @@ type Ctx = {
   setTeam: (t: Team) => void;
   inCall: boolean;
   setInCall: (v: boolean) => void;
+  role: Role;
+  setRole: (r: Role) => void;
 };
 
 const TeamCtx = createContext<Ctx | null>(null);
@@ -250,8 +257,9 @@ const TeamCtx = createContext<Ctx | null>(null);
 export function TeamProvider({ children }: { children: ReactNode }) {
   const [team, setTeam] = useState<Team>("sales");
   const [inCall, setInCall] = useState(false);
+  const [role, setRole] = useState<Role>("manager");
   return (
-    <TeamCtx.Provider value={{ team, setTeam, inCall, setInCall }}>{children}</TeamCtx.Provider>
+    <TeamCtx.Provider value={{ team, setTeam, inCall, setInCall, role, setRole }}>{children}</TeamCtx.Provider>
   );
 }
 

@@ -20,11 +20,13 @@ const SIDEBAR_INACTIVE = "#94A3B8";
 const SIDEBAR_TEXT = "#FFFFFF";
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { team, setTeam } = useTeam();
+  const { team, setTeam, role, setRole } = useTeam();
   const t = TEAMS[team];
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const visibleNav = t.nav.filter((n) => !n.managerOnly || role === "manager");
+  const visibleTools = t.tools.filter((n) => !n.managerOnly || role === "manager");
 
   return (
     <div className="min-h-screen flex w-full bg-background">
@@ -69,7 +71,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             Workspace
           </div>
-          {t.nav.map((item) => {
+          {visibleNav.map((item) => {
             const active = pathname === item.to;
             const Icon = item.icon;
             return (
@@ -107,7 +109,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             {t.label} tools
           </div>
-          {t.tools.map((item, i) => (
+          {visibleTools.map((item, i) => (
             <Link
               key={`${item.to}-${i}`}
               to={item.to}
@@ -155,9 +157,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               AN
             </div>
-            <div className="text-xs leading-tight">
-              <div className="font-medium" style={{ color: SIDEBAR_TEXT }}>Anees Naveed</div>
-              <div style={{ color: SIDEBAR_INACTIVE }}>Admin · {t.label}</div>
+            <div className="text-xs leading-tight flex-1 min-w-0">
+              <div className="font-medium truncate" style={{ color: SIDEBAR_TEXT }}>Anees Naveed</div>
+              <button
+                onClick={() => setRole(role === "manager" ? "agent" : "manager")}
+                className="inline-flex items-center gap-1 mt-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium transition"
+                style={{
+                  background: role === "manager" ? SIDEBAR_ACTIVE : "rgba(255,255,255,0.08)",
+                  color: SIDEBAR_TEXT,
+                }}
+                title="Toggle role"
+              >
+                {role === "manager" ? "Manager view" : "Agent view"} · {t.label}
+              </button>
             </div>
           </div>
         </div>
