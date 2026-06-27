@@ -236,6 +236,8 @@ export const TEAMS: Record<Team, HubDef> = {
     tools: [
       { to: "/billing/collections", label: "Collections", icon: Banknote },
       { to: "/billing/invoices", label: "Invoices", icon: FileText },
+      { to: "/billing/fpa", label: "FP&A Engine", icon: LineChart, managerOnly: true },
+      { to: "/billing/revrec", label: "Rev Rec", icon: Scale, managerOnly: true },
     ],
   },
 
