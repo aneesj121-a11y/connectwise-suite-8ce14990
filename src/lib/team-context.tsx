@@ -245,6 +245,8 @@ type Ctx = {
   setTeam: (t: Team) => void;
   inCall: boolean;
   setInCall: (v: boolean) => void;
+  role: Role;
+  setRole: (r: Role) => void;
 };
 
 const TeamCtx = createContext<Ctx | null>(null);
@@ -252,8 +254,9 @@ const TeamCtx = createContext<Ctx | null>(null);
 export function TeamProvider({ children }: { children: ReactNode }) {
   const [team, setTeam] = useState<Team>("sales");
   const [inCall, setInCall] = useState(false);
+  const [role, setRole] = useState<Role>("manager");
   return (
-    <TeamCtx.Provider value={{ team, setTeam, inCall, setInCall }}>{children}</TeamCtx.Provider>
+    <TeamCtx.Provider value={{ team, setTeam, inCall, setInCall, role, setRole }}>{children}</TeamCtx.Provider>
   );
 }
 
