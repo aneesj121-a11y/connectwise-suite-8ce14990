@@ -67,9 +67,12 @@ export type HubDef = {
   accentVar: string;
   accentClass: string;
   defaultRoute: string;
+  hubIcon: LucideIcon;
+  hubColor: string;
   nav: NavLink[];
   tools: NavLink[];
 };
+
 
 export const TEAMS: Record<Team, HubDef> = {
   sales: {
