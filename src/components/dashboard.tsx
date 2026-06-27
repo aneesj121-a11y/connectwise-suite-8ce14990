@@ -437,7 +437,7 @@ function RecentCallsCard({ team }: { team: Team }) {
     outcome: string;
   };
 
-  const calls: Record<Team, CallRow[]> = {
+  const calls: Partial<Record<Team, CallRow[]>> = {
     sales: [
       { name: "Pat Prospect", sub: "Acme Corp · Discovery", direction: "out", duration: "12:04", when: "12m ago", outcome: "Booked demo" },
       { name: "Sam Vendor", sub: "Globex · Proposal", direction: "in", duration: "06:51", when: "48m ago", outcome: "Sent pricing" },
@@ -461,7 +461,7 @@ function RecentCallsCard({ team }: { team: Team }) {
     ],
   };
 
-  const rows = calls[team];
+  const rows = calls[team] ?? calls.sales!;
   const t = TEAMS[team];
 
   const dirIcon = (d: CallRow["direction"]) =>
