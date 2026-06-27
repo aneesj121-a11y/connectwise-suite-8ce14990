@@ -47,7 +47,10 @@ import {
   Scale,
   Calculator,
   Headphones,
+  ShieldCheck,
+  LayoutGrid,
 } from "lucide-react";
+
 
 export type Team =
   | "sales"
