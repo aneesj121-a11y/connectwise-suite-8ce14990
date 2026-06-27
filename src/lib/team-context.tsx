@@ -99,6 +99,7 @@ export const TEAMS: Record<Team, HubDef> = {
       { to: "/playbooks", label: "Power Dialer", icon: Phone },
       { to: "/opportunities", label: "Pipeline", icon: TrendingUp },
       { to: "/cpq", label: "CPQ Workspace", icon: FileText },
+      { to: "/cpq/approvals", label: "Deal Desk Approvals", icon: ShieldCheck, managerOnly: true },
     ],
   },
   marketing: {
