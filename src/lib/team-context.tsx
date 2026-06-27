@@ -211,6 +211,7 @@ export const TEAMS: Record<Team, HubDef> = {
     tools: [
       { to: "/grid", label: "My Tasks", icon: ListChecks },
       { to: "/grid/sprints", label: "Sprints", icon: Activity },
+      { to: "/grid/capacity", label: "Team Capacity", icon: Gauge, managerOnly: true },
     ],
   },
   billing: {
