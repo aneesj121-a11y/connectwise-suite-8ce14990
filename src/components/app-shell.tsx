@@ -1,35 +1,18 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Phone,
-  LayoutDashboard,
-  Users,
-  ListChecks,
-  BarChart3,
   Settings,
   Search,
   Bell,
-  Headphones,
-  Inbox,
-  HeartHandshake,
-  TrendingUp,
   Command,
   Sparkles,
   ChevronDown,
-  Briefcase,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { TEAMS, useTeam, type Team } from "@/lib/team-context";
+import { TEAMS, useTeam, type Team, type HubDef } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
+import { LimnnIntelligence } from "./limnn-intelligence";
 import limnnLogo from "@/assets/limnn-logo.png";
-
-const NAV = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/opportunities", label: "Opportunities", icon: Briefcase },
-  { to: "/queue", label: "Queue", icon: Inbox },
-  { to: "/contacts", label: "Contacts", icon: Users },
-  { to: "/cadences", label: "Cadences", icon: ListChecks },
-  { to: "/analytics", label: "Analytics", icon: BarChart3 },
-] as const;
 
 const SIDEBAR_BG = "#1E293B";
 const SIDEBAR_ACTIVE = "#2C69CF";
@@ -40,6 +23,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { team, setTeam } = useTeam();
   const t = TEAMS[team];
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   return (
@@ -67,7 +51,15 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         {/* Team switcher */}
         <div className="px-3 pt-2">
-          <TeamSwitcher open={open} setOpen={setOpen} onSelect={(v) => { setTeam(v); setOpen(false); }} />
+          <TeamSwitcher
+            open={open}
+            setOpen={setOpen}
+            onSelect={(v) => {
+              setTeam(v);
+              setOpen(false);
+              navigate({ to: TEAMS[v].defaultRoute });
+            }}
+          />
         </div>
 
         <nav className="px-3 mt-4 flex-1 space-y-0.5">
@@ -77,7 +69,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             Workspace
           </div>
-          {NAV.map((item) => {
+          {t.nav.map((item) => {
             const active = pathname === item.to;
             const Icon = item.icon;
             return (
@@ -115,9 +107,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             {t.label} tools
           </div>
-          {teamTools(team).map((item) => (
+          {t.tools.map((item, i) => (
             <Link
-              key={item.label}
+              key={`${item.to}-${i}`}
               to={item.to}
               className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
               style={{ color: SIDEBAR_INACTIVE }}
@@ -177,27 +169,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         <main className="flex-1 min-w-0">{children}</main>
       </div>
 
+      {/* Right intelligence pane */}
+      <LimnnIntelligence />
+
       {/* Persistent dialer */}
       <DialerWidget />
     </div>
   );
-}
-
-function teamTools(team: Team) {
-  if (team === "sales")
-    return [
-      { to: "/", label: "Power Dialer", icon: Phone },
-      { to: "/", label: "Pipeline", icon: TrendingUp },
-    ];
-  if (team === "support")
-    return [
-      { to: "/", label: "Live Queue", icon: Headphones },
-      { to: "/", label: "Tickets", icon: Inbox },
-    ];
-  return [
-    { to: "/", label: "Accounts", icon: HeartHandshake },
-    { to: "/", label: "Renewals", icon: TrendingUp },
-  ];
 }
 
 function TeamSwitcher({
@@ -234,7 +212,7 @@ function TeamSwitcher({
       </button>
       {open && (
         <div className="absolute z-30 left-0 right-0 mt-1 rounded-lg border border-border bg-popover shadow-lg overflow-hidden">
-          {(Object.values(TEAMS) as (typeof TEAMS)[Team][]).map((opt) => (
+          {(Object.values(TEAMS) as HubDef[]).filter((h) => h.id !== "support").map((opt) => (
             <button
               key={opt.id}
               onClick={() => onSelect(opt.id)}

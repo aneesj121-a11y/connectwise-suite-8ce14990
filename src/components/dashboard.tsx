@@ -318,7 +318,7 @@ function AccountsHealthCard() {
 
 function AiCoach({ team }: { team: Team }) {
   const t = TEAMS[team];
-  const tips = {
+  const tipsByTeam: Partial<Record<Team, string[]>> = {
     sales: [
       "3 leads opened pricing page in last 24h — call them first.",
       "Best connect window today: 4–5pm PT (74% answer rate).",
@@ -334,7 +334,8 @@ function AiCoach({ team }: { team: Team }) {
       "Globex eligible for expansion: 92% seat utilization.",
       "Draft QBR for Acme is ready to review.",
     ],
-  }[team];
+  };
+  const tips = tipsByTeam[team] ?? tipsByTeam.sales!;
 
   return (
     <div className="surface-card p-5">
@@ -363,7 +364,7 @@ function AiCoach({ team }: { team: Team }) {
 }
 
 function TasksCard({ team }: { team: Team }) {
-  const tasks = {
+  const tasksByTeam: Partial<Record<Team, { t: string; tag: string | null; due: string }[]>> = {
     sales: [
       { t: "Cadence: LinkedIn touch — Umbrella pilot", tag: "Cadence", due: "Today" },
       { t: "Call Pat Prospect re: intro", tag: "Cadence", due: "Today" },
@@ -380,7 +381,8 @@ function TasksCard({ team }: { team: Team }) {
       { t: "Send Acme QBR pre-read", tag: "QBR", due: "Tomorrow" },
       { t: "Renewal proposal — Globex", tag: "Renewal", due: "6/30" },
     ],
-  }[team];
+  };
+  const tasks = tasksByTeam[team] ?? tasksByTeam.sales!;
 
   return (
     <div className="surface-card p-5">
@@ -435,7 +437,7 @@ function RecentCallsCard({ team }: { team: Team }) {
     outcome: string;
   };
 
-  const calls: Record<Team, CallRow[]> = {
+  const calls: Partial<Record<Team, CallRow[]>> = {
     sales: [
       { name: "Pat Prospect", sub: "Acme Corp · Discovery", direction: "out", duration: "12:04", when: "12m ago", outcome: "Booked demo" },
       { name: "Sam Vendor", sub: "Globex · Proposal", direction: "in", duration: "06:51", when: "48m ago", outcome: "Sent pricing" },
@@ -459,7 +461,7 @@ function RecentCallsCard({ team }: { team: Team }) {
     ],
   };
 
-  const rows = calls[team];
+  const rows = calls[team] ?? calls.sales!;
   const t = TEAMS[team];
 
   const dirIcon = (d: CallRow["direction"]) =>
