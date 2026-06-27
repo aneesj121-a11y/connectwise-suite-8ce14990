@@ -47,7 +47,10 @@ import {
   Scale,
   Calculator,
   Headphones,
+  ShieldCheck,
+  LayoutGrid,
 } from "lucide-react";
+
 
 export type Team =
   | "sales"
@@ -67,18 +70,23 @@ export type HubDef = {
   accentVar: string;
   accentClass: string;
   defaultRoute: string;
+  hubIcon: LucideIcon;
+  hubColor: string;
   nav: NavLink[];
   tools: NavLink[];
 };
+
 
 export const TEAMS: Record<Team, HubDef> = {
   sales: {
     id: "sales",
     label: "Sales",
-    tagline: "Outbound cadences & pipeline",
+    tagline: "Outbound Pipeline & Revenue Execution",
     accentVar: "var(--sales)",
     accentClass: "text-[color:var(--sales)]",
     defaultRoute: "/",
+    hubIcon: BarChart3,
+    hubColor: "#2C69CF",
     nav: [
       { to: "/", label: "Dashboard", icon: LayoutDashboard },
       { to: "/opportunities", label: "Opportunities", icon: Briefcase },
@@ -94,10 +102,12 @@ export const TEAMS: Record<Team, HubDef> = {
   marketing: {
     id: "marketing",
     label: "Marketing",
-    tagline: "Intent, campaigns & growth",
+    tagline: "Intent Signals, Campaigns & Growth Automation",
     accentVar: "var(--sales)",
     accentClass: "text-[color:var(--sales)]",
     defaultRoute: "/marketing",
+    hubIcon: Megaphone,
+    hubColor: "#2C69CF",
     nav: [
       { to: "/marketing", label: "Growth Analytics", icon: BarChart3 },
       { to: "/marketing/intent", label: "Intent Engine", icon: Radar },
@@ -115,10 +125,12 @@ export const TEAMS: Record<Team, HubDef> = {
   cs: {
     id: "cs",
     label: "Customer Success",
-    tagline: "Renewals & account health",
+    tagline: "Retention, Client Health & Renewals Management",
     accentVar: "var(--cs)",
     accentClass: "text-[color:var(--cs)]",
     defaultRoute: "/cs",
+    hubIcon: ShieldCheck,
+    hubColor: "#EF4444",
     nav: [
       { to: "/cs", label: "Accounts", icon: HeartHandshake },
       { to: "/cs/health", label: "Health Scoring", icon: Activity },
@@ -140,6 +152,8 @@ export const TEAMS: Record<Team, HubDef> = {
     accentVar: "var(--support)",
     accentClass: "text-[color:var(--support)]",
     defaultRoute: "/chat",
+    hubIcon: MessagesSquare,
+    hubColor: "#10B981",
     nav: [
       { to: "/chat", label: "Central Inbox", icon: MessagesSquare },
       { to: "/chat/sla", label: "SLA Triage", icon: Timer },
@@ -153,10 +167,12 @@ export const TEAMS: Record<Team, HubDef> = {
   chat: {
     id: "chat",
     label: "Limnn Chat & Support",
-    tagline: "Omnichannel inbox & AI deflection",
+    tagline: "Omnichannel Conversation Hub & Smart AI Deflection",
     accentVar: "var(--support)",
     accentClass: "text-[color:var(--support)]",
     defaultRoute: "/chat",
+    hubIcon: MessagesSquare,
+    hubColor: "#10B981",
     nav: [
       { to: "/chat", label: "Central Inbox", icon: MessagesSquare },
       { to: "/chat/sla", label: "SLA Triage", icon: Timer },
@@ -174,10 +190,12 @@ export const TEAMS: Record<Team, HubDef> = {
   grid: {
     id: "grid",
     label: "Limnn Grid",
-    tagline: "Project ops & sprint delivery",
+    tagline: "Project Operations & Agile Delivery Management",
     accentVar: "var(--sales)",
     accentClass: "text-[color:var(--sales)]",
     defaultRoute: "/grid",
+    hubIcon: LayoutGrid,
+    hubColor: "#2C69CF",
     nav: [
       { to: "/grid", label: "Sprint Board", icon: KanbanSquare },
       { to: "/grid/sprints", label: "Active Sprints", icon: Activity },
@@ -195,10 +213,12 @@ export const TEAMS: Record<Team, HubDef> = {
   billing: {
     id: "billing",
     label: "Billing Ops",
-    tagline: "Collections, AR/AP & FP&A",
+    tagline: "Revenue Recognition, AR/AP & Financial Planning",
     accentVar: "var(--cs)",
     accentClass: "text-[color:var(--cs)]",
     defaultRoute: "/billing",
+    hubIcon: Receipt,
+    hubColor: "#F59E0B",
     nav: [
       { to: "/billing", label: "Financials", icon: Wallet },
       { to: "/billing/collections", label: "Collections", icon: Banknote },
@@ -214,6 +234,7 @@ export const TEAMS: Record<Team, HubDef> = {
       { to: "/billing/invoices", label: "Invoices", icon: FileText },
     ],
   },
+
 };
 
 type Ctx = {

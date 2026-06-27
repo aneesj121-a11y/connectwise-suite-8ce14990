@@ -189,6 +189,7 @@ function TeamSwitcher({
 }) {
   const { team } = useTeam();
   const t = TEAMS[team];
+  const HubIcon = t.hubIcon;
   return (
     <div className="relative">
       <button
@@ -201,35 +202,56 @@ function TeamSwitcher({
         }}
       >
         <span
-          className="h-2.5 w-2.5 rounded-full shrink-0"
-          style={{ background: SIDEBAR_ACTIVE }}
-        />
+          className="h-7 w-7 rounded-md grid place-items-center shrink-0"
+          style={{
+            background: `color-mix(in oklab, ${t.hubColor} 18%, transparent)`,
+            color: t.hubColor,
+            border: `1px solid color-mix(in oklab, ${t.hubColor} 30%, transparent)`,
+          }}
+        >
+          <HubIcon className="h-3.5 w-3.5" />
+        </span>
         <span className="flex-1 min-w-0">
-          <span className="block text-sm font-medium truncate" style={{ color: SIDEBAR_TEXT }}>{t.label}</span>
+          <span className="block text-sm font-semibold truncate" style={{ color: SIDEBAR_TEXT, fontFamily: "var(--font-display, Poppins), Poppins, sans-serif" }}>{t.label}</span>
           <span className="block text-[11px] truncate" style={{ color: SIDEBAR_INACTIVE }}>{t.tagline}</span>
         </span>
         <ChevronDown className="h-4 w-4" style={{ color: SIDEBAR_INACTIVE }} />
       </button>
       {open && (
         <div className="absolute z-30 left-0 right-0 mt-1 rounded-lg border border-border bg-popover shadow-lg overflow-hidden">
-          {(Object.values(TEAMS) as HubDef[]).filter((h) => h.id !== "support").map((opt) => (
-            <button
-              key={opt.id}
-              onClick={() => onSelect(opt.id)}
-              className="w-full flex items-center gap-2.5 px-2.5 py-2 text-left hover:bg-accent text-sm text-popover-foreground"
-            >
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: opt.accentVar }} />
-              <span className="flex-1 min-w-0">
-                <span className="block font-medium text-foreground">{opt.label}</span>
-                <span className="block text-[11px] text-muted-foreground">{opt.tagline}</span>
-              </span>
-            </button>
-          ))}
+          {(Object.values(TEAMS) as HubDef[]).filter((h) => h.id !== "support").map((opt) => {
+            const OptIcon = opt.hubIcon;
+            const active = opt.id === team;
+            return (
+              <button
+                key={opt.id}
+                onClick={() => onSelect(opt.id)}
+                className="w-full flex items-center gap-2.5 px-2.5 py-2.5 text-left hover:bg-accent text-sm text-popover-foreground"
+                style={active ? { background: "color-mix(in oklab, var(--primary) 8%, transparent)" } : undefined}
+              >
+                <span
+                  className="h-8 w-8 rounded-md grid place-items-center shrink-0"
+                  style={{
+                    background: `color-mix(in oklab, ${opt.hubColor} 12%, transparent)`,
+                    color: opt.hubColor,
+                    border: `1px solid color-mix(in oklab, ${opt.hubColor} 24%, transparent)`,
+                  }}
+                >
+                  <OptIcon className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <span className="flex-1 min-w-0">
+                  <span className="block font-semibold text-foreground text-[13px] leading-tight" style={{ fontFamily: "var(--font-display, Poppins), Poppins, sans-serif" }}>{opt.label}</span>
+                  <span className="block text-[11px] text-muted-foreground leading-snug mt-0.5">{opt.tagline}</span>
+                </span>
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
   );
 }
+
 
 function TopBar() {
   const { team } = useTeam();
