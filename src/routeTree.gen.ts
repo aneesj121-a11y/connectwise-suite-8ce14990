@@ -9,16 +9,55 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PlaybooksRouteImport } from './routes/playbooks'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as MarketingRouteImport } from './routes/marketing'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as GridRouteImport } from './routes/grid'
+import { Route as ForecastRouteImport } from './routes/forecast'
 import { Route as CsRouteImport } from './routes/cs'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OpportunitiesIdRouteImport } from './routes/opportunities.$id'
+import { Route as MarketingSegmentsRouteImport } from './routes/marketing.segments'
+import { Route as MarketingIntentRouteImport } from './routes/marketing.intent'
+import { Route as MarketingContentRouteImport } from './routes/marketing.content'
+import { Route as MarketingCampaignsRouteImport } from './routes/marketing.campaigns'
+import { Route as MarketingAnalyticsRouteImport } from './routes/marketing.analytics'
+import { Route as MarketingAbTestsRouteImport } from './routes/marketing.ab-tests'
+import { Route as GridSprintsRouteImport } from './routes/grid.sprints'
+import { Route as GridRoadmapsRouteImport } from './routes/grid.roadmaps'
+import { Route as GridRetrosRouteImport } from './routes/grid.retros'
+import { Route as GridOkrsRouteImport } from './routes/grid.okrs'
+import { Route as GridCapacityRouteImport } from './routes/grid.capacity'
+import { Route as GridAutomationsRouteImport } from './routes/grid.automations'
+import { Route as CsRenewalsRouteImport } from './routes/cs.renewals'
+import { Route as CsQbrRouteImport } from './routes/cs.qbr'
+import { Route as CsOnboardingRouteImport } from './routes/cs.onboarding'
+import { Route as CsHealthRouteImport } from './routes/cs.health'
+import { Route as CsExpansionRouteImport } from './routes/cs.expansion'
+import { Route as CsAdvocacyRouteImport } from './routes/cs.advocacy'
+import { Route as ChatVoiceRouteImport } from './routes/chat.voice'
+import { Route as ChatSlaRouteImport } from './routes/chat.sla'
+import { Route as ChatRoutingRouteImport } from './routes/chat.routing'
+import { Route as ChatMacrosRouteImport } from './routes/chat.macros'
+import { Route as ChatKbRouteImport } from './routes/chat.kb'
+import { Route as ChatCsatRouteImport } from './routes/chat.csat'
+import { Route as BillingTaxRouteImport } from './routes/billing.tax'
+import { Route as BillingSubscriptionsRouteImport } from './routes/billing.subscriptions'
+import { Route as BillingRevrecRouteImport } from './routes/billing.revrec'
+import { Route as BillingInvoicesRouteImport } from './routes/billing.invoices'
+import { Route as BillingFpaRouteImport } from './routes/billing.fpa'
+import { Route as BillingCollectionsRouteImport } from './routes/billing.collections'
+import { Route as BillingArapRouteImport } from './routes/billing.arap'
 
+const PlaybooksRoute = PlaybooksRouteImport.update({
+  id: '/playbooks',
+  path: '/playbooks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OpportunitiesRoute = OpportunitiesRouteImport.update({
   id: '/opportunities',
   path: '/opportunities',
@@ -29,9 +68,19 @@ const MarketingRoute = MarketingRouteImport.update({
   path: '/marketing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GridRoute = GridRouteImport.update({
   id: '/grid',
   path: '/grid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForecastRoute = ForecastRouteImport.update({
+  id: '/forecast',
+  path: '/forecast',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CsRoute = CsRouteImport.update({
@@ -64,39 +113,296 @@ const OpportunitiesIdRoute = OpportunitiesIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => OpportunitiesRoute,
 } as any)
+const MarketingSegmentsRoute = MarketingSegmentsRouteImport.update({
+  id: '/segments',
+  path: '/segments',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const MarketingIntentRoute = MarketingIntentRouteImport.update({
+  id: '/intent',
+  path: '/intent',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const MarketingContentRoute = MarketingContentRouteImport.update({
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const MarketingCampaignsRoute = MarketingCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const MarketingAnalyticsRoute = MarketingAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const MarketingAbTestsRoute = MarketingAbTestsRouteImport.update({
+  id: '/ab-tests',
+  path: '/ab-tests',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const GridSprintsRoute = GridSprintsRouteImport.update({
+  id: '/sprints',
+  path: '/sprints',
+  getParentRoute: () => GridRoute,
+} as any)
+const GridRoadmapsRoute = GridRoadmapsRouteImport.update({
+  id: '/roadmaps',
+  path: '/roadmaps',
+  getParentRoute: () => GridRoute,
+} as any)
+const GridRetrosRoute = GridRetrosRouteImport.update({
+  id: '/retros',
+  path: '/retros',
+  getParentRoute: () => GridRoute,
+} as any)
+const GridOkrsRoute = GridOkrsRouteImport.update({
+  id: '/okrs',
+  path: '/okrs',
+  getParentRoute: () => GridRoute,
+} as any)
+const GridCapacityRoute = GridCapacityRouteImport.update({
+  id: '/capacity',
+  path: '/capacity',
+  getParentRoute: () => GridRoute,
+} as any)
+const GridAutomationsRoute = GridAutomationsRouteImport.update({
+  id: '/automations',
+  path: '/automations',
+  getParentRoute: () => GridRoute,
+} as any)
+const CsRenewalsRoute = CsRenewalsRouteImport.update({
+  id: '/renewals',
+  path: '/renewals',
+  getParentRoute: () => CsRoute,
+} as any)
+const CsQbrRoute = CsQbrRouteImport.update({
+  id: '/qbr',
+  path: '/qbr',
+  getParentRoute: () => CsRoute,
+} as any)
+const CsOnboardingRoute = CsOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => CsRoute,
+} as any)
+const CsHealthRoute = CsHealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => CsRoute,
+} as any)
+const CsExpansionRoute = CsExpansionRouteImport.update({
+  id: '/expansion',
+  path: '/expansion',
+  getParentRoute: () => CsRoute,
+} as any)
+const CsAdvocacyRoute = CsAdvocacyRouteImport.update({
+  id: '/advocacy',
+  path: '/advocacy',
+  getParentRoute: () => CsRoute,
+} as any)
+const ChatVoiceRoute = ChatVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatSlaRoute = ChatSlaRouteImport.update({
+  id: '/sla',
+  path: '/sla',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatRoutingRoute = ChatRoutingRouteImport.update({
+  id: '/routing',
+  path: '/routing',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatMacrosRoute = ChatMacrosRouteImport.update({
+  id: '/macros',
+  path: '/macros',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatKbRoute = ChatKbRouteImport.update({
+  id: '/kb',
+  path: '/kb',
+  getParentRoute: () => ChatRoute,
+} as any)
+const ChatCsatRoute = ChatCsatRouteImport.update({
+  id: '/csat',
+  path: '/csat',
+  getParentRoute: () => ChatRoute,
+} as any)
+const BillingTaxRoute = BillingTaxRouteImport.update({
+  id: '/tax',
+  path: '/tax',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingSubscriptionsRoute = BillingSubscriptionsRouteImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingRevrecRoute = BillingRevrecRouteImport.update({
+  id: '/revrec',
+  path: '/revrec',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingInvoicesRoute = BillingInvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingFpaRoute = BillingFpaRouteImport.update({
+  id: '/fpa',
+  path: '/fpa',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingCollectionsRoute = BillingCollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingArapRoute = BillingArapRouteImport.update({
+  id: '/arap',
+  path: '/arap',
+  getParentRoute: () => BillingRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/billing': typeof BillingRoute
+  '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
-  '/chat': typeof ChatRoute
-  '/cs': typeof CsRoute
-  '/grid': typeof GridRoute
-  '/marketing': typeof MarketingRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/cs': typeof CsRouteWithChildren
+  '/forecast': typeof ForecastRoute
+  '/grid': typeof GridRouteWithChildren
+  '/leaderboard': typeof LeaderboardRoute
+  '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/playbooks': typeof PlaybooksRoute
+  '/billing/arap': typeof BillingArapRoute
+  '/billing/collections': typeof BillingCollectionsRoute
+  '/billing/fpa': typeof BillingFpaRoute
+  '/billing/invoices': typeof BillingInvoicesRoute
+  '/billing/revrec': typeof BillingRevrecRoute
+  '/billing/subscriptions': typeof BillingSubscriptionsRoute
+  '/billing/tax': typeof BillingTaxRoute
+  '/chat/csat': typeof ChatCsatRoute
+  '/chat/kb': typeof ChatKbRoute
+  '/chat/macros': typeof ChatMacrosRoute
+  '/chat/routing': typeof ChatRoutingRoute
+  '/chat/sla': typeof ChatSlaRoute
+  '/chat/voice': typeof ChatVoiceRoute
+  '/cs/advocacy': typeof CsAdvocacyRoute
+  '/cs/expansion': typeof CsExpansionRoute
+  '/cs/health': typeof CsHealthRoute
+  '/cs/onboarding': typeof CsOnboardingRoute
+  '/cs/qbr': typeof CsQbrRoute
+  '/cs/renewals': typeof CsRenewalsRoute
+  '/grid/automations': typeof GridAutomationsRoute
+  '/grid/capacity': typeof GridCapacityRoute
+  '/grid/okrs': typeof GridOkrsRoute
+  '/grid/retros': typeof GridRetrosRoute
+  '/grid/roadmaps': typeof GridRoadmapsRoute
+  '/grid/sprints': typeof GridSprintsRoute
+  '/marketing/ab-tests': typeof MarketingAbTestsRoute
+  '/marketing/analytics': typeof MarketingAnalyticsRoute
+  '/marketing/campaigns': typeof MarketingCampaignsRoute
+  '/marketing/content': typeof MarketingContentRoute
+  '/marketing/intent': typeof MarketingIntentRoute
+  '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/billing': typeof BillingRoute
+  '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
-  '/chat': typeof ChatRoute
-  '/cs': typeof CsRoute
-  '/grid': typeof GridRoute
-  '/marketing': typeof MarketingRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/cs': typeof CsRouteWithChildren
+  '/forecast': typeof ForecastRoute
+  '/grid': typeof GridRouteWithChildren
+  '/leaderboard': typeof LeaderboardRoute
+  '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/playbooks': typeof PlaybooksRoute
+  '/billing/arap': typeof BillingArapRoute
+  '/billing/collections': typeof BillingCollectionsRoute
+  '/billing/fpa': typeof BillingFpaRoute
+  '/billing/invoices': typeof BillingInvoicesRoute
+  '/billing/revrec': typeof BillingRevrecRoute
+  '/billing/subscriptions': typeof BillingSubscriptionsRoute
+  '/billing/tax': typeof BillingTaxRoute
+  '/chat/csat': typeof ChatCsatRoute
+  '/chat/kb': typeof ChatKbRoute
+  '/chat/macros': typeof ChatMacrosRoute
+  '/chat/routing': typeof ChatRoutingRoute
+  '/chat/sla': typeof ChatSlaRoute
+  '/chat/voice': typeof ChatVoiceRoute
+  '/cs/advocacy': typeof CsAdvocacyRoute
+  '/cs/expansion': typeof CsExpansionRoute
+  '/cs/health': typeof CsHealthRoute
+  '/cs/onboarding': typeof CsOnboardingRoute
+  '/cs/qbr': typeof CsQbrRoute
+  '/cs/renewals': typeof CsRenewalsRoute
+  '/grid/automations': typeof GridAutomationsRoute
+  '/grid/capacity': typeof GridCapacityRoute
+  '/grid/okrs': typeof GridOkrsRoute
+  '/grid/retros': typeof GridRetrosRoute
+  '/grid/roadmaps': typeof GridRoadmapsRoute
+  '/grid/sprints': typeof GridSprintsRoute
+  '/marketing/ab-tests': typeof MarketingAbTestsRoute
+  '/marketing/analytics': typeof MarketingAnalyticsRoute
+  '/marketing/campaigns': typeof MarketingCampaignsRoute
+  '/marketing/content': typeof MarketingContentRoute
+  '/marketing/intent': typeof MarketingIntentRoute
+  '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/billing': typeof BillingRoute
+  '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
-  '/chat': typeof ChatRoute
-  '/cs': typeof CsRoute
-  '/grid': typeof GridRoute
-  '/marketing': typeof MarketingRoute
+  '/chat': typeof ChatRouteWithChildren
+  '/cs': typeof CsRouteWithChildren
+  '/forecast': typeof ForecastRoute
+  '/grid': typeof GridRouteWithChildren
+  '/leaderboard': typeof LeaderboardRoute
+  '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/playbooks': typeof PlaybooksRoute
+  '/billing/arap': typeof BillingArapRoute
+  '/billing/collections': typeof BillingCollectionsRoute
+  '/billing/fpa': typeof BillingFpaRoute
+  '/billing/invoices': typeof BillingInvoicesRoute
+  '/billing/revrec': typeof BillingRevrecRoute
+  '/billing/subscriptions': typeof BillingSubscriptionsRoute
+  '/billing/tax': typeof BillingTaxRoute
+  '/chat/csat': typeof ChatCsatRoute
+  '/chat/kb': typeof ChatKbRoute
+  '/chat/macros': typeof ChatMacrosRoute
+  '/chat/routing': typeof ChatRoutingRoute
+  '/chat/sla': typeof ChatSlaRoute
+  '/chat/voice': typeof ChatVoiceRoute
+  '/cs/advocacy': typeof CsAdvocacyRoute
+  '/cs/expansion': typeof CsExpansionRoute
+  '/cs/health': typeof CsHealthRoute
+  '/cs/onboarding': typeof CsOnboardingRoute
+  '/cs/qbr': typeof CsQbrRoute
+  '/cs/renewals': typeof CsRenewalsRoute
+  '/grid/automations': typeof GridAutomationsRoute
+  '/grid/capacity': typeof GridCapacityRoute
+  '/grid/okrs': typeof GridOkrsRoute
+  '/grid/retros': typeof GridRetrosRoute
+  '/grid/roadmaps': typeof GridRoadmapsRoute
+  '/grid/sprints': typeof GridSprintsRoute
+  '/marketing/ab-tests': typeof MarketingAbTestsRoute
+  '/marketing/analytics': typeof MarketingAnalyticsRoute
+  '/marketing/campaigns': typeof MarketingCampaignsRoute
+  '/marketing/content': typeof MarketingContentRoute
+  '/marketing/intent': typeof MarketingIntentRoute
+  '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRouteTypes {
@@ -107,9 +413,43 @@ export interface FileRouteTypes {
     | '/call'
     | '/chat'
     | '/cs'
+    | '/forecast'
     | '/grid'
+    | '/leaderboard'
     | '/marketing'
     | '/opportunities'
+    | '/playbooks'
+    | '/billing/arap'
+    | '/billing/collections'
+    | '/billing/fpa'
+    | '/billing/invoices'
+    | '/billing/revrec'
+    | '/billing/subscriptions'
+    | '/billing/tax'
+    | '/chat/csat'
+    | '/chat/kb'
+    | '/chat/macros'
+    | '/chat/routing'
+    | '/chat/sla'
+    | '/chat/voice'
+    | '/cs/advocacy'
+    | '/cs/expansion'
+    | '/cs/health'
+    | '/cs/onboarding'
+    | '/cs/qbr'
+    | '/cs/renewals'
+    | '/grid/automations'
+    | '/grid/capacity'
+    | '/grid/okrs'
+    | '/grid/retros'
+    | '/grid/roadmaps'
+    | '/grid/sprints'
+    | '/marketing/ab-tests'
+    | '/marketing/analytics'
+    | '/marketing/campaigns'
+    | '/marketing/content'
+    | '/marketing/intent'
+    | '/marketing/segments'
     | '/opportunities/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -118,9 +458,43 @@ export interface FileRouteTypes {
     | '/call'
     | '/chat'
     | '/cs'
+    | '/forecast'
     | '/grid'
+    | '/leaderboard'
     | '/marketing'
     | '/opportunities'
+    | '/playbooks'
+    | '/billing/arap'
+    | '/billing/collections'
+    | '/billing/fpa'
+    | '/billing/invoices'
+    | '/billing/revrec'
+    | '/billing/subscriptions'
+    | '/billing/tax'
+    | '/chat/csat'
+    | '/chat/kb'
+    | '/chat/macros'
+    | '/chat/routing'
+    | '/chat/sla'
+    | '/chat/voice'
+    | '/cs/advocacy'
+    | '/cs/expansion'
+    | '/cs/health'
+    | '/cs/onboarding'
+    | '/cs/qbr'
+    | '/cs/renewals'
+    | '/grid/automations'
+    | '/grid/capacity'
+    | '/grid/okrs'
+    | '/grid/retros'
+    | '/grid/roadmaps'
+    | '/grid/sprints'
+    | '/marketing/ab-tests'
+    | '/marketing/analytics'
+    | '/marketing/campaigns'
+    | '/marketing/content'
+    | '/marketing/intent'
+    | '/marketing/segments'
     | '/opportunities/$id'
   id:
     | '__root__'
@@ -129,25 +503,69 @@ export interface FileRouteTypes {
     | '/call'
     | '/chat'
     | '/cs'
+    | '/forecast'
     | '/grid'
+    | '/leaderboard'
     | '/marketing'
     | '/opportunities'
+    | '/playbooks'
+    | '/billing/arap'
+    | '/billing/collections'
+    | '/billing/fpa'
+    | '/billing/invoices'
+    | '/billing/revrec'
+    | '/billing/subscriptions'
+    | '/billing/tax'
+    | '/chat/csat'
+    | '/chat/kb'
+    | '/chat/macros'
+    | '/chat/routing'
+    | '/chat/sla'
+    | '/chat/voice'
+    | '/cs/advocacy'
+    | '/cs/expansion'
+    | '/cs/health'
+    | '/cs/onboarding'
+    | '/cs/qbr'
+    | '/cs/renewals'
+    | '/grid/automations'
+    | '/grid/capacity'
+    | '/grid/okrs'
+    | '/grid/retros'
+    | '/grid/roadmaps'
+    | '/grid/sprints'
+    | '/marketing/ab-tests'
+    | '/marketing/analytics'
+    | '/marketing/campaigns'
+    | '/marketing/content'
+    | '/marketing/intent'
+    | '/marketing/segments'
     | '/opportunities/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BillingRoute: typeof BillingRoute
+  BillingRoute: typeof BillingRouteWithChildren
   CallRoute: typeof CallRoute
-  ChatRoute: typeof ChatRoute
-  CsRoute: typeof CsRoute
-  GridRoute: typeof GridRoute
-  MarketingRoute: typeof MarketingRoute
+  ChatRoute: typeof ChatRouteWithChildren
+  CsRoute: typeof CsRouteWithChildren
+  ForecastRoute: typeof ForecastRoute
+  GridRoute: typeof GridRouteWithChildren
+  LeaderboardRoute: typeof LeaderboardRoute
+  MarketingRoute: typeof MarketingRouteWithChildren
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
+  PlaybooksRoute: typeof PlaybooksRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/playbooks': {
+      id: '/playbooks'
+      path: '/playbooks'
+      fullPath: '/playbooks'
+      preLoaderRoute: typeof PlaybooksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/opportunities': {
       id: '/opportunities'
       path: '/opportunities'
@@ -162,11 +580,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/grid': {
       id: '/grid'
       path: '/grid'
       fullPath: '/grid'
       preLoaderRoute: typeof GridRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forecast': {
+      id: '/forecast'
+      path: '/forecast'
+      fullPath: '/forecast'
+      preLoaderRoute: typeof ForecastRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cs': {
@@ -211,8 +643,330 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpportunitiesIdRouteImport
       parentRoute: typeof OpportunitiesRoute
     }
+    '/marketing/segments': {
+      id: '/marketing/segments'
+      path: '/segments'
+      fullPath: '/marketing/segments'
+      preLoaderRoute: typeof MarketingSegmentsRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/marketing/intent': {
+      id: '/marketing/intent'
+      path: '/intent'
+      fullPath: '/marketing/intent'
+      preLoaderRoute: typeof MarketingIntentRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/marketing/content': {
+      id: '/marketing/content'
+      path: '/content'
+      fullPath: '/marketing/content'
+      preLoaderRoute: typeof MarketingContentRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/marketing/campaigns': {
+      id: '/marketing/campaigns'
+      path: '/campaigns'
+      fullPath: '/marketing/campaigns'
+      preLoaderRoute: typeof MarketingCampaignsRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/marketing/analytics': {
+      id: '/marketing/analytics'
+      path: '/analytics'
+      fullPath: '/marketing/analytics'
+      preLoaderRoute: typeof MarketingAnalyticsRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/marketing/ab-tests': {
+      id: '/marketing/ab-tests'
+      path: '/ab-tests'
+      fullPath: '/marketing/ab-tests'
+      preLoaderRoute: typeof MarketingAbTestsRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/grid/sprints': {
+      id: '/grid/sprints'
+      path: '/sprints'
+      fullPath: '/grid/sprints'
+      preLoaderRoute: typeof GridSprintsRouteImport
+      parentRoute: typeof GridRoute
+    }
+    '/grid/roadmaps': {
+      id: '/grid/roadmaps'
+      path: '/roadmaps'
+      fullPath: '/grid/roadmaps'
+      preLoaderRoute: typeof GridRoadmapsRouteImport
+      parentRoute: typeof GridRoute
+    }
+    '/grid/retros': {
+      id: '/grid/retros'
+      path: '/retros'
+      fullPath: '/grid/retros'
+      preLoaderRoute: typeof GridRetrosRouteImport
+      parentRoute: typeof GridRoute
+    }
+    '/grid/okrs': {
+      id: '/grid/okrs'
+      path: '/okrs'
+      fullPath: '/grid/okrs'
+      preLoaderRoute: typeof GridOkrsRouteImport
+      parentRoute: typeof GridRoute
+    }
+    '/grid/capacity': {
+      id: '/grid/capacity'
+      path: '/capacity'
+      fullPath: '/grid/capacity'
+      preLoaderRoute: typeof GridCapacityRouteImport
+      parentRoute: typeof GridRoute
+    }
+    '/grid/automations': {
+      id: '/grid/automations'
+      path: '/automations'
+      fullPath: '/grid/automations'
+      preLoaderRoute: typeof GridAutomationsRouteImport
+      parentRoute: typeof GridRoute
+    }
+    '/cs/renewals': {
+      id: '/cs/renewals'
+      path: '/renewals'
+      fullPath: '/cs/renewals'
+      preLoaderRoute: typeof CsRenewalsRouteImport
+      parentRoute: typeof CsRoute
+    }
+    '/cs/qbr': {
+      id: '/cs/qbr'
+      path: '/qbr'
+      fullPath: '/cs/qbr'
+      preLoaderRoute: typeof CsQbrRouteImport
+      parentRoute: typeof CsRoute
+    }
+    '/cs/onboarding': {
+      id: '/cs/onboarding'
+      path: '/onboarding'
+      fullPath: '/cs/onboarding'
+      preLoaderRoute: typeof CsOnboardingRouteImport
+      parentRoute: typeof CsRoute
+    }
+    '/cs/health': {
+      id: '/cs/health'
+      path: '/health'
+      fullPath: '/cs/health'
+      preLoaderRoute: typeof CsHealthRouteImport
+      parentRoute: typeof CsRoute
+    }
+    '/cs/expansion': {
+      id: '/cs/expansion'
+      path: '/expansion'
+      fullPath: '/cs/expansion'
+      preLoaderRoute: typeof CsExpansionRouteImport
+      parentRoute: typeof CsRoute
+    }
+    '/cs/advocacy': {
+      id: '/cs/advocacy'
+      path: '/advocacy'
+      fullPath: '/cs/advocacy'
+      preLoaderRoute: typeof CsAdvocacyRouteImport
+      parentRoute: typeof CsRoute
+    }
+    '/chat/voice': {
+      id: '/chat/voice'
+      path: '/voice'
+      fullPath: '/chat/voice'
+      preLoaderRoute: typeof ChatVoiceRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/sla': {
+      id: '/chat/sla'
+      path: '/sla'
+      fullPath: '/chat/sla'
+      preLoaderRoute: typeof ChatSlaRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/routing': {
+      id: '/chat/routing'
+      path: '/routing'
+      fullPath: '/chat/routing'
+      preLoaderRoute: typeof ChatRoutingRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/macros': {
+      id: '/chat/macros'
+      path: '/macros'
+      fullPath: '/chat/macros'
+      preLoaderRoute: typeof ChatMacrosRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/kb': {
+      id: '/chat/kb'
+      path: '/kb'
+      fullPath: '/chat/kb'
+      preLoaderRoute: typeof ChatKbRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/chat/csat': {
+      id: '/chat/csat'
+      path: '/csat'
+      fullPath: '/chat/csat'
+      preLoaderRoute: typeof ChatCsatRouteImport
+      parentRoute: typeof ChatRoute
+    }
+    '/billing/tax': {
+      id: '/billing/tax'
+      path: '/tax'
+      fullPath: '/billing/tax'
+      preLoaderRoute: typeof BillingTaxRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/subscriptions': {
+      id: '/billing/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/billing/subscriptions'
+      preLoaderRoute: typeof BillingSubscriptionsRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/revrec': {
+      id: '/billing/revrec'
+      path: '/revrec'
+      fullPath: '/billing/revrec'
+      preLoaderRoute: typeof BillingRevrecRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/invoices': {
+      id: '/billing/invoices'
+      path: '/invoices'
+      fullPath: '/billing/invoices'
+      preLoaderRoute: typeof BillingInvoicesRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/fpa': {
+      id: '/billing/fpa'
+      path: '/fpa'
+      fullPath: '/billing/fpa'
+      preLoaderRoute: typeof BillingFpaRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/collections': {
+      id: '/billing/collections'
+      path: '/collections'
+      fullPath: '/billing/collections'
+      preLoaderRoute: typeof BillingCollectionsRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/arap': {
+      id: '/billing/arap'
+      path: '/arap'
+      fullPath: '/billing/arap'
+      preLoaderRoute: typeof BillingArapRouteImport
+      parentRoute: typeof BillingRoute
+    }
   }
 }
+
+interface BillingRouteChildren {
+  BillingArapRoute: typeof BillingArapRoute
+  BillingCollectionsRoute: typeof BillingCollectionsRoute
+  BillingFpaRoute: typeof BillingFpaRoute
+  BillingInvoicesRoute: typeof BillingInvoicesRoute
+  BillingRevrecRoute: typeof BillingRevrecRoute
+  BillingSubscriptionsRoute: typeof BillingSubscriptionsRoute
+  BillingTaxRoute: typeof BillingTaxRoute
+}
+
+const BillingRouteChildren: BillingRouteChildren = {
+  BillingArapRoute: BillingArapRoute,
+  BillingCollectionsRoute: BillingCollectionsRoute,
+  BillingFpaRoute: BillingFpaRoute,
+  BillingInvoicesRoute: BillingInvoicesRoute,
+  BillingRevrecRoute: BillingRevrecRoute,
+  BillingSubscriptionsRoute: BillingSubscriptionsRoute,
+  BillingTaxRoute: BillingTaxRoute,
+}
+
+const BillingRouteWithChildren =
+  BillingRoute._addFileChildren(BillingRouteChildren)
+
+interface ChatRouteChildren {
+  ChatCsatRoute: typeof ChatCsatRoute
+  ChatKbRoute: typeof ChatKbRoute
+  ChatMacrosRoute: typeof ChatMacrosRoute
+  ChatRoutingRoute: typeof ChatRoutingRoute
+  ChatSlaRoute: typeof ChatSlaRoute
+  ChatVoiceRoute: typeof ChatVoiceRoute
+}
+
+const ChatRouteChildren: ChatRouteChildren = {
+  ChatCsatRoute: ChatCsatRoute,
+  ChatKbRoute: ChatKbRoute,
+  ChatMacrosRoute: ChatMacrosRoute,
+  ChatRoutingRoute: ChatRoutingRoute,
+  ChatSlaRoute: ChatSlaRoute,
+  ChatVoiceRoute: ChatVoiceRoute,
+}
+
+const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
+
+interface CsRouteChildren {
+  CsAdvocacyRoute: typeof CsAdvocacyRoute
+  CsExpansionRoute: typeof CsExpansionRoute
+  CsHealthRoute: typeof CsHealthRoute
+  CsOnboardingRoute: typeof CsOnboardingRoute
+  CsQbrRoute: typeof CsQbrRoute
+  CsRenewalsRoute: typeof CsRenewalsRoute
+}
+
+const CsRouteChildren: CsRouteChildren = {
+  CsAdvocacyRoute: CsAdvocacyRoute,
+  CsExpansionRoute: CsExpansionRoute,
+  CsHealthRoute: CsHealthRoute,
+  CsOnboardingRoute: CsOnboardingRoute,
+  CsQbrRoute: CsQbrRoute,
+  CsRenewalsRoute: CsRenewalsRoute,
+}
+
+const CsRouteWithChildren = CsRoute._addFileChildren(CsRouteChildren)
+
+interface GridRouteChildren {
+  GridAutomationsRoute: typeof GridAutomationsRoute
+  GridCapacityRoute: typeof GridCapacityRoute
+  GridOkrsRoute: typeof GridOkrsRoute
+  GridRetrosRoute: typeof GridRetrosRoute
+  GridRoadmapsRoute: typeof GridRoadmapsRoute
+  GridSprintsRoute: typeof GridSprintsRoute
+}
+
+const GridRouteChildren: GridRouteChildren = {
+  GridAutomationsRoute: GridAutomationsRoute,
+  GridCapacityRoute: GridCapacityRoute,
+  GridOkrsRoute: GridOkrsRoute,
+  GridRetrosRoute: GridRetrosRoute,
+  GridRoadmapsRoute: GridRoadmapsRoute,
+  GridSprintsRoute: GridSprintsRoute,
+}
+
+const GridRouteWithChildren = GridRoute._addFileChildren(GridRouteChildren)
+
+interface MarketingRouteChildren {
+  MarketingAbTestsRoute: typeof MarketingAbTestsRoute
+  MarketingAnalyticsRoute: typeof MarketingAnalyticsRoute
+  MarketingCampaignsRoute: typeof MarketingCampaignsRoute
+  MarketingContentRoute: typeof MarketingContentRoute
+  MarketingIntentRoute: typeof MarketingIntentRoute
+  MarketingSegmentsRoute: typeof MarketingSegmentsRoute
+}
+
+const MarketingRouteChildren: MarketingRouteChildren = {
+  MarketingAbTestsRoute: MarketingAbTestsRoute,
+  MarketingAnalyticsRoute: MarketingAnalyticsRoute,
+  MarketingCampaignsRoute: MarketingCampaignsRoute,
+  MarketingContentRoute: MarketingContentRoute,
+  MarketingIntentRoute: MarketingIntentRoute,
+  MarketingSegmentsRoute: MarketingSegmentsRoute,
+}
+
+const MarketingRouteWithChildren = MarketingRoute._addFileChildren(
+  MarketingRouteChildren,
+)
 
 interface OpportunitiesRouteChildren {
   OpportunitiesIdRoute: typeof OpportunitiesIdRoute
@@ -228,13 +982,16 @@ const OpportunitiesRouteWithChildren = OpportunitiesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BillingRoute: BillingRoute,
+  BillingRoute: BillingRouteWithChildren,
   CallRoute: CallRoute,
-  ChatRoute: ChatRoute,
-  CsRoute: CsRoute,
-  GridRoute: GridRoute,
-  MarketingRoute: MarketingRoute,
+  ChatRoute: ChatRouteWithChildren,
+  CsRoute: CsRouteWithChildren,
+  ForecastRoute: ForecastRoute,
+  GridRoute: GridRouteWithChildren,
+  LeaderboardRoute: LeaderboardRoute,
+  MarketingRoute: MarketingRouteWithChildren,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
+  PlaybooksRoute: PlaybooksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
