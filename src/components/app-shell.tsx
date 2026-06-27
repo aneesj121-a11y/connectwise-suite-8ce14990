@@ -109,7 +109,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             {t.label} tools
           </div>
-          {t.tools.map((item, i) => (
+          {visibleTools.map((item, i) => (
             <Link
               key={`${item.to}-${i}`}
               to={item.to}
