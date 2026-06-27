@@ -61,7 +61,8 @@ export type Team =
   | "grid"
   | "billing";
 
-export type NavLink = { to: string; label: string; icon: LucideIcon };
+export type Role = "agent" | "manager";
+export type NavLink = { to: string; label: string; icon: LucideIcon; managerOnly?: boolean };
 
 export type HubDef = {
   id: Team;
