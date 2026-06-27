@@ -157,9 +157,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               AN
             </div>
-            <div className="text-xs leading-tight">
-              <div className="font-medium" style={{ color: SIDEBAR_TEXT }}>Anees Naveed</div>
-              <div style={{ color: SIDEBAR_INACTIVE }}>Admin · {t.label}</div>
+            <div className="text-xs leading-tight flex-1 min-w-0">
+              <div className="font-medium truncate" style={{ color: SIDEBAR_TEXT }}>Anees Naveed</div>
+              <button
+                onClick={() => setRole(role === "manager" ? "agent" : "manager")}
+                className="inline-flex items-center gap-1 mt-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium transition"
+                style={{
+                  background: role === "manager" ? SIDEBAR_ACTIVE : "rgba(255,255,255,0.08)",
+                  color: SIDEBAR_TEXT,
+                }}
+                title="Toggle role"
+              >
+                {role === "manager" ? "Manager view" : "Agent view"} · {t.label}
+              </button>
             </div>
           </div>
         </div>
