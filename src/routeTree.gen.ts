@@ -43,6 +43,7 @@ import { Route as CsOnboardingRouteImport } from './routes/cs.onboarding'
 import { Route as CsHealthRouteImport } from './routes/cs.health'
 import { Route as CsExpansionRouteImport } from './routes/cs.expansion'
 import { Route as CsAdvocacyRouteImport } from './routes/cs.advocacy'
+import { Route as CpqApprovalsRouteImport } from './routes/cpq.approvals'
 import { Route as ChatVoiceRouteImport } from './routes/chat.voice'
 import { Route as ChatSlaRouteImport } from './routes/chat.sla'
 import { Route as ChatRoutingRouteImport } from './routes/chat.routing'
@@ -227,6 +228,11 @@ const CsAdvocacyRoute = CsAdvocacyRouteImport.update({
   path: '/advocacy',
   getParentRoute: () => CsRoute,
 } as any)
+const CpqApprovalsRoute = CpqApprovalsRouteImport.update({
+  id: '/approvals',
+  path: '/approvals',
+  getParentRoute: () => CpqRoute,
+} as any)
 const ChatVoiceRoute = ChatVoiceRouteImport.update({
   id: '/voice',
   path: '/voice',
@@ -298,7 +304,7 @@ export interface FileRoutesByFullPath {
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
-  '/cpq': typeof CpqRoute
+  '/cpq': typeof CpqRouteWithChildren
   '/cs': typeof CsRouteWithChildren
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
@@ -320,6 +326,7 @@ export interface FileRoutesByFullPath {
   '/chat/routing': typeof ChatRoutingRoute
   '/chat/sla': typeof ChatSlaRoute
   '/chat/voice': typeof ChatVoiceRoute
+  '/cpq/approvals': typeof CpqApprovalsRoute
   '/cs/advocacy': typeof CsAdvocacyRoute
   '/cs/expansion': typeof CsExpansionRoute
   '/cs/health': typeof CsHealthRoute
@@ -347,7 +354,7 @@ export interface FileRoutesByTo {
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
-  '/cpq': typeof CpqRoute
+  '/cpq': typeof CpqRouteWithChildren
   '/cs': typeof CsRouteWithChildren
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
@@ -369,6 +376,7 @@ export interface FileRoutesByTo {
   '/chat/routing': typeof ChatRoutingRoute
   '/chat/sla': typeof ChatSlaRoute
   '/chat/voice': typeof ChatVoiceRoute
+  '/cpq/approvals': typeof CpqApprovalsRoute
   '/cs/advocacy': typeof CsAdvocacyRoute
   '/cs/expansion': typeof CsExpansionRoute
   '/cs/health': typeof CsHealthRoute
@@ -397,7 +405,7 @@ export interface FileRoutesById {
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
-  '/cpq': typeof CpqRoute
+  '/cpq': typeof CpqRouteWithChildren
   '/cs': typeof CsRouteWithChildren
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
@@ -419,6 +427,7 @@ export interface FileRoutesById {
   '/chat/routing': typeof ChatRoutingRoute
   '/chat/sla': typeof ChatSlaRoute
   '/chat/voice': typeof ChatVoiceRoute
+  '/cpq/approvals': typeof CpqApprovalsRoute
   '/cs/advocacy': typeof CsAdvocacyRoute
   '/cs/expansion': typeof CsExpansionRoute
   '/cs/health': typeof CsHealthRoute
@@ -470,6 +479,7 @@ export interface FileRouteTypes {
     | '/chat/routing'
     | '/chat/sla'
     | '/chat/voice'
+    | '/cpq/approvals'
     | '/cs/advocacy'
     | '/cs/expansion'
     | '/cs/health'
@@ -519,6 +529,7 @@ export interface FileRouteTypes {
     | '/chat/routing'
     | '/chat/sla'
     | '/chat/voice'
+    | '/cpq/approvals'
     | '/cs/advocacy'
     | '/cs/expansion'
     | '/cs/health'
@@ -568,6 +579,7 @@ export interface FileRouteTypes {
     | '/chat/routing'
     | '/chat/sla'
     | '/chat/voice'
+    | '/cpq/approvals'
     | '/cs/advocacy'
     | '/cs/expansion'
     | '/cs/health'
@@ -596,7 +608,7 @@ export interface RootRouteChildren {
   BillingRoute: typeof BillingRouteWithChildren
   CallRoute: typeof CallRoute
   ChatRoute: typeof ChatRouteWithChildren
-  CpqRoute: typeof CpqRoute
+  CpqRoute: typeof CpqRouteWithChildren
   CsRoute: typeof CsRouteWithChildren
   ForecastRoute: typeof ForecastRoute
   GridRoute: typeof GridRouteWithChildren
@@ -847,6 +859,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CsAdvocacyRouteImport
       parentRoute: typeof CsRoute
     }
+    '/cpq/approvals': {
+      id: '/cpq/approvals'
+      path: '/approvals'
+      fullPath: '/cpq/approvals'
+      preLoaderRoute: typeof CpqApprovalsRouteImport
+      parentRoute: typeof CpqRoute
+    }
     '/chat/voice': {
       id: '/chat/voice'
       path: '/voice'
@@ -984,6 +1003,16 @@ const ChatRouteChildren: ChatRouteChildren = {
 
 const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
 
+interface CpqRouteChildren {
+  CpqApprovalsRoute: typeof CpqApprovalsRoute
+}
+
+const CpqRouteChildren: CpqRouteChildren = {
+  CpqApprovalsRoute: CpqApprovalsRoute,
+}
+
+const CpqRouteWithChildren = CpqRoute._addFileChildren(CpqRouteChildren)
+
 interface CsRouteChildren {
   CsAdvocacyRoute: typeof CsAdvocacyRoute
   CsExpansionRoute: typeof CsExpansionRoute
@@ -1076,7 +1105,7 @@ const rootRouteChildren: RootRouteChildren = {
   BillingRoute: BillingRouteWithChildren,
   CallRoute: CallRoute,
   ChatRoute: ChatRouteWithChildren,
-  CpqRoute: CpqRoute,
+  CpqRoute: CpqRouteWithChildren,
   CsRoute: CsRouteWithChildren,
   ForecastRoute: ForecastRoute,
   GridRoute: GridRouteWithChildren,
