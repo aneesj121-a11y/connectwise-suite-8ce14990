@@ -17,6 +17,7 @@ import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as GridRouteImport } from './routes/grid'
 import { Route as ForecastRouteImport } from './routes/forecast'
 import { Route as CsRouteImport } from './routes/cs'
+import { Route as CpqRouteImport } from './routes/cpq'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
@@ -94,6 +95,11 @@ const ForecastRoute = ForecastRouteImport.update({
 const CsRoute = CsRouteImport.update({
   id: '/cs',
   path: '/cs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CpqRoute = CpqRouteImport.update({
+  id: '/cpq',
+  path: '/cpq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -292,6 +298,7 @@ export interface FileRoutesByFullPath {
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
+  '/cpq': typeof CpqRoute
   '/cs': typeof CsRouteWithChildren
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
@@ -340,6 +347,7 @@ export interface FileRoutesByTo {
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
+  '/cpq': typeof CpqRoute
   '/cs': typeof CsRouteWithChildren
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
@@ -389,6 +397,7 @@ export interface FileRoutesById {
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
+  '/cpq': typeof CpqRoute
   '/cs': typeof CsRouteWithChildren
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
@@ -439,6 +448,7 @@ export interface FileRouteTypes {
     | '/billing'
     | '/call'
     | '/chat'
+    | '/cpq'
     | '/cs'
     | '/forecast'
     | '/grid'
@@ -487,6 +497,7 @@ export interface FileRouteTypes {
     | '/billing'
     | '/call'
     | '/chat'
+    | '/cpq'
     | '/cs'
     | '/forecast'
     | '/grid'
@@ -535,6 +546,7 @@ export interface FileRouteTypes {
     | '/billing'
     | '/call'
     | '/chat'
+    | '/cpq'
     | '/cs'
     | '/forecast'
     | '/grid'
@@ -584,6 +596,7 @@ export interface RootRouteChildren {
   BillingRoute: typeof BillingRouteWithChildren
   CallRoute: typeof CallRoute
   ChatRoute: typeof ChatRouteWithChildren
+  CpqRoute: typeof CpqRoute
   CsRoute: typeof CsRouteWithChildren
   ForecastRoute: typeof ForecastRoute
   GridRoute: typeof GridRouteWithChildren
@@ -650,6 +663,13 @@ declare module '@tanstack/react-router' {
       path: '/cs'
       fullPath: '/cs'
       preLoaderRoute: typeof CsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cpq': {
+      id: '/cpq'
+      path: '/cpq'
+      fullPath: '/cpq'
+      preLoaderRoute: typeof CpqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -1056,6 +1076,7 @@ const rootRouteChildren: RootRouteChildren = {
   BillingRoute: BillingRouteWithChildren,
   CallRoute: CallRoute,
   ChatRoute: ChatRouteWithChildren,
+  CpqRoute: CpqRoute,
   CsRoute: CsRouteWithChildren,
   ForecastRoute: ForecastRoute,
   GridRoute: GridRouteWithChildren,
