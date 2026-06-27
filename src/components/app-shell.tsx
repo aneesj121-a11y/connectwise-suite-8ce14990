@@ -60,7 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             Workspace
           </div>
-          {NAV.map((item) => {
+          {t.nav.map((item) => {
             const active = pathname === item.to;
             const Icon = item.icon;
             return (
@@ -98,9 +98,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             {t.label} tools
           </div>
-          {teamTools(team).map((item) => (
+          {t.tools.map((item, i) => (
             <Link
-              key={item.label}
+              key={`${item.to}-${i}`}
               to={item.to}
               className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
               style={{ color: SIDEBAR_INACTIVE }}
@@ -160,27 +160,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         <main className="flex-1 min-w-0">{children}</main>
       </div>
 
+      {/* Right intelligence pane */}
+      <LimnnIntelligence />
+
       {/* Persistent dialer */}
       <DialerWidget />
     </div>
   );
-}
-
-function teamTools(team: Team) {
-  if (team === "sales")
-    return [
-      { to: "/", label: "Power Dialer", icon: Phone },
-      { to: "/", label: "Pipeline", icon: TrendingUp },
-    ];
-  if (team === "support")
-    return [
-      { to: "/", label: "Live Queue", icon: Headphones },
-      { to: "/", label: "Tickets", icon: Inbox },
-    ];
-  return [
-    { to: "/", label: "Accounts", icon: HeartHandshake },
-    { to: "/", label: "Renewals", icon: TrendingUp },
-  ];
 }
 
 function TeamSwitcher({
