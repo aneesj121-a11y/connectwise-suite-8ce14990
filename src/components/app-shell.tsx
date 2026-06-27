@@ -1,35 +1,18 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Phone,
-  LayoutDashboard,
-  Users,
-  ListChecks,
-  BarChart3,
   Settings,
   Search,
   Bell,
-  Headphones,
-  Inbox,
-  HeartHandshake,
-  TrendingUp,
   Command,
   Sparkles,
   ChevronDown,
-  Briefcase,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { TEAMS, useTeam, type Team } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
+import { LimnnIntelligence } from "./limnn-intelligence";
 import limnnLogo from "@/assets/limnn-logo.png";
-
-const NAV = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/opportunities", label: "Opportunities", icon: Briefcase },
-  { to: "/queue", label: "Queue", icon: Inbox },
-  { to: "/contacts", label: "Contacts", icon: Users },
-  { to: "/cadences", label: "Cadences", icon: ListChecks },
-  { to: "/analytics", label: "Analytics", icon: BarChart3 },
-] as const;
 
 const SIDEBAR_BG = "#1E293B";
 const SIDEBAR_ACTIVE = "#2C69CF";
