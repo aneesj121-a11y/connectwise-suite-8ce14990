@@ -10,7 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
+import { Route as MarketingRouteImport } from './routes/marketing'
+import { Route as GridRouteImport } from './routes/grid'
+import { Route as CsRouteImport } from './routes/cs'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CallRouteImport } from './routes/call'
+import { Route as BillingRouteImport } from './routes/billing'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OpportunitiesIdRouteImport } from './routes/opportunities.$id'
 
@@ -19,9 +24,34 @@ const OpportunitiesRoute = OpportunitiesRouteImport.update({
   path: '/opportunities',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketingRoute = MarketingRouteImport.update({
+  id: '/marketing',
+  path: '/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GridRoute = GridRouteImport.update({
+  id: '/grid',
+  path: '/grid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CsRoute = CsRouteImport.update({
+  id: '/cs',
+  path: '/cs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CallRoute = CallRouteImport.update({
   id: '/call',
   path: '/call',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillingRoute = BillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,34 +67,82 @@ const OpportunitiesIdRoute = OpportunitiesIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/billing': typeof BillingRoute
   '/call': typeof CallRoute
+  '/chat': typeof ChatRoute
+  '/cs': typeof CsRoute
+  '/grid': typeof GridRoute
+  '/marketing': typeof MarketingRoute
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/billing': typeof BillingRoute
   '/call': typeof CallRoute
+  '/chat': typeof ChatRoute
+  '/cs': typeof CsRoute
+  '/grid': typeof GridRoute
+  '/marketing': typeof MarketingRoute
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/billing': typeof BillingRoute
   '/call': typeof CallRoute
+  '/chat': typeof ChatRoute
+  '/cs': typeof CsRoute
+  '/grid': typeof GridRoute
+  '/marketing': typeof MarketingRoute
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/opportunities/$id': typeof OpportunitiesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/call' | '/opportunities' | '/opportunities/$id'
+  fullPaths:
+    | '/'
+    | '/billing'
+    | '/call'
+    | '/chat'
+    | '/cs'
+    | '/grid'
+    | '/marketing'
+    | '/opportunities'
+    | '/opportunities/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/call' | '/opportunities' | '/opportunities/$id'
-  id: '__root__' | '/' | '/call' | '/opportunities' | '/opportunities/$id'
+  to:
+    | '/'
+    | '/billing'
+    | '/call'
+    | '/chat'
+    | '/cs'
+    | '/grid'
+    | '/marketing'
+    | '/opportunities'
+    | '/opportunities/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/billing'
+    | '/call'
+    | '/chat'
+    | '/cs'
+    | '/grid'
+    | '/marketing'
+    | '/opportunities'
+    | '/opportunities/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BillingRoute: typeof BillingRoute
   CallRoute: typeof CallRoute
+  ChatRoute: typeof ChatRoute
+  CsRoute: typeof CsRoute
+  GridRoute: typeof GridRoute
+  MarketingRoute: typeof MarketingRoute
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
 }
 
@@ -77,11 +155,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpportunitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketing': {
+      id: '/marketing'
+      path: '/marketing'
+      fullPath: '/marketing'
+      preLoaderRoute: typeof MarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grid': {
+      id: '/grid'
+      path: '/grid'
+      fullPath: '/grid'
+      preLoaderRoute: typeof GridRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cs': {
+      id: '/cs'
+      path: '/cs'
+      fullPath: '/cs'
+      preLoaderRoute: typeof CsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/call': {
       id: '/call'
       path: '/call'
       fullPath: '/call'
       preLoaderRoute: typeof CallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/billing': {
+      id: '/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BillingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -115,7 +228,12 @@ const OpportunitiesRouteWithChildren = OpportunitiesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BillingRoute: BillingRoute,
   CallRoute: CallRoute,
+  ChatRoute: ChatRoute,
+  CsRoute: CsRoute,
+  GridRoute: GridRoute,
+  MarketingRoute: MarketingRoute,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
