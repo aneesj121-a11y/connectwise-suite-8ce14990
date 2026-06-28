@@ -8,9 +8,10 @@ import {
   Sparkles,
   ChevronDown,
   MessageSquareText,
+  Shield,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { TEAMS, useTeam, type Team, type HubDef } from "@/lib/team-context";
+import { TEAMS, useTeam, roleAtLeast, type Team, type Role, type HubDef } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
 import { LimnnIntelligence } from "./limnn-intelligence";
 import { LimnnThread, useLimnnThreadUnread, limnnThreadHasMention } from "./limnn-thread";
@@ -145,9 +146,39 @@ export function AppShell({ children }: { children: ReactNode }) {
           className="p-3 mt-2"
           style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
+          {roleAtLeast(role, "manager") && (
+            <Link
+              to="/admin"
+              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
+              style={{
+                background: pathname.startsWith("/admin") ? "linear-gradient(135deg, rgba(44,105,207,0.22), rgba(124,58,237,0.18))" : "transparent",
+                border: pathname.startsWith("/admin") ? "1px solid rgba(44,105,207,0.35)" : "1px solid transparent",
+                color: pathname.startsWith("/admin") ? SIDEBAR_TEXT : SIDEBAR_INACTIVE,
+                fontWeight: pathname.startsWith("/admin") ? 600 : 500,
+              }}
+              onMouseEnter={(e) => {
+                if (!pathname.startsWith("/admin")) {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                  e.currentTarget.style.color = SIDEBAR_TEXT;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!pathname.startsWith("/admin")) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = SIDEBAR_INACTIVE;
+                }
+              }}
+            >
+              <Shield className="h-4 w-4" />
+              Admin Center
+              <span className="ml-auto text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded" style={{ background: "rgba(44,105,207,0.25)", color: "#fff" }}>
+                {role === "superadmin" ? "Super" : role === "admin" ? "Admin" : "Mgr"}
+              </span>
+            </Link>
+          )}
           <Link
             to="/settings"
-            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
+            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors mt-0.5"
             style={{ color: SIDEBAR_INACTIVE }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "rgba(255,255,255,0.06)";
@@ -179,15 +210,18 @@ export function AppShell({ children }: { children: ReactNode }) {
                 Anees Naveed
               </button>
               <button
-                onClick={() => setRole(role === "manager" ? "agent" : "manager")}
-                className="inline-flex items-center gap-1 mt-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium transition"
+                onClick={() => {
+                  const order: Role[] = ["agent", "manager", "admin", "superadmin"];
+                  setRole(order[(order.indexOf(role) + 1) % order.length]);
+                }}
+                className="inline-flex items-center gap-1 mt-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium transition capitalize"
                 style={{
-                  background: role === "manager" ? SIDEBAR_ACTIVE : "rgba(255,255,255,0.08)",
+                  background: roleAtLeast(role, "admin") ? SIDEBAR_ACTIVE : "rgba(255,255,255,0.08)",
                   color: SIDEBAR_TEXT,
                 }}
-                title="Toggle role"
+                title="Cycle role (Agent → Manager → Admin → Super Admin)"
               >
-                {role === "manager" ? "Manager view" : "Agent view"} · {t.label}
+                {role} view · {t.label}
               </button>
             </div>
           </div>
