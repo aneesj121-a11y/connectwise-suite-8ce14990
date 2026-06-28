@@ -115,18 +115,16 @@ function AdminCenter() {
           ))}
         </nav>
         <div className="p-3 border-t border-border">
-          <button
-            onClick={() => setAiOpen((v) => !v)}
-            className="w-full inline-flex items-center justify-center gap-1.5 text-[11px] font-medium rounded-md py-1.5 border border-border hover:bg-accent"
-          >
-            <Sparkles className="h-3 w-3" /> {aiOpen ? "Hide" : "Show"} AI Copilot
-          </button>
+          <div className="rounded-md border border-border bg-background/60 p-2.5">
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Build anything</div>
+            <div className="text-[11px] text-foreground leading-snug">If it doesn't exist, you can build it — custom objects, workflows, even entire modules.</div>
+          </div>
         </div>
       </aside>
 
       {/* Main */}
       <div className="flex-1 min-w-0 overflow-y-auto">
-        <div className="px-8 py-7 max-w-[1280px]">
+        <div className="px-5 py-6 max-w-[1200px] mx-auto">
           <Breadcrumb section={current} />
           {!canAccess ? (
             <NoAccess section={current} role={role} />
@@ -136,11 +134,29 @@ function AdminCenter() {
         </div>
       </div>
 
-      {/* AI Copilot drawer */}
-      {aiOpen && <AdminAiCopilot section={current} />}
+      {/* AI Copilot drawer — collapsible */}
+      {aiOpen ? (
+        <AdminAiCopilot section={current} onCollapse={() => setAiOpen(false)} />
+      ) : (
+        <button
+          onClick={() => setAiOpen(true)}
+          className="w-11 shrink-0 border-l border-border flex flex-col items-center justify-start pt-4 gap-3 hover:bg-accent/40 transition group"
+          title="Open Limnn Admin Copilot"
+        >
+          <span className="h-8 w-8 rounded-lg grid place-items-center text-white shadow-sm shrink-0"
+            style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}>
+            <Sparkles className="h-4 w-4" />
+          </span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground group-hover:text-foreground"
+            style={{ writingMode: "vertical-rl" }}>
+            Limnn Copilot
+          </span>
+        </button>
+      )}
     </div>
   );
 }
+
 
 function Breadcrumb({ section }: { section: SectionDef }) {
   const Icon = section.icon;
