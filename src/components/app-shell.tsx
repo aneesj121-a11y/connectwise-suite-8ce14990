@@ -59,9 +59,20 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         {/* Persistent Limnn Threads launcher — independent of hub */}
-        <div className="px-3 pb-3">
+        <div className="px-3 pb-2">
           <LimnnThreadsLauncher onClick={() => setThreadOpen(true)} />
         </div>
+
+        {/* Admin Center launcher — prominent, builder ethos */}
+        {roleAtLeast(role, "manager") && (
+          <div className="px-3 pb-3">
+            <AdminCenterLauncher
+              active={pathname.startsWith("/admin")}
+              role={role}
+              onClick={() => navigate({ to: "/admin" })}
+            />
+          </div>
+        )}
 
         {/* Team switcher */}
         <div className="px-3 pt-2">
