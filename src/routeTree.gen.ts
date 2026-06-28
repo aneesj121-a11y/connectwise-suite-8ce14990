@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PlaybooksRouteImport } from './routes/playbooks'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as MarketingRouteImport } from './routes/marketing'
@@ -62,6 +63,11 @@ import { Route as BillingArapRouteImport } from './routes/billing.arap'
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlaybooksRoute = PlaybooksRouteImport.update({
@@ -319,6 +325,7 @@ export interface FileRoutesByFullPath {
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
+  '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -370,6 +377,7 @@ export interface FileRoutesByTo {
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
+  '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -422,6 +430,7 @@ export interface FileRoutesById {
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
+  '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -475,6 +484,7 @@ export interface FileRouteTypes {
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
+    | '/settings'
     | '/support'
     | '/billing/arap'
     | '/billing/collections'
@@ -526,6 +536,7 @@ export interface FileRouteTypes {
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
+    | '/settings'
     | '/support'
     | '/billing/arap'
     | '/billing/collections'
@@ -577,6 +588,7 @@ export interface FileRouteTypes {
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
+    | '/settings'
     | '/support'
     | '/billing/arap'
     | '/billing/collections'
@@ -629,6 +641,7 @@ export interface RootRouteChildren {
   MarketingRoute: typeof MarketingRouteWithChildren
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
   PlaybooksRoute: typeof PlaybooksRoute
+  SettingsRoute: typeof SettingsRoute
   SupportRoute: typeof SupportRouteWithChildren
 }
 
@@ -639,6 +652,13 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/playbooks': {
@@ -1134,6 +1154,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketingRoute: MarketingRouteWithChildren,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
   PlaybooksRoute: PlaybooksRoute,
+  SettingsRoute: SettingsRoute,
   SupportRoute: SupportRouteWithChildren,
 }
 export const routeTree = rootRouteImport
