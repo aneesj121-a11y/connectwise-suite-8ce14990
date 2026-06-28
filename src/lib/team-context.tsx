@@ -61,7 +61,9 @@ export type Team =
   | "grid"
   | "billing";
 
-export type Role = "agent" | "manager";
+export type Role = "agent" | "manager" | "admin" | "superadmin";
+export const ROLE_RANK: Record<Role, number> = { agent: 0, manager: 1, admin: 2, superadmin: 3 };
+export const roleAtLeast = (r: Role, min: Role) => ROLE_RANK[r] >= ROLE_RANK[min];
 export type NavLink = { to: string; label: string; icon: LucideIcon; managerOnly?: boolean };
 
 export type HubDef = {
