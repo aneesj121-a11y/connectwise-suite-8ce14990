@@ -365,7 +365,7 @@ export function LimnnThread({ open, onClose }: { open: boolean; onClose: () => v
         {/* === 1. Workspace Rail === */}
         <nav
           className="w-[68px] shrink-0 flex flex-col items-center py-3 gap-1"
-          style={{ background: BG_DEEP, borderRight: `1px solid ${BORDER_DARK}` }}
+          style={{ background: BG_RAIL_GRADIENT, borderRight: `1px solid ${BORDER_DARK}` }}
         >
           <button
             onClick={() => setPrefsOpen(true)}
