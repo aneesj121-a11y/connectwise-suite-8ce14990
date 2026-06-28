@@ -350,7 +350,50 @@ function LimnnThreadsLauncher({ onClick }: { onClick: () => void }) {
       )}
     </button>
   );
+
+
+function AdminCenterLauncher({ active, role, onClick }: { active: boolean; role: Role; onClick: () => void }) {
+  const tier = role === "superadmin" ? "Super Admin" : role === "admin" ? "Admin" : "Manager";
+  return (
+    <button
+      onClick={onClick}
+      className="group relative w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left transition overflow-hidden"
+      style={{
+        background: active
+          ? "linear-gradient(135deg, rgba(239,68,68,0.28), rgba(245,158,11,0.22))"
+          : "linear-gradient(135deg, rgba(239,68,68,0.16), rgba(245,158,11,0.12))",
+        border: active ? "1px solid rgba(245,158,11,0.55)" : "1px solid rgba(245,158,11,0.30)",
+        color: SIDEBAR_TEXT,
+        boxShadow: active ? "0 6px 20px -10px rgba(245,158,11,0.55)" : undefined,
+      }}
+      title="Open Admin Center — build, configure, govern"
+    >
+      <span
+        className="h-8 w-8 rounded-md grid place-items-center shrink-0 shadow-sm"
+        style={{ background: "linear-gradient(135deg, #F59E0B, #EF4444)" }}
+      >
+        <Shield className="h-4 w-4 text-white" />
+      </span>
+      <span className="flex-1 min-w-0">
+        <span className="flex items-center gap-1.5 text-[13px] font-semibold leading-tight" style={{ color: SIDEBAR_TEXT, fontFamily: "Poppins, sans-serif" }}>
+          Admin Center
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#F59E0B", boxShadow: "0 0 0 3px rgba(245,158,11,0.18)" }} />
+        </span>
+        <span className="block text-[10.5px] truncate mt-0.5 italic" style={{ color: "#FCD9A8" }}>
+          If it doesn't exist — build it.
+        </span>
+      </span>
+      <span
+        className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0"
+        style={{ background: "rgba(0,0,0,0.25)", color: "#FCD9A8", border: "1px solid rgba(245,158,11,0.35)" }}
+      >
+        {tier}
+      </span>
+    </button>
+  );
 }
+
+
 
 
 
