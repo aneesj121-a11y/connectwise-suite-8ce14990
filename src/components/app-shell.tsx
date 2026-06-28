@@ -56,6 +56,11 @@ export function AppShell({ children }: { children: ReactNode }) {
           </span>
         </div>
 
+        {/* Persistent Limnn Threads launcher — independent of hub */}
+        <div className="px-3 pb-3">
+          <LimnnThreadsLauncher onClick={() => setThreadOpen(true)} />
+        </div>
+
         {/* Team switcher */}
         <div className="px-3 pt-2">
           <TeamSwitcher
