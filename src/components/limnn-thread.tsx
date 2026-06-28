@@ -341,17 +341,16 @@ export function LimnnThread({ open, onClose }: { open: boolean; onClose: () => v
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Side-docked drawer — does NOT block the workspace behind it */}
       <div
-        className="fixed inset-0 z-[60] animate-in fade-in duration-150"
-        style={{ background: "rgba(15,23,42,0.45)", backdropFilter: "blur(2px)" }}
-        onClick={onClose}
-      />
-
-      {/* Overlay shell */}
-      <div
-        className="fixed inset-3 md:inset-6 z-[61] rounded-xl overflow-hidden flex shadow-2xl animate-in zoom-in-95 fade-in duration-200"
-        style={{ background: BG_DEEP, color: TEXT_LIGHT, fontFamily: "'Inter', sans-serif" }}
+        className="fixed top-3 bottom-3 right-3 md:top-4 md:bottom-4 md:right-4 z-[61] rounded-xl overflow-hidden flex shadow-2xl animate-in slide-in-from-right duration-200"
+        style={{
+          background: BG_DEEP,
+          color: TEXT_LIGHT,
+          fontFamily: "'Inter', sans-serif",
+          width: "min(1080px, calc(100vw - 360px))",
+          border: `1px solid ${BORDER_DARK}`,
+        }}
         role="dialog"
         aria-label="Limnn Threads"
       >
