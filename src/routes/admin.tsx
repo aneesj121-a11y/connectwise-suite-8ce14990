@@ -1057,19 +1057,27 @@ function AdminAiCopilot({ section, onCollapse }: { section: SectionDef; onCollap
   }
 
   return (
-    <aside className="w-[340px] shrink-0 border-l border-border flex flex-col"
+    <aside className="w-[320px] shrink-0 border-l border-border flex flex-col"
       style={{ background: "linear-gradient(180deg, #15233F 0%, #1B2A47 100%)", color: "#fff" }}>
-      <div className="px-4 pt-4 pb-3 border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <span className="h-8 w-8 rounded-lg grid place-items-center" style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}>
+      <div className="px-4 pt-4 pb-3 border-b border-white/10 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="h-8 w-8 rounded-lg grid place-items-center shrink-0" style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}>
             <Sparkles className="h-4 w-4"/>
           </span>
-          <div>
-            <div className="font-display text-[14px] font-semibold">Limnn Admin Copilot</div>
-            <div className="text-[10.5px] text-white/60">Context: {section.label}</div>
+          <div className="min-w-0">
+            <div className="font-display text-[14px] font-semibold leading-tight">Limnn Admin Copilot</div>
+            <div className="text-[10.5px] text-white/60 truncate">Context: {section.label}</div>
           </div>
         </div>
+        <button
+          onClick={onCollapse}
+          title="Minimize copilot"
+          className="h-7 w-7 rounded-md grid place-items-center text-white/70 hover:text-white hover:bg-white/10 shrink-0"
+        >
+          <ChevronRight className="h-4 w-4"/>
+        </button>
       </div>
+
 
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5">
         {messages.map((m, i) => (
