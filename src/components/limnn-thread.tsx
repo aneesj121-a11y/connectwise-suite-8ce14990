@@ -52,24 +52,31 @@ import limnnLogo from "@/assets/limnn-logo.png";
 /* =========================================================================
    THEME TOKENS — Limnn brand
    ========================================================================= */
-const BG_DEEP = "#0F172A";          // workspace rail (deepest)
-const BG_PANEL = "#1E293B";         // channel sidebar
-const BG_CANVAS = "#FAF7F0";        // message canvas (cream — matches main app)
-const BG_THREAD = "#FFFFFF";        // right pane
-const TEXT_LIGHT = "#FFFFFF";
-const TEXT_DIM = "#94A3B8";
-const TEXT_INK = "#0F172A";
-const TEXT_BODY = "#1F2937";
-const TEXT_MUTED_INK = "#64748B";
-const ACCENT = "#2C69CF";
-const ACCENT_SOFT = "rgba(44,105,207,0.12)";
-const MENTION = "#EF4444";
-const SUCCESS = "#10B981";
-const WARN = "#F59E0B";
-const BORDER_DARK = "rgba(255,255,255,0.08)";
-const BORDER_LIGHT = "rgba(15,23,42,0.08)";
-const HOVER_DARK = "rgba(255,255,255,0.06)";
+const BG_DEEP = "#15233F";          // workspace rail — brand deep navy
+const BG_RAIL_GRADIENT = "linear-gradient(180deg, #15233F 0%, #0F1A30 100%)";
+const BG_PANEL = "#1B2A47";         // channel sidebar — brand navy w/ blue tint
+const BG_PANEL_GRADIENT = "linear-gradient(180deg, #1B2A47 0%, #16223B 100%)";
+const BG_CANVAS = "#F6F1E6";        // message canvas — brand cream
+const BG_CANVAS_HEADER = "#FBF7EE"; // lighter cream strip
+const BG_THREAD = "#FFFDF8";        // right thread pane — warm white
+const TEXT_LIGHT = "#F5F7FB";
+const TEXT_DIM = "#9AAAC6";         // brand-tinted dim (cool slate-blue)
+const TEXT_INK = "#15233F";         // brand deep navy as ink
+const TEXT_BODY = "#243353";
+const TEXT_MUTED_INK = "#5E7295";
+const ACCENT = "#2C69CF";           // brand electric blue
+const ACCENT_DEEP = "#1F4FA8";
+const ACCENT_SOFT = "rgba(44,105,207,0.14)";
+const ACCENT_GRADIENT = "linear-gradient(135deg, #2C69CF 0%, #1F4FA8 100%)";
+const MENTION = "#E0654A";          // warm brand coral instead of pure red
+const SUCCESS = "#3FB68A";
+const WARN = "#E0A23A";
+const BORDER_DARK = "rgba(155,180,225,0.10)";
+const BORDER_LIGHT = "rgba(21,35,63,0.10)";
+const HOVER_DARK = "rgba(155,180,225,0.06)";
 const HOVER_LIGHT = "rgba(44,105,207,0.06)";
+const FONT_DISPLAY = "'Poppins', 'Inter', sans-serif";
+const FONT_BODY = "'Inter', sans-serif";
 
 /* =========================================================================
    TYPES + MOCK DATA
