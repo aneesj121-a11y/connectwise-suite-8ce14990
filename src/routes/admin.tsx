@@ -18,7 +18,7 @@ export const Route = createFileRoute("/admin")({ component: AdminCenter });
 // Section definitions
 // ---------------------------------------------------------------------------
 type SectionId =
-  | "overview" | "users" | "roles" | "objects" | "workflows" | "ai"
+  | "overview" | "users" | "roles" | "objects" | "modules" | "workflows" | "ai"
   | "integrations" | "branding" | "comms" | "billing" | "data" | "security" | "audit" | "developer";
 
 type SectionDef = {
@@ -35,6 +35,7 @@ const SECTIONS: SectionDef[] = [
   { id: "users", label: "Users & Teams", icon: Users, minRole: "manager", group: "Govern", blurb: "Provisioning, SCIM, groups, hierarchies" },
   { id: "roles", label: "Roles & Permissions", icon: KeyRound, minRole: "admin", group: "Govern", blurb: "RBAC matrix, field-level & record-level access" },
   { id: "security", label: "Security & Compliance", icon: Lock, minRole: "admin", group: "Govern", blurb: "SSO, MFA, IP allow lists, SOC2/GDPR posture" },
+  { id: "modules", label: "Modules & Hubs", icon: Layers, minRole: "admin", group: "Build", blurb: "Spin up entirely new hubs like Sales or Support — your own apps inside Limnn" },
   { id: "objects", label: "Objects & Fields", icon: Database, minRole: "admin", group: "Build", blurb: "Custom objects, fields, layouts & validation" },
   { id: "workflows", label: "Workflows & Automation", icon: Workflow, minRole: "admin", group: "Build", blurb: "Triggers, approvals, SLAs & macros" },
   { id: "branding", label: "Branding & Themes", icon: Palette, minRole: "admin", group: "Build", blurb: "Logo, colors, typography & email templates" },
@@ -46,6 +47,7 @@ const SECTIONS: SectionDef[] = [
   { id: "audit", label: "Audit & Activity", icon: FileSearch, minRole: "admin", group: "Operate", blurb: "Immutable event log, exports & investigations" },
   { id: "developer", label: "Developer Platform", icon: Code2, minRole: "superadmin", group: "Operate", blurb: "API keys, OAuth apps, sandboxes & CLI" },
 ];
+
 
 // ---------------------------------------------------------------------------
 // Shell
