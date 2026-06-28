@@ -1026,7 +1026,8 @@ function DeveloperSection() {
 // ---------------------------------------------------------------------------
 // AI Copilot drawer
 // ---------------------------------------------------------------------------
-function AdminAiCopilot({ section }: { section: SectionDef }) {
+function AdminAiCopilot({ section, onCollapse }: { section: SectionDef; onCollapse: () => void }) {
+
   const [messages, setMessages] = useState<{ from: "ai"|"me"; text: string; pending?: { cmd: string; risk: "low"|"high" } }[]>([
     { from: "ai", text: `Hey Anees — I'm your Admin Copilot. I can run config commands across the entire tenant. Right now you're in **${section.label}**. Try: "Create a Sales role that can edit opportunities but not delete them" or "Show me users who haven't logged in for 30 days."` },
   ]);
