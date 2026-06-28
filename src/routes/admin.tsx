@@ -516,6 +516,89 @@ function Toggle({ label, on, disabled }: { label: string; on?: boolean; disabled
 // ---------------------------------------------------------------------------
 // OBJECTS & FIELDS
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// MODULES & HUBS — build entirely new apps inside Limnn
+// ---------------------------------------------------------------------------
+function ModulesSection() {
+  const installed = [
+    { name: "Sales", icon: "📈", objects: 6, workflows: 18, users: 84, status: "green" as const, custom: false },
+    { name: "Customer Success", icon: "❤️", objects: 5, workflows: 14, users: 22, status: "green" as const, custom: false },
+    { name: "Support Center", icon: "💬", objects: 4, workflows: 21, users: 36, status: "green" as const, custom: false },
+    { name: "Marketing", icon: "📣", objects: 7, workflows: 12, users: 14, status: "green" as const, custom: false },
+    { name: "Limnn Grid", icon: "🧩", objects: 4, workflows: 9, users: 48, status: "green" as const, custom: false },
+    { name: "Billing Ops", icon: "🧾", objects: 6, workflows: 16, users: 11, status: "green" as const, custom: false },
+    { name: "Partner Portal", icon: "🤝", objects: 3, workflows: 5, users: 9, status: "yellow" as const, custom: true },
+    { name: "Field Service", icon: "🛠️", objects: 4, workflows: 7, users: 18, status: "green" as const, custom: true },
+  ];
+  const templates = [
+    { name: "Recruiting & ATS", blurb: "Candidates, requisitions, interview loops & offers" },
+    { name: "Asset Management", blurb: "Track equipment, licenses, depreciation & owners" },
+    { name: "Vendor & Procurement", blurb: "RFPs, contracts, POs and 3-way match" },
+    { name: "Blank module", blurb: "Start from scratch — name it, theme it, build it" },
+  ];
+  return (
+    <div className="space-y-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <KpiCard label="Installed modules" value="8" icon={Layers} />
+        <KpiCard label="Custom modules" value="2" delta={100} icon={Box} />
+        <KpiCard label="Objects across tenant" value="39" icon={Database} />
+        <KpiCard label="Cross-module workflows" value="62" icon={Workflow} />
+      </div>
+
+      <SectionCard
+        title="Build a new module"
+        subtitle="A module is a full hub like Sales or Support — its own sidebar entry, objects, workflows, dashboards, and permissions"
+        action={
+          <div className="flex items-center gap-2">
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium border border-border inline-flex items-center gap-1"><Sparkles className="h-3 w-3"/>Describe to Limnn</button>
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium text-primary-foreground inline-flex items-center gap-1" style={{ background: "var(--primary)" }}><Plus className="h-3 w-3"/>New module</button>
+          </div>
+        }
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {templates.map((t) => (
+            <div key={t.name} className="rounded-lg border border-dashed border-border p-3 hover:border-primary/50 hover:bg-accent/30 transition cursor-pointer">
+              <div className="flex items-center justify-between">
+                <div className="font-medium text-[13px] flex items-center gap-2"><Wand2 className="h-3.5 w-3.5 text-primary"/>{t.name}</div>
+                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground"/>
+              </div>
+              <div className="text-[11.5px] text-muted-foreground mt-1">{t.blurb}</div>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Installed modules" subtitle="Each module owns its sidebar entry, objects, automations & role gates">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {installed.map((m) => (
+            <div key={m.name} className="rounded-lg border border-border p-3 hover:border-primary/40 transition">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="h-9 w-9 rounded-lg grid place-items-center text-base" style={{ background: "color-mix(in oklab, var(--primary) 10%, transparent)" }}>{m.icon}</span>
+                  <div className="min-w-0">
+                    <div className="font-medium text-[13px] flex items-center gap-1.5">
+                      {m.name}
+                      {m.custom && <span className="text-[9px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded" style={{ background: "color-mix(in oklab, var(--primary) 12%, transparent)", color: "var(--primary)" }}>Custom</span>}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground">{m.objects} objects · {m.workflows} flows · {m.users} users</div>
+                  </div>
+                </div>
+                <StatusPill level={m.status}>{m.status === "green" ? "Live" : "Draft"}</StatusPill>
+              </div>
+              <div className="mt-2.5 flex items-center gap-1.5">
+                <button className="text-[11px] px-2 py-1 rounded-md border border-border hover:bg-accent">Open</button>
+                <button className="text-[11px] px-2 py-1 rounded-md border border-border hover:bg-accent">Configure</button>
+                <button className="text-[11px] px-2 py-1 rounded-md border border-border hover:bg-accent">Permissions</button>
+                {m.custom && <button className="text-[11px] px-2 py-1 rounded-md text-destructive hover:bg-destructive/10 ml-auto">Archive</button>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+    </div>
+  );
+}
+
 function ObjectsSection() {
   const objects = [
     { name: "Account", fields: 42, records: "12,840", custom: false },
