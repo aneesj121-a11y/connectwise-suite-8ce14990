@@ -259,7 +259,7 @@ const TeamCtx = createContext<Ctx | null>(null);
 export function TeamProvider({ children }: { children: ReactNode }) {
   const [team, setTeam] = useState<Team>("sales");
   const [inCall, setInCall] = useState(false);
-  const [role, setRole] = useState<Role>("manager");
+  const [role, setRole] = useState<Role>("superadmin");
   return (
     <TeamCtx.Provider value={{ team, setTeam, inCall, setInCall, role, setRole }}>{children}</TeamCtx.Provider>
   );
