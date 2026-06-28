@@ -14,6 +14,7 @@ import { TEAMS, useTeam, type Team, type HubDef } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
 import { LimnnIntelligence } from "./limnn-intelligence";
 import { LimnnThread, useLimnnThreadUnread, limnnThreadHasMention } from "./limnn-thread";
+import { LimnnThreadNotifier } from "./limnn-thread-notifier";
 import { ProfileModal } from "./profile-modal";
 import limnnLogo from "@/assets/limnn-logo.png";
 
