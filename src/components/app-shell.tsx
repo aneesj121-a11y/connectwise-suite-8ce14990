@@ -207,6 +207,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Limnn Thread split column */}
       <LimnnThread open={threadOpen} onClose={() => setThreadOpen(false)} />
 
+      {/* In-app incoming message toasts (fire only when Threads is closed) */}
+      <LimnnThreadNotifier threadsOpen={threadOpen} onOpenThreads={() => setThreadOpen(true)} />
+
       {/* Right intelligence pane */}
       <LimnnIntelligence />
 
