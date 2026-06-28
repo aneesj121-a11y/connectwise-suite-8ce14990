@@ -7,11 +7,14 @@ import {
   Command,
   Sparkles,
   ChevronDown,
+  MessageSquareText,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { TEAMS, useTeam, type Team, type HubDef } from "@/lib/team-context";
 import { DialerWidget } from "./dialer-widget";
 import { LimnnIntelligence } from "./limnn-intelligence";
+import { LimnnThread, useLimnnThreadUnread, limnnThreadHasMention } from "./limnn-thread";
+import { ProfileModal } from "./profile-modal";
 import limnnLogo from "@/assets/limnn-logo.png";
 
 const SIDEBAR_BG = "#1E293B";
@@ -25,6 +28,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [threadOpen, setThreadOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const visibleNav = t.nav.filter((n) => !n.managerOnly || role === "manager");
   const visibleTools = t.tools.filter((n) => !n.managerOnly || role === "manager");
 
@@ -151,14 +156,22 @@ export function AppShell({ children }: { children: ReactNode }) {
             Settings
           </Link>
           <div className="mt-2 flex items-center gap-2 px-2.5 py-2">
-            <div
-              className="h-7 w-7 rounded-full grid place-items-center text-xs font-semibold"
+            <button
+              onClick={() => setProfileOpen(true)}
+              className="h-7 w-7 rounded-full grid place-items-center text-xs font-semibold hover:ring-2 hover:ring-white/20 transition"
               style={{ background: SIDEBAR_ACTIVE, color: SIDEBAR_TEXT }}
+              title="Edit profile"
             >
               AN
-            </div>
+            </button>
             <div className="text-xs leading-tight flex-1 min-w-0">
-              <div className="font-medium truncate" style={{ color: SIDEBAR_TEXT }}>Anees Naveed</div>
+              <button
+                onClick={() => setProfileOpen(true)}
+                className="font-medium truncate text-left hover:underline"
+                style={{ color: SIDEBAR_TEXT }}
+              >
+                Anees Naveed
+              </button>
               <button
                 onClick={() => setRole(role === "manager" ? "agent" : "manager")}
                 className="inline-flex items-center gap-1 mt-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-medium transition"
@@ -177,15 +190,25 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* Main */}
       <div className="flex-1 min-w-0 flex flex-col">
-        <TopBar />
+        <TopBar
+          threadOpen={threadOpen}
+          onToggleThread={() => setThreadOpen((v) => !v)}
+          onOpenProfile={() => setProfileOpen(true)}
+        />
         <main className="flex-1 min-w-0">{children}</main>
       </div>
+
+      {/* Limnn Thread split column */}
+      <LimnnThread open={threadOpen} onClose={() => setThreadOpen(false)} />
 
       {/* Right intelligence pane */}
       <LimnnIntelligence />
 
       {/* Persistent dialer */}
       <DialerWidget />
+
+      {/* Profile modal */}
+      <ProfileModal open={profileOpen} onClose={() => setProfileOpen(false)} />
     </div>
   );
 }
@@ -265,9 +288,19 @@ function TeamSwitcher({
 }
 
 
-function TopBar() {
+function TopBar({
+  threadOpen,
+  onToggleThread,
+  onOpenProfile,
+}: {
+  threadOpen: boolean;
+  onToggleThread: () => void;
+  onOpenProfile: () => void;
+}) {
   const { team } = useTeam();
   const t = TEAMS[team];
+  const unread = useLimnnThreadUnread();
+  const mention = limnnThreadHasMention();
   return (
     <header className="h-14 border-b border-border bg-background/80 backdrop-blur sticky top-0 z-20">
       <div className="h-full px-6 flex items-center gap-4">
@@ -286,14 +319,39 @@ function TopBar() {
             </span>
           </label>
         </div>
-        <button className="h-9 w-9 grid place-items-center rounded-md hover:bg-accent text-muted-foreground">
+        <button
+          onClick={onToggleThread}
+          className="relative h-9 w-9 grid place-items-center rounded-md hover:bg-accent transition"
+          style={{
+            color: threadOpen ? "var(--primary)" : "var(--muted-foreground)",
+            background: threadOpen ? "color-mix(in oklab, var(--primary) 12%, transparent)" : undefined,
+          }}
+          title="Limnn Thread"
+        >
+          <MessageSquareText className="h-4 w-4" />
+          {unread > 0 && (
+            <span
+              className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full text-[9.5px] font-bold text-white grid place-items-center"
+              style={{ background: mention ? "#EF4444" : "#2C69CF" }}
+            >
+              {unread}
+            </span>
+          )}
+          {mention && <span className="absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full bg-rose-400 animate-pulse" />}
+        </button>
+        <button className="relative h-9 w-9 grid place-items-center rounded-md hover:bg-accent text-muted-foreground">
           <Bell className="h-4 w-4" />
         </button>
-        <button
-          className="h-9 px-3.5 rounded-md text-sm font-medium text-primary-foreground inline-flex items-center gap-2 shadow-sm"
-          style={{ background: "var(--primary)" }}
-        >
+        <button className="h-9 px-3.5 rounded-md text-sm font-medium text-primary-foreground inline-flex items-center gap-2 shadow-sm" style={{ background: "var(--primary)" }}>
           <Phone className="h-3.5 w-3.5" /> New call
+        </button>
+        <button
+          onClick={onOpenProfile}
+          className="h-9 w-9 rounded-full grid place-items-center text-xs font-semibold text-white hover:ring-2 hover:ring-primary/30 transition"
+          style={{ background: "var(--primary)" }}
+          title="Your profile"
+        >
+          AN
         </button>
       </div>
     </header>
