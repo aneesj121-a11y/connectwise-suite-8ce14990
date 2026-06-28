@@ -18,7 +18,7 @@ export const Route = createFileRoute("/admin")({ component: AdminCenter });
 // Section definitions
 // ---------------------------------------------------------------------------
 type SectionId =
-  | "overview" | "users" | "roles" | "objects" | "workflows" | "ai"
+  | "overview" | "users" | "roles" | "objects" | "modules" | "workflows" | "ai"
   | "integrations" | "branding" | "comms" | "billing" | "data" | "security" | "audit" | "developer";
 
 type SectionDef = {
@@ -35,6 +35,7 @@ const SECTIONS: SectionDef[] = [
   { id: "users", label: "Users & Teams", icon: Users, minRole: "manager", group: "Govern", blurb: "Provisioning, SCIM, groups, hierarchies" },
   { id: "roles", label: "Roles & Permissions", icon: KeyRound, minRole: "admin", group: "Govern", blurb: "RBAC matrix, field-level & record-level access" },
   { id: "security", label: "Security & Compliance", icon: Lock, minRole: "admin", group: "Govern", blurb: "SSO, MFA, IP allow lists, SOC2/GDPR posture" },
+  { id: "modules", label: "Modules & Hubs", icon: Layers, minRole: "admin", group: "Build", blurb: "Spin up entirely new hubs like Sales or Support — your own apps inside Limnn" },
   { id: "objects", label: "Objects & Fields", icon: Database, minRole: "admin", group: "Build", blurb: "Custom objects, fields, layouts & validation" },
   { id: "workflows", label: "Workflows & Automation", icon: Workflow, minRole: "admin", group: "Build", blurb: "Triggers, approvals, SLAs & macros" },
   { id: "branding", label: "Branding & Themes", icon: Palette, minRole: "admin", group: "Build", blurb: "Logo, colors, typography & email templates" },
@@ -46,6 +47,7 @@ const SECTIONS: SectionDef[] = [
   { id: "audit", label: "Audit & Activity", icon: FileSearch, minRole: "admin", group: "Operate", blurb: "Immutable event log, exports & investigations" },
   { id: "developer", label: "Developer Platform", icon: Code2, minRole: "superadmin", group: "Operate", blurb: "API keys, OAuth apps, sandboxes & CLI" },
 ];
+
 
 // ---------------------------------------------------------------------------
 // Shell
@@ -113,18 +115,16 @@ function AdminCenter() {
           ))}
         </nav>
         <div className="p-3 border-t border-border">
-          <button
-            onClick={() => setAiOpen((v) => !v)}
-            className="w-full inline-flex items-center justify-center gap-1.5 text-[11px] font-medium rounded-md py-1.5 border border-border hover:bg-accent"
-          >
-            <Sparkles className="h-3 w-3" /> {aiOpen ? "Hide" : "Show"} AI Copilot
-          </button>
+          <div className="rounded-md border border-border bg-background/60 p-2.5">
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Build anything</div>
+            <div className="text-[11px] text-foreground leading-snug">If it doesn't exist, you can build it — custom objects, workflows, even entire modules.</div>
+          </div>
         </div>
       </aside>
 
       {/* Main */}
       <div className="flex-1 min-w-0 overflow-y-auto">
-        <div className="px-8 py-7 max-w-[1280px]">
+        <div className="px-5 py-6 max-w-[1200px] mx-auto">
           <Breadcrumb section={current} />
           {!canAccess ? (
             <NoAccess section={current} role={role} />
@@ -134,11 +134,29 @@ function AdminCenter() {
         </div>
       </div>
 
-      {/* AI Copilot drawer */}
-      {aiOpen && <AdminAiCopilot section={current} />}
+      {/* AI Copilot drawer — collapsible */}
+      {aiOpen ? (
+        <AdminAiCopilot section={current} onCollapse={() => setAiOpen(false)} />
+      ) : (
+        <button
+          onClick={() => setAiOpen(true)}
+          className="w-11 shrink-0 border-l border-border flex flex-col items-center justify-start pt-4 gap-3 hover:bg-accent/40 transition group"
+          title="Open Limnn Admin Copilot"
+        >
+          <span className="h-8 w-8 rounded-lg grid place-items-center text-white shadow-sm shrink-0"
+            style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}>
+            <Sparkles className="h-4 w-4" />
+          </span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground group-hover:text-foreground"
+            style={{ writingMode: "vertical-rl" }}>
+            Limnn Copilot
+          </span>
+        </button>
+      )}
     </div>
   );
 }
+
 
 function Breadcrumb({ section }: { section: SectionDef }) {
   const Icon = section.icon;
@@ -196,6 +214,7 @@ function SectionRouter({ id }: { id: SectionId }) {
     case "users": return <UsersSection />;
     case "roles": return <RolesSection />;
     case "security": return <SecuritySection />;
+    case "modules": return <ModulesSection />;
     case "objects": return <ObjectsSection />;
     case "workflows": return <WorkflowsSection />;
     case "branding": return <BrandingSection />;
@@ -497,6 +516,89 @@ function Toggle({ label, on, disabled }: { label: string; on?: boolean; disabled
 // ---------------------------------------------------------------------------
 // OBJECTS & FIELDS
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// MODULES & HUBS — build entirely new apps inside Limnn
+// ---------------------------------------------------------------------------
+function ModulesSection() {
+  const installed = [
+    { name: "Sales", icon: "📈", objects: 6, workflows: 18, users: 84, status: "green" as const, custom: false },
+    { name: "Customer Success", icon: "❤️", objects: 5, workflows: 14, users: 22, status: "green" as const, custom: false },
+    { name: "Support Center", icon: "💬", objects: 4, workflows: 21, users: 36, status: "green" as const, custom: false },
+    { name: "Marketing", icon: "📣", objects: 7, workflows: 12, users: 14, status: "green" as const, custom: false },
+    { name: "Limnn Grid", icon: "🧩", objects: 4, workflows: 9, users: 48, status: "green" as const, custom: false },
+    { name: "Billing Ops", icon: "🧾", objects: 6, workflows: 16, users: 11, status: "green" as const, custom: false },
+    { name: "Partner Portal", icon: "🤝", objects: 3, workflows: 5, users: 9, status: "yellow" as const, custom: true },
+    { name: "Field Service", icon: "🛠️", objects: 4, workflows: 7, users: 18, status: "green" as const, custom: true },
+  ];
+  const templates = [
+    { name: "Recruiting & ATS", blurb: "Candidates, requisitions, interview loops & offers" },
+    { name: "Asset Management", blurb: "Track equipment, licenses, depreciation & owners" },
+    { name: "Vendor & Procurement", blurb: "RFPs, contracts, POs and 3-way match" },
+    { name: "Blank module", blurb: "Start from scratch — name it, theme it, build it" },
+  ];
+  return (
+    <div className="space-y-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <KpiCard label="Installed modules" value="8" icon={Layers} />
+        <KpiCard label="Custom modules" value="2" delta={100} icon={Box} />
+        <KpiCard label="Objects across tenant" value="39" icon={Database} />
+        <KpiCard label="Cross-module workflows" value="62" icon={Workflow} />
+      </div>
+
+      <SectionCard
+        title="Build a new module"
+        subtitle="A module is a full hub like Sales or Support — its own sidebar entry, objects, workflows, dashboards, and permissions"
+        action={
+          <div className="flex items-center gap-2">
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium border border-border inline-flex items-center gap-1"><Sparkles className="h-3 w-3"/>Describe to Limnn</button>
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium text-primary-foreground inline-flex items-center gap-1" style={{ background: "var(--primary)" }}><Plus className="h-3 w-3"/>New module</button>
+          </div>
+        }
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {templates.map((t) => (
+            <div key={t.name} className="rounded-lg border border-dashed border-border p-3 hover:border-primary/50 hover:bg-accent/30 transition cursor-pointer">
+              <div className="flex items-center justify-between">
+                <div className="font-medium text-[13px] flex items-center gap-2"><Wand2 className="h-3.5 w-3.5 text-primary"/>{t.name}</div>
+                <ChevronRight className="h-3.5 w-3.5 text-muted-foreground"/>
+              </div>
+              <div className="text-[11.5px] text-muted-foreground mt-1">{t.blurb}</div>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Installed modules" subtitle="Each module owns its sidebar entry, objects, automations & role gates">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          {installed.map((m) => (
+            <div key={m.name} className="rounded-lg border border-border p-3 hover:border-primary/40 transition">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="h-9 w-9 rounded-lg grid place-items-center text-base" style={{ background: "color-mix(in oklab, var(--primary) 10%, transparent)" }}>{m.icon}</span>
+                  <div className="min-w-0">
+                    <div className="font-medium text-[13px] flex items-center gap-1.5">
+                      {m.name}
+                      {m.custom && <span className="text-[9px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded" style={{ background: "color-mix(in oklab, var(--primary) 12%, transparent)", color: "var(--primary)" }}>Custom</span>}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground">{m.objects} objects · {m.workflows} flows · {m.users} users</div>
+                  </div>
+                </div>
+                <StatusPill level={m.status}>{m.status === "green" ? "Live" : "Draft"}</StatusPill>
+              </div>
+              <div className="mt-2.5 flex items-center gap-1.5">
+                <button className="text-[11px] px-2 py-1 rounded-md border border-border hover:bg-accent">Open</button>
+                <button className="text-[11px] px-2 py-1 rounded-md border border-border hover:bg-accent">Configure</button>
+                <button className="text-[11px] px-2 py-1 rounded-md border border-border hover:bg-accent">Permissions</button>
+                {m.custom && <button className="text-[11px] px-2 py-1 rounded-md text-destructive hover:bg-destructive/10 ml-auto">Archive</button>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+    </div>
+  );
+}
+
 function ObjectsSection() {
   const objects = [
     { name: "Account", fields: 42, records: "12,840", custom: false },
@@ -1008,7 +1110,8 @@ function DeveloperSection() {
 // ---------------------------------------------------------------------------
 // AI Copilot drawer
 // ---------------------------------------------------------------------------
-function AdminAiCopilot({ section }: { section: SectionDef }) {
+function AdminAiCopilot({ section, onCollapse }: { section: SectionDef; onCollapse: () => void }) {
+
   const [messages, setMessages] = useState<{ from: "ai"|"me"; text: string; pending?: { cmd: string; risk: "low"|"high" } }[]>([
     { from: "ai", text: `Hey Anees — I'm your Admin Copilot. I can run config commands across the entire tenant. Right now you're in **${section.label}**. Try: "Create a Sales role that can edit opportunities but not delete them" or "Show me users who haven't logged in for 30 days."` },
   ]);
@@ -1038,19 +1141,27 @@ function AdminAiCopilot({ section }: { section: SectionDef }) {
   }
 
   return (
-    <aside className="w-[340px] shrink-0 border-l border-border flex flex-col"
+    <aside className="w-[320px] shrink-0 border-l border-border flex flex-col"
       style={{ background: "linear-gradient(180deg, #15233F 0%, #1B2A47 100%)", color: "#fff" }}>
-      <div className="px-4 pt-4 pb-3 border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <span className="h-8 w-8 rounded-lg grid place-items-center" style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}>
+      <div className="px-4 pt-4 pb-3 border-b border-white/10 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="h-8 w-8 rounded-lg grid place-items-center shrink-0" style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}>
             <Sparkles className="h-4 w-4"/>
           </span>
-          <div>
-            <div className="font-display text-[14px] font-semibold">Limnn Admin Copilot</div>
-            <div className="text-[10.5px] text-white/60">Context: {section.label}</div>
+          <div className="min-w-0">
+            <div className="font-display text-[14px] font-semibold leading-tight">Limnn Admin Copilot</div>
+            <div className="text-[10.5px] text-white/60 truncate">Context: {section.label}</div>
           </div>
         </div>
+        <button
+          onClick={onCollapse}
+          title="Minimize copilot"
+          className="h-7 w-7 rounded-md grid place-items-center text-white/70 hover:text-white hover:bg-white/10 shrink-0"
+        >
+          <ChevronRight className="h-4 w-4"/>
+        </button>
       </div>
+
 
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5">
         {messages.map((m, i) => (
