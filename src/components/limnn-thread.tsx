@@ -245,7 +245,7 @@ export function LimnnThread({ open, onClose }: { open: boolean; onClose: () => v
   return (
     <>
       <aside
-        className="hidden xl:flex w-[380px] shrink-0 flex-col h-[calc(100vh-3.5rem)] sticky top-14 animate-slide-in-right"
+        className="flex w-[380px] shrink-0 flex-col h-[calc(100vh-3.5rem)] sticky top-14 animate-slide-in-right z-30"
         style={{ background: BG, color: TEXT, borderLeft: `1px solid ${BORDER}` }}
       >
         {/* Header */}
