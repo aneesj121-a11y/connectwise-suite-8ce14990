@@ -358,7 +358,7 @@ export function LimnnThread({ open, onClose }: { open: boolean; onClose: () => v
       {/* Overlay shell */}
       <div
         className="fixed inset-3 md:inset-6 z-[61] rounded-xl overflow-hidden flex shadow-2xl animate-in zoom-in-95 fade-in duration-200"
-        style={{ background: BG_DEEP, color: TEXT_LIGHT, fontFamily: "'Inter', sans-serif" }}
+        style={{ background: BG_DEEP, color: TEXT_LIGHT, fontFamily: FONT_BODY }}
         role="dialog"
         aria-label="Limnn Threads"
       >
