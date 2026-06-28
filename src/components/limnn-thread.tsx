@@ -673,7 +673,7 @@ function ChannelView({
   draft: string;
   setDraft: (s: string) => void;
   onSend: () => void;
-  scrollRef: React.RefObject<HTMLDivElement>;
+  scrollRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const pinned = messages.find((m) => m.pinned);
   const isDm = channel.kind === "dm";
