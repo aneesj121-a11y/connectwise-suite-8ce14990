@@ -292,6 +292,48 @@ function TeamSwitcher({
   );
 }
 
+function LimnnThreadsLauncher({ onClick }: { onClick: () => void }) {
+  const unread = useLimnnThreadUnread();
+  const mention = limnnThreadHasMention();
+  return (
+    <button
+      onClick={onClick}
+      className="group relative w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-left transition overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, rgba(44,105,207,0.22), rgba(124,58,237,0.18))",
+        border: "1px solid rgba(44,105,207,0.35)",
+        color: SIDEBAR_TEXT,
+      }}
+      title="Open Limnn Threads"
+    >
+      <span
+        className="h-8 w-8 rounded-md grid place-items-center shrink-0 shadow-sm"
+        style={{ background: "linear-gradient(135deg, #2C69CF, #7C3AED)" }}
+      >
+        <MessageSquareText className="h-4 w-4 text-white" />
+      </span>
+      <span className="flex-1 min-w-0">
+        <span className="flex items-center gap-1.5 text-[13px] font-semibold leading-tight" style={{ color: SIDEBAR_TEXT, fontFamily: "Poppins, sans-serif" }}>
+          Limnn Threads
+          {mention && <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: "#EF4444" }} />}
+        </span>
+        <span className="block text-[10.5px] truncate mt-0.5" style={{ color: SIDEBAR_INACTIVE }}>
+          Team chat · Direct messages · Activity
+        </span>
+      </span>
+      {unread > 0 && (
+        <span
+          className="text-[10px] font-bold min-w-[20px] h-[20px] px-1.5 rounded-full grid place-items-center text-white shrink-0"
+          style={{ background: mention ? "#EF4444" : "#2C69CF" }}
+        >
+          {unread > 99 ? "99+" : unread}
+        </span>
+      )}
+    </button>
+  );
+}
+
+
 
 function TopBar({
   threadOpen,
