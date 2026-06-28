@@ -157,37 +157,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           className="p-3 mt-2"
           style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
-          {roleAtLeast(role, "manager") && (
-            <Link
-              to="/admin"
-              className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors"
-              style={{
-                background: pathname.startsWith("/admin") ? "linear-gradient(135deg, rgba(44,105,207,0.22), rgba(124,58,237,0.18))" : "transparent",
-                border: pathname.startsWith("/admin") ? "1px solid rgba(44,105,207,0.35)" : "1px solid transparent",
-                color: pathname.startsWith("/admin") ? SIDEBAR_TEXT : SIDEBAR_INACTIVE,
-                fontWeight: pathname.startsWith("/admin") ? 600 : 500,
-              }}
-              onMouseEnter={(e) => {
-                if (!pathname.startsWith("/admin")) {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-                  e.currentTarget.style.color = SIDEBAR_TEXT;
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!pathname.startsWith("/admin")) {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.color = SIDEBAR_INACTIVE;
-                }
-              }}
-            >
-              <Shield className="h-4 w-4" />
-              Admin Center
-              <span className="ml-auto text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded" style={{ background: "rgba(44,105,207,0.25)", color: "#fff" }}>
-                {role === "superadmin" ? "Super" : role === "admin" ? "Admin" : "Mgr"}
-              </span>
-            </Link>
-          )}
           <Link
+
             to="/settings"
             className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors mt-0.5"
             style={{ color: SIDEBAR_INACTIVE }}
