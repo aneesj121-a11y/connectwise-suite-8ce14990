@@ -615,7 +615,7 @@ function WorkflowsSection() {
         <div className="rounded-lg border border-dashed border-border bg-muted/30 p-6">
           <div className="flex items-center gap-2 flex-wrap text-[12.5px]">
             <Pill color="blue">WHEN  Lead created</Pill> →
-            <Pill color="amber">IF  source = "Outbound" AND score > 70</Pill> →
+            <Pill color="amber">{`IF  source = "Outbound" AND score > 70`}</Pill> →
             <Pill color="green">DO  Assign to round-robin Sales pod</Pill> →
             <Pill color="green">THEN  Send Slack ping + enroll in 5-step cadence</Pill>
           </div>
