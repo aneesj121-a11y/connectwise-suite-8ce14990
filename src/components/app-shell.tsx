@@ -158,7 +158,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
           <Link
-
             to="/settings"
             className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors mt-0.5"
             style={{ color: SIDEBAR_INACTIVE }}
