@@ -400,7 +400,7 @@ export function LimnnThread({ open, onClose }: { open: boolean; onClose: () => v
         {/* === 2. Channel Sidebar === */}
         <aside
           className="w-[280px] shrink-0 flex flex-col"
-          style={{ background: BG_PANEL, borderRight: `1px solid ${BORDER_DARK}` }}
+          style={{ background: BG_PANEL_GRADIENT, borderRight: `1px solid ${BORDER_DARK}` }}
         >
           {/* Workspace header */}
           <div className="px-4 py-3.5 flex items-center justify-between" style={{ borderBottom: `1px solid ${BORDER_DARK}` }}>
