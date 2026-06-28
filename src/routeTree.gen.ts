@@ -21,6 +21,7 @@ import { Route as CpqRouteImport } from './routes/cpq'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportPortalRouteImport } from './routes/support.portal'
 import { Route as SupportHelpdeskRouteImport } from './routes/support.helpdesk'
@@ -116,6 +117,11 @@ const CallRoute = CallRouteImport.update({
 const BillingRoute = BillingRouteImport.update({
   id: '/billing',
   path: '/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -301,6 +307,7 @@ const BillingArapRoute = BillingArapRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
@@ -351,6 +358,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
@@ -402,6 +410,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/billing': typeof BillingRouteWithChildren
   '/call': typeof CallRoute
   '/chat': typeof ChatRouteWithChildren
@@ -454,6 +463,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/billing'
     | '/call'
     | '/chat'
@@ -504,6 +514,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/billing'
     | '/call'
     | '/chat'
@@ -554,6 +565,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/billing'
     | '/call'
     | '/chat'
@@ -605,6 +617,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   BillingRoute: typeof BillingRouteWithChildren
   CallRoute: typeof CallRoute
   ChatRoute: typeof ChatRouteWithChildren
@@ -703,6 +716,13 @@ declare module '@tanstack/react-router' {
       path: '/billing'
       fullPath: '/billing'
       preLoaderRoute: typeof BillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -1102,6 +1122,7 @@ const SupportRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   BillingRoute: BillingRouteWithChildren,
   CallRoute: CallRoute,
   ChatRoute: ChatRouteWithChildren,
