@@ -214,6 +214,7 @@ function SectionRouter({ id }: { id: SectionId }) {
     case "users": return <UsersSection />;
     case "roles": return <RolesSection />;
     case "security": return <SecuritySection />;
+    case "modules": return <ModulesSection />;
     case "objects": return <ObjectsSection />;
     case "workflows": return <WorkflowsSection />;
     case "branding": return <BrandingSection />;
