@@ -251,6 +251,31 @@ export const TEAMS: Record<Team, HubDef> = {
     ],
   },
 
+  lms: {
+    id: "lms",
+    label: "Limnn LMS",
+    tagline: "Enablement, Certifications & Training Intelligence",
+    accentVar: "var(--sales)",
+    accentClass: "text-[color:var(--sales)]",
+    defaultRoute: "/lms",
+    hubIcon: GraduationCap,
+    hubColor: "#7C3AED",
+    nav: [
+      { to: "/lms", label: "My Learning", icon: PlaySquare },
+      { to: "/lms/certifications", label: "Certifications", icon: Award },
+      { to: "/lms/leaderboard", label: "Leaderboard", icon: Trophy },
+      { to: "/lms/evaluator", label: "Evaluator Queue", icon: ClipboardCheck, managerOnly: true },
+      { to: "/lms/admin", label: "Enablement Admin", icon: Sliders, managerOnly: true },
+      { to: "/lms/owner", label: "LMS Configurator", icon: ShieldCheck, managerOnly: true },
+    ],
+    tools: [
+      { to: "/lms", label: "Continue Learning", icon: PlaySquare },
+      { to: "/lms/admin", label: "Course Builder", icon: BookOpen, managerOnly: true },
+      { to: "/lms/admin?tab=questions", label: "Question Bank", icon: HelpCircle, managerOnly: true },
+      { to: "/lms/admin?tab=resources", label: "Resource Library", icon: LibraryIcon, managerOnly: true },
+    ],
+  },
+
 };
 
 type Ctx = {
