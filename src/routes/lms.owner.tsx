@@ -4,14 +4,14 @@ import { SectionCard, StatusPill } from "@/components/enterprise/primitives";
 import { ShieldCheck, KeyRound, Globe, Webhook, Palette, Sliders } from "lucide-react";
 
 export const Route = createFileRoute("/lms/owner")({
-  head: () => ({ meta: [{ title: "LMS Configurator — Limnn Learning" }] }),
+  head: () => ({ meta: [{ title: "Learning Configurator — Limnn Learning" }] }),
   component: Page,
 });
 
 function Page() {
   return (
     <HubPage
-      title="LMS Configurator"
+      title="Learning Configurator"
       description="Owner-level controls: governance, branding, integrations and policy defaults."
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -23,7 +23,7 @@ function Page() {
           <Row label="Cohort handoff to CS" value="On (auto)" />
         </SectionCard>
         <SectionCard title="Roles & permissions" action={<StatusPill level="blue">RBAC</StatusPill>}>
-          <Row label="Enablement Lead" value="Full LMS admin" />
+          <Row label="Enablement Lead" value="Full Learning admin" />
           <Row label="Evaluator" value="Scoped to assigned trainees" />
           <Row label="Trainee" value="Read + submit only" />
           <Row label="Owner" value="All + configurator" />
@@ -45,7 +45,7 @@ function Page() {
           <Row label="Retention" value="2 years rolling" />
         </SectionCard>
         <SectionCard title="API & keys" action={<KeyRound className="h-4 w-4 text-muted-foreground" />}>
-          <Row label="LMS public key" value="lmnn_pk_•••3f" />
+          <Row label="Learning public key" value="lmnn_pk_•••3f" />
           <Row label="Webhook signing secret" value="rotated 14d ago" />
           <button className="h-8 px-3 rounded-md text-xs font-medium border border-border hover:bg-accent inline-flex items-center gap-1.5">
             <Sliders className="h-3 w-3" /> Manage

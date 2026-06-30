@@ -189,7 +189,7 @@ function QuestionsTab() {
           </button>
         }
       >
-        <FilterBar chips={["All", "MCQ", "Scenario", "Compliance", "Sales", "LMS"]} active="All" />
+        <FilterBar chips={["All", "MCQ", "Scenario", "Compliance", "Sales", "Learning"]} active="All" />
         <ul className="space-y-2">
           {QUESTIONS.map((q) => (
             <li key={q.id} className="rounded-lg border border-border p-3">
