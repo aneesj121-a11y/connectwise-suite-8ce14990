@@ -35,10 +35,15 @@ import { Route as MarketingContentRouteImport } from './routes/marketing.content
 import { Route as MarketingCampaignsRouteImport } from './routes/marketing.campaigns'
 import { Route as MarketingAnalyticsRouteImport } from './routes/marketing.analytics'
 import { Route as MarketingAbTestsRouteImport } from './routes/marketing.ab-tests'
+import { Route as LmsTeamRouteImport } from './routes/lms.team'
 import { Route as LmsOwnerRouteImport } from './routes/lms.owner'
 import { Route as LmsLeaderboardRouteImport } from './routes/lms.leaderboard'
 import { Route as LmsEvaluatorRouteImport } from './routes/lms.evaluator'
+import { Route as LmsComplianceRouteImport } from './routes/lms.compliance'
+import { Route as LmsCoachingRouteImport } from './routes/lms.coaching'
 import { Route as LmsCertificationsRouteImport } from './routes/lms.certifications'
+import { Route as LmsAssignmentsRouteImport } from './routes/lms.assignments'
+import { Route as LmsAnalyticsRouteImport } from './routes/lms.analytics'
 import { Route as LmsAdminRouteImport } from './routes/lms.admin'
 import { Route as GridSprintsRouteImport } from './routes/grid.sprints'
 import { Route as GridRoadmapsRouteImport } from './routes/grid.roadmaps'
@@ -198,6 +203,11 @@ const MarketingAbTestsRoute = MarketingAbTestsRouteImport.update({
   path: '/ab-tests',
   getParentRoute: () => MarketingRoute,
 } as any)
+const LmsTeamRoute = LmsTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => LmsRoute,
+} as any)
 const LmsOwnerRoute = LmsOwnerRouteImport.update({
   id: '/owner',
   path: '/owner',
@@ -213,9 +223,29 @@ const LmsEvaluatorRoute = LmsEvaluatorRouteImport.update({
   path: '/evaluator',
   getParentRoute: () => LmsRoute,
 } as any)
+const LmsComplianceRoute = LmsComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsCoachingRoute = LmsCoachingRouteImport.update({
+  id: '/coaching',
+  path: '/coaching',
+  getParentRoute: () => LmsRoute,
+} as any)
 const LmsCertificationsRoute = LmsCertificationsRouteImport.update({
   id: '/certifications',
   path: '/certifications',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsAssignmentsRoute = LmsAssignmentsRouteImport.update({
+  id: '/assignments',
+  path: '/assignments',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsAnalyticsRoute = LmsAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => LmsRoute,
 } as any)
 const LmsAdminRoute = LmsAdminRouteImport.update({
@@ -403,10 +433,15 @@ export interface FileRoutesByFullPath {
   '/grid/roadmaps': typeof GridRoadmapsRoute
   '/grid/sprints': typeof GridSprintsRoute
   '/lms/admin': typeof LmsAdminRoute
+  '/lms/analytics': typeof LmsAnalyticsRoute
+  '/lms/assignments': typeof LmsAssignmentsRoute
   '/lms/certifications': typeof LmsCertificationsRoute
+  '/lms/coaching': typeof LmsCoachingRoute
+  '/lms/compliance': typeof LmsComplianceRoute
   '/lms/evaluator': typeof LmsEvaluatorRoute
   '/lms/leaderboard': typeof LmsLeaderboardRoute
   '/lms/owner': typeof LmsOwnerRoute
+  '/lms/team': typeof LmsTeamRoute
   '/marketing/ab-tests': typeof MarketingAbTestsRoute
   '/marketing/analytics': typeof MarketingAnalyticsRoute
   '/marketing/campaigns': typeof MarketingCampaignsRoute
@@ -462,10 +497,15 @@ export interface FileRoutesByTo {
   '/grid/roadmaps': typeof GridRoadmapsRoute
   '/grid/sprints': typeof GridSprintsRoute
   '/lms/admin': typeof LmsAdminRoute
+  '/lms/analytics': typeof LmsAnalyticsRoute
+  '/lms/assignments': typeof LmsAssignmentsRoute
   '/lms/certifications': typeof LmsCertificationsRoute
+  '/lms/coaching': typeof LmsCoachingRoute
+  '/lms/compliance': typeof LmsComplianceRoute
   '/lms/evaluator': typeof LmsEvaluatorRoute
   '/lms/leaderboard': typeof LmsLeaderboardRoute
   '/lms/owner': typeof LmsOwnerRoute
+  '/lms/team': typeof LmsTeamRoute
   '/marketing/ab-tests': typeof MarketingAbTestsRoute
   '/marketing/analytics': typeof MarketingAnalyticsRoute
   '/marketing/campaigns': typeof MarketingCampaignsRoute
@@ -523,10 +563,15 @@ export interface FileRoutesById {
   '/grid/roadmaps': typeof GridRoadmapsRoute
   '/grid/sprints': typeof GridSprintsRoute
   '/lms/admin': typeof LmsAdminRoute
+  '/lms/analytics': typeof LmsAnalyticsRoute
+  '/lms/assignments': typeof LmsAssignmentsRoute
   '/lms/certifications': typeof LmsCertificationsRoute
+  '/lms/coaching': typeof LmsCoachingRoute
+  '/lms/compliance': typeof LmsComplianceRoute
   '/lms/evaluator': typeof LmsEvaluatorRoute
   '/lms/leaderboard': typeof LmsLeaderboardRoute
   '/lms/owner': typeof LmsOwnerRoute
+  '/lms/team': typeof LmsTeamRoute
   '/marketing/ab-tests': typeof MarketingAbTestsRoute
   '/marketing/analytics': typeof MarketingAnalyticsRoute
   '/marketing/campaigns': typeof MarketingCampaignsRoute
@@ -585,10 +630,15 @@ export interface FileRouteTypes {
     | '/grid/roadmaps'
     | '/grid/sprints'
     | '/lms/admin'
+    | '/lms/analytics'
+    | '/lms/assignments'
     | '/lms/certifications'
+    | '/lms/coaching'
+    | '/lms/compliance'
     | '/lms/evaluator'
     | '/lms/leaderboard'
     | '/lms/owner'
+    | '/lms/team'
     | '/marketing/ab-tests'
     | '/marketing/analytics'
     | '/marketing/campaigns'
@@ -644,10 +694,15 @@ export interface FileRouteTypes {
     | '/grid/roadmaps'
     | '/grid/sprints'
     | '/lms/admin'
+    | '/lms/analytics'
+    | '/lms/assignments'
     | '/lms/certifications'
+    | '/lms/coaching'
+    | '/lms/compliance'
     | '/lms/evaluator'
     | '/lms/leaderboard'
     | '/lms/owner'
+    | '/lms/team'
     | '/marketing/ab-tests'
     | '/marketing/analytics'
     | '/marketing/campaigns'
@@ -704,10 +759,15 @@ export interface FileRouteTypes {
     | '/grid/roadmaps'
     | '/grid/sprints'
     | '/lms/admin'
+    | '/lms/analytics'
+    | '/lms/assignments'
     | '/lms/certifications'
+    | '/lms/coaching'
+    | '/lms/compliance'
     | '/lms/evaluator'
     | '/lms/leaderboard'
     | '/lms/owner'
+    | '/lms/team'
     | '/marketing/ab-tests'
     | '/marketing/analytics'
     | '/marketing/campaigns'
@@ -924,6 +984,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketingAbTestsRouteImport
       parentRoute: typeof MarketingRoute
     }
+    '/lms/team': {
+      id: '/lms/team'
+      path: '/team'
+      fullPath: '/lms/team'
+      preLoaderRoute: typeof LmsTeamRouteImport
+      parentRoute: typeof LmsRoute
+    }
     '/lms/owner': {
       id: '/lms/owner'
       path: '/owner'
@@ -945,11 +1012,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LmsEvaluatorRouteImport
       parentRoute: typeof LmsRoute
     }
+    '/lms/compliance': {
+      id: '/lms/compliance'
+      path: '/compliance'
+      fullPath: '/lms/compliance'
+      preLoaderRoute: typeof LmsComplianceRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/coaching': {
+      id: '/lms/coaching'
+      path: '/coaching'
+      fullPath: '/lms/coaching'
+      preLoaderRoute: typeof LmsCoachingRouteImport
+      parentRoute: typeof LmsRoute
+    }
     '/lms/certifications': {
       id: '/lms/certifications'
       path: '/certifications'
       fullPath: '/lms/certifications'
       preLoaderRoute: typeof LmsCertificationsRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/assignments': {
+      id: '/lms/assignments'
+      path: '/assignments'
+      fullPath: '/lms/assignments'
+      preLoaderRoute: typeof LmsAssignmentsRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/analytics': {
+      id: '/lms/analytics'
+      path: '/analytics'
+      fullPath: '/lms/analytics'
+      preLoaderRoute: typeof LmsAnalyticsRouteImport
       parentRoute: typeof LmsRoute
     }
     '/lms/admin': {
@@ -1246,20 +1341,30 @@ const GridRouteWithChildren = GridRoute._addFileChildren(GridRouteChildren)
 
 interface LmsRouteChildren {
   LmsAdminRoute: typeof LmsAdminRoute
+  LmsAnalyticsRoute: typeof LmsAnalyticsRoute
+  LmsAssignmentsRoute: typeof LmsAssignmentsRoute
   LmsCertificationsRoute: typeof LmsCertificationsRoute
+  LmsCoachingRoute: typeof LmsCoachingRoute
+  LmsComplianceRoute: typeof LmsComplianceRoute
   LmsEvaluatorRoute: typeof LmsEvaluatorRoute
   LmsLeaderboardRoute: typeof LmsLeaderboardRoute
   LmsOwnerRoute: typeof LmsOwnerRoute
+  LmsTeamRoute: typeof LmsTeamRoute
   LmsIndexRoute: typeof LmsIndexRoute
   LmsModuleIdRoute: typeof LmsModuleIdRoute
 }
 
 const LmsRouteChildren: LmsRouteChildren = {
   LmsAdminRoute: LmsAdminRoute,
+  LmsAnalyticsRoute: LmsAnalyticsRoute,
+  LmsAssignmentsRoute: LmsAssignmentsRoute,
   LmsCertificationsRoute: LmsCertificationsRoute,
+  LmsCoachingRoute: LmsCoachingRoute,
+  LmsComplianceRoute: LmsComplianceRoute,
   LmsEvaluatorRoute: LmsEvaluatorRoute,
   LmsLeaderboardRoute: LmsLeaderboardRoute,
   LmsOwnerRoute: LmsOwnerRoute,
+  LmsTeamRoute: LmsTeamRoute,
   LmsIndexRoute: LmsIndexRoute,
   LmsModuleIdRoute: LmsModuleIdRoute,
 }
