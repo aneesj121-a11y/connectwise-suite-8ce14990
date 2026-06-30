@@ -56,6 +56,10 @@ import {
   HelpCircle,
   Sliders,
   PlaySquare,
+  ClipboardList,
+  Mic2,
+  ShieldAlert,
+  BarChartHorizontal,
 } from "lucide-react";
 
 
@@ -262,14 +266,20 @@ export const TEAMS: Record<Team, HubDef> = {
     hubColor: "#7C3AED",
     nav: [
       { to: "/lms", label: "My Learning", icon: PlaySquare },
+      { to: "/lms/assignments", label: "Assignments", icon: ClipboardList },
+      { to: "/lms/coaching", label: "AI Roleplay & Coaching", icon: Mic2 },
       { to: "/lms/certifications", label: "Certifications", icon: Award },
       { to: "/lms/leaderboard", label: "Leaderboard", icon: Trophy },
+      { to: "/lms/team", label: "Team Stats", icon: BarChartHorizontal, managerOnly: true },
+      { to: "/lms/analytics", label: "Skill-gap & ROI", icon: BarChart3, managerOnly: true },
+      { to: "/lms/compliance", label: "Compliance & Audit", icon: ShieldAlert, managerOnly: true },
       { to: "/lms/evaluator", label: "Evaluator Queue", icon: ClipboardCheck, managerOnly: true },
       { to: "/lms/admin", label: "Enablement Admin", icon: Sliders, managerOnly: true },
       { to: "/lms/owner", label: "LMS Configurator", icon: ShieldCheck, managerOnly: true },
     ],
     tools: [
       { to: "/lms", label: "Continue Learning", icon: PlaySquare },
+      { to: "/lms/coaching", label: "AI Roleplay", icon: Mic2 },
       { to: "/lms/admin", label: "Course Builder", icon: BookOpen, managerOnly: true },
       { to: "/lms/admin?tab=questions", label: "Question Bank", icon: HelpCircle, managerOnly: true },
       { to: "/lms/admin?tab=resources", label: "Resource Library", icon: LibraryIcon, managerOnly: true },
