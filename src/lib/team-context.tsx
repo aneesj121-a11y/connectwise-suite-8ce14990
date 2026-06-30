@@ -49,6 +49,13 @@ import {
   Headphones,
   ShieldCheck,
   LayoutGrid,
+  GraduationCap,
+  Award,
+  ClipboardCheck,
+  Library as LibraryIcon,
+  HelpCircle,
+  Sliders,
+  PlaySquare,
 } from "lucide-react";
 
 
@@ -59,7 +66,8 @@ export type Team =
   | "support"
   | "chat"
   | "grid"
-  | "billing";
+  | "billing"
+  | "lms";
 
 export type Role = "agent" | "manager" | "admin" | "superadmin";
 export const ROLE_RANK: Record<Role, number> = { agent: 0, manager: 1, admin: 2, superadmin: 3 };
@@ -240,6 +248,31 @@ export const TEAMS: Record<Team, HubDef> = {
       { to: "/billing/invoices", label: "Invoices", icon: FileText },
       { to: "/billing/fpa", label: "FP&A Engine", icon: LineChart, managerOnly: true },
       { to: "/billing/revrec", label: "Rev Rec", icon: Scale, managerOnly: true },
+    ],
+  },
+
+  lms: {
+    id: "lms",
+    label: "Limnn LMS",
+    tagline: "Enablement, Certifications & Training Intelligence",
+    accentVar: "var(--sales)",
+    accentClass: "text-[color:var(--sales)]",
+    defaultRoute: "/lms",
+    hubIcon: GraduationCap,
+    hubColor: "#7C3AED",
+    nav: [
+      { to: "/lms", label: "My Learning", icon: PlaySquare },
+      { to: "/lms/certifications", label: "Certifications", icon: Award },
+      { to: "/lms/leaderboard", label: "Leaderboard", icon: Trophy },
+      { to: "/lms/evaluator", label: "Evaluator Queue", icon: ClipboardCheck, managerOnly: true },
+      { to: "/lms/admin", label: "Enablement Admin", icon: Sliders, managerOnly: true },
+      { to: "/lms/owner", label: "LMS Configurator", icon: ShieldCheck, managerOnly: true },
+    ],
+    tools: [
+      { to: "/lms", label: "Continue Learning", icon: PlaySquare },
+      { to: "/lms/admin", label: "Course Builder", icon: BookOpen, managerOnly: true },
+      { to: "/lms/admin?tab=questions", label: "Question Bank", icon: HelpCircle, managerOnly: true },
+      { to: "/lms/admin?tab=resources", label: "Resource Library", icon: LibraryIcon, managerOnly: true },
     ],
   },
 

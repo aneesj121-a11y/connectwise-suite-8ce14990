@@ -14,6 +14,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PlaybooksRouteImport } from './routes/playbooks'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as MarketingRouteImport } from './routes/marketing'
+import { Route as LmsRouteImport } from './routes/lms'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as GridRouteImport } from './routes/grid'
 import { Route as ForecastRouteImport } from './routes/forecast'
@@ -24,6 +25,7 @@ import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LmsIndexRouteImport } from './routes/lms.index'
 import { Route as SupportPortalRouteImport } from './routes/support.portal'
 import { Route as SupportHelpdeskRouteImport } from './routes/support.helpdesk'
 import { Route as OpportunitiesIdRouteImport } from './routes/opportunities.$id'
@@ -33,6 +35,11 @@ import { Route as MarketingContentRouteImport } from './routes/marketing.content
 import { Route as MarketingCampaignsRouteImport } from './routes/marketing.campaigns'
 import { Route as MarketingAnalyticsRouteImport } from './routes/marketing.analytics'
 import { Route as MarketingAbTestsRouteImport } from './routes/marketing.ab-tests'
+import { Route as LmsOwnerRouteImport } from './routes/lms.owner'
+import { Route as LmsLeaderboardRouteImport } from './routes/lms.leaderboard'
+import { Route as LmsEvaluatorRouteImport } from './routes/lms.evaluator'
+import { Route as LmsCertificationsRouteImport } from './routes/lms.certifications'
+import { Route as LmsAdminRouteImport } from './routes/lms.admin'
 import { Route as GridSprintsRouteImport } from './routes/grid.sprints'
 import { Route as GridRoadmapsRouteImport } from './routes/grid.roadmaps'
 import { Route as GridRetrosRouteImport } from './routes/grid.retros'
@@ -59,6 +66,7 @@ import { Route as BillingInvoicesRouteImport } from './routes/billing.invoices'
 import { Route as BillingFpaRouteImport } from './routes/billing.fpa'
 import { Route as BillingCollectionsRouteImport } from './routes/billing.collections'
 import { Route as BillingArapRouteImport } from './routes/billing.arap'
+import { Route as LmsModuleIdRouteImport } from './routes/lms.module.$id'
 
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
@@ -83,6 +91,11 @@ const OpportunitiesRoute = OpportunitiesRouteImport.update({
 const MarketingRoute = MarketingRouteImport.update({
   id: '/marketing',
   path: '/marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LmsRoute = LmsRouteImport.update({
+  id: '/lms',
+  path: '/lms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeaderboardRoute = LeaderboardRouteImport.update({
@@ -135,6 +148,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LmsIndexRoute = LmsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LmsRoute,
+} as any)
 const SupportPortalRoute = SupportPortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -179,6 +197,31 @@ const MarketingAbTestsRoute = MarketingAbTestsRouteImport.update({
   id: '/ab-tests',
   path: '/ab-tests',
   getParentRoute: () => MarketingRoute,
+} as any)
+const LmsOwnerRoute = LmsOwnerRouteImport.update({
+  id: '/owner',
+  path: '/owner',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsLeaderboardRoute = LmsLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsEvaluatorRoute = LmsEvaluatorRouteImport.update({
+  id: '/evaluator',
+  path: '/evaluator',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsCertificationsRoute = LmsCertificationsRouteImport.update({
+  id: '/certifications',
+  path: '/certifications',
+  getParentRoute: () => LmsRoute,
+} as any)
+const LmsAdminRoute = LmsAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => LmsRoute,
 } as any)
 const GridSprintsRoute = GridSprintsRouteImport.update({
   id: '/sprints',
@@ -310,6 +353,11 @@ const BillingArapRoute = BillingArapRouteImport.update({
   path: '/arap',
   getParentRoute: () => BillingRoute,
 } as any)
+const LmsModuleIdRoute = LmsModuleIdRouteImport.update({
+  id: '/module/$id',
+  path: '/module/$id',
+  getParentRoute: () => LmsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -322,6 +370,7 @@ export interface FileRoutesByFullPath {
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
   '/leaderboard': typeof LeaderboardRoute
+  '/lms': typeof LmsRouteWithChildren
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
@@ -353,6 +402,11 @@ export interface FileRoutesByFullPath {
   '/grid/retros': typeof GridRetrosRoute
   '/grid/roadmaps': typeof GridRoadmapsRoute
   '/grid/sprints': typeof GridSprintsRoute
+  '/lms/admin': typeof LmsAdminRoute
+  '/lms/certifications': typeof LmsCertificationsRoute
+  '/lms/evaluator': typeof LmsEvaluatorRoute
+  '/lms/leaderboard': typeof LmsLeaderboardRoute
+  '/lms/owner': typeof LmsOwnerRoute
   '/marketing/ab-tests': typeof MarketingAbTestsRoute
   '/marketing/analytics': typeof MarketingAnalyticsRoute
   '/marketing/campaigns': typeof MarketingCampaignsRoute
@@ -362,6 +416,8 @@ export interface FileRoutesByFullPath {
   '/opportunities/$id': typeof OpportunitiesIdRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
+  '/lms/': typeof LmsIndexRoute
+  '/lms/module/$id': typeof LmsModuleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -405,6 +461,11 @@ export interface FileRoutesByTo {
   '/grid/retros': typeof GridRetrosRoute
   '/grid/roadmaps': typeof GridRoadmapsRoute
   '/grid/sprints': typeof GridSprintsRoute
+  '/lms/admin': typeof LmsAdminRoute
+  '/lms/certifications': typeof LmsCertificationsRoute
+  '/lms/evaluator': typeof LmsEvaluatorRoute
+  '/lms/leaderboard': typeof LmsLeaderboardRoute
+  '/lms/owner': typeof LmsOwnerRoute
   '/marketing/ab-tests': typeof MarketingAbTestsRoute
   '/marketing/analytics': typeof MarketingAnalyticsRoute
   '/marketing/campaigns': typeof MarketingCampaignsRoute
@@ -414,6 +475,8 @@ export interface FileRoutesByTo {
   '/opportunities/$id': typeof OpportunitiesIdRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
+  '/lms': typeof LmsIndexRoute
+  '/lms/module/$id': typeof LmsModuleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -427,6 +490,7 @@ export interface FileRoutesById {
   '/forecast': typeof ForecastRoute
   '/grid': typeof GridRouteWithChildren
   '/leaderboard': typeof LeaderboardRoute
+  '/lms': typeof LmsRouteWithChildren
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
@@ -458,6 +522,11 @@ export interface FileRoutesById {
   '/grid/retros': typeof GridRetrosRoute
   '/grid/roadmaps': typeof GridRoadmapsRoute
   '/grid/sprints': typeof GridSprintsRoute
+  '/lms/admin': typeof LmsAdminRoute
+  '/lms/certifications': typeof LmsCertificationsRoute
+  '/lms/evaluator': typeof LmsEvaluatorRoute
+  '/lms/leaderboard': typeof LmsLeaderboardRoute
+  '/lms/owner': typeof LmsOwnerRoute
   '/marketing/ab-tests': typeof MarketingAbTestsRoute
   '/marketing/analytics': typeof MarketingAnalyticsRoute
   '/marketing/campaigns': typeof MarketingCampaignsRoute
@@ -467,6 +536,8 @@ export interface FileRoutesById {
   '/opportunities/$id': typeof OpportunitiesIdRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
+  '/lms/': typeof LmsIndexRoute
+  '/lms/module/$id': typeof LmsModuleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -481,6 +552,7 @@ export interface FileRouteTypes {
     | '/forecast'
     | '/grid'
     | '/leaderboard'
+    | '/lms'
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
@@ -512,6 +584,11 @@ export interface FileRouteTypes {
     | '/grid/retros'
     | '/grid/roadmaps'
     | '/grid/sprints'
+    | '/lms/admin'
+    | '/lms/certifications'
+    | '/lms/evaluator'
+    | '/lms/leaderboard'
+    | '/lms/owner'
     | '/marketing/ab-tests'
     | '/marketing/analytics'
     | '/marketing/campaigns'
@@ -521,6 +598,8 @@ export interface FileRouteTypes {
     | '/opportunities/$id'
     | '/support/helpdesk'
     | '/support/portal'
+    | '/lms/'
+    | '/lms/module/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -564,6 +643,11 @@ export interface FileRouteTypes {
     | '/grid/retros'
     | '/grid/roadmaps'
     | '/grid/sprints'
+    | '/lms/admin'
+    | '/lms/certifications'
+    | '/lms/evaluator'
+    | '/lms/leaderboard'
+    | '/lms/owner'
     | '/marketing/ab-tests'
     | '/marketing/analytics'
     | '/marketing/campaigns'
@@ -573,6 +657,8 @@ export interface FileRouteTypes {
     | '/opportunities/$id'
     | '/support/helpdesk'
     | '/support/portal'
+    | '/lms'
+    | '/lms/module/$id'
   id:
     | '__root__'
     | '/'
@@ -585,6 +671,7 @@ export interface FileRouteTypes {
     | '/forecast'
     | '/grid'
     | '/leaderboard'
+    | '/lms'
     | '/marketing'
     | '/opportunities'
     | '/playbooks'
@@ -616,6 +703,11 @@ export interface FileRouteTypes {
     | '/grid/retros'
     | '/grid/roadmaps'
     | '/grid/sprints'
+    | '/lms/admin'
+    | '/lms/certifications'
+    | '/lms/evaluator'
+    | '/lms/leaderboard'
+    | '/lms/owner'
     | '/marketing/ab-tests'
     | '/marketing/analytics'
     | '/marketing/campaigns'
@@ -625,6 +717,8 @@ export interface FileRouteTypes {
     | '/opportunities/$id'
     | '/support/helpdesk'
     | '/support/portal'
+    | '/lms/'
+    | '/lms/module/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -638,6 +732,7 @@ export interface RootRouteChildren {
   ForecastRoute: typeof ForecastRoute
   GridRoute: typeof GridRouteWithChildren
   LeaderboardRoute: typeof LeaderboardRoute
+  LmsRoute: typeof LmsRouteWithChildren
   MarketingRoute: typeof MarketingRouteWithChildren
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
   PlaybooksRoute: typeof PlaybooksRoute
@@ -680,6 +775,13 @@ declare module '@tanstack/react-router' {
       path: '/marketing'
       fullPath: '/marketing'
       preLoaderRoute: typeof MarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lms': {
+      id: '/lms'
+      path: '/lms'
+      fullPath: '/lms'
+      preLoaderRoute: typeof LmsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leaderboard': {
@@ -752,6 +854,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lms/': {
+      id: '/lms/'
+      path: '/'
+      fullPath: '/lms/'
+      preLoaderRoute: typeof LmsIndexRouteImport
+      parentRoute: typeof LmsRoute
+    }
     '/support/portal': {
       id: '/support/portal'
       path: '/portal'
@@ -814,6 +923,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/marketing/ab-tests'
       preLoaderRoute: typeof MarketingAbTestsRouteImport
       parentRoute: typeof MarketingRoute
+    }
+    '/lms/owner': {
+      id: '/lms/owner'
+      path: '/owner'
+      fullPath: '/lms/owner'
+      preLoaderRoute: typeof LmsOwnerRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/leaderboard': {
+      id: '/lms/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/lms/leaderboard'
+      preLoaderRoute: typeof LmsLeaderboardRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/evaluator': {
+      id: '/lms/evaluator'
+      path: '/evaluator'
+      fullPath: '/lms/evaluator'
+      preLoaderRoute: typeof LmsEvaluatorRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/certifications': {
+      id: '/lms/certifications'
+      path: '/certifications'
+      fullPath: '/lms/certifications'
+      preLoaderRoute: typeof LmsCertificationsRouteImport
+      parentRoute: typeof LmsRoute
+    }
+    '/lms/admin': {
+      id: '/lms/admin'
+      path: '/admin'
+      fullPath: '/lms/admin'
+      preLoaderRoute: typeof LmsAdminRouteImport
+      parentRoute: typeof LmsRoute
     }
     '/grid/sprints': {
       id: '/grid/sprints'
@@ -997,6 +1141,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingArapRouteImport
       parentRoute: typeof BillingRoute
     }
+    '/lms/module/$id': {
+      id: '/lms/module/$id'
+      path: '/module/$id'
+      fullPath: '/lms/module/$id'
+      preLoaderRoute: typeof LmsModuleIdRouteImport
+      parentRoute: typeof LmsRoute
+    }
   }
 }
 
@@ -1093,6 +1244,28 @@ const GridRouteChildren: GridRouteChildren = {
 
 const GridRouteWithChildren = GridRoute._addFileChildren(GridRouteChildren)
 
+interface LmsRouteChildren {
+  LmsAdminRoute: typeof LmsAdminRoute
+  LmsCertificationsRoute: typeof LmsCertificationsRoute
+  LmsEvaluatorRoute: typeof LmsEvaluatorRoute
+  LmsLeaderboardRoute: typeof LmsLeaderboardRoute
+  LmsOwnerRoute: typeof LmsOwnerRoute
+  LmsIndexRoute: typeof LmsIndexRoute
+  LmsModuleIdRoute: typeof LmsModuleIdRoute
+}
+
+const LmsRouteChildren: LmsRouteChildren = {
+  LmsAdminRoute: LmsAdminRoute,
+  LmsCertificationsRoute: LmsCertificationsRoute,
+  LmsEvaluatorRoute: LmsEvaluatorRoute,
+  LmsLeaderboardRoute: LmsLeaderboardRoute,
+  LmsOwnerRoute: LmsOwnerRoute,
+  LmsIndexRoute: LmsIndexRoute,
+  LmsModuleIdRoute: LmsModuleIdRoute,
+}
+
+const LmsRouteWithChildren = LmsRoute._addFileChildren(LmsRouteChildren)
+
 interface MarketingRouteChildren {
   MarketingAbTestsRoute: typeof MarketingAbTestsRoute
   MarketingAnalyticsRoute: typeof MarketingAnalyticsRoute
@@ -1151,6 +1324,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForecastRoute: ForecastRoute,
   GridRoute: GridRouteWithChildren,
   LeaderboardRoute: LeaderboardRoute,
+  LmsRoute: LmsRouteWithChildren,
   MarketingRoute: MarketingRouteWithChildren,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
   PlaybooksRoute: PlaybooksRoute,
@@ -1160,13 +1334,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
