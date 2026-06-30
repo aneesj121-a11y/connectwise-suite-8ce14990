@@ -7,6 +7,7 @@ import {
   Settings2, GitBranch, Cpu, ShieldAlert, Eye, EyeOff, Code2, Mail,
   Smartphone, Layers, Filter, Upload, Download, Trash2, Edit3, Lock as LockIcon,
   Sliders, BookOpen, Webhook, Key, ScrollText, Server, Zap, Brain,
+  GraduationCap, Award, ClipboardCheck, Mic, BarChart3,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useTeam, roleAtLeast, type Role } from "@/lib/team-context";
