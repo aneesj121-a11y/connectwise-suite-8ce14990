@@ -1263,7 +1263,7 @@ function LearningSection() {
                 <div className="text-[13px]">{row.s}</div>
                 <div className="text-[11px] text-muted-foreground">{row.n}</div>
               </div>
-              <StatusPill level={row.on ? "green" : "gray"}>{row.on ? "Enabled" : "Off"}</StatusPill>
+              <StatusPill level={row.on ? "green" : "neutral"}>{row.on ? "Enabled" : "Off"}</StatusPill>
             </div>
           ))}
         </div>
