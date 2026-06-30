@@ -1,5 +1,5 @@
 // ============================================================
-// Limnn LMS — mock data layer
+// Limnn Learning — mock data layer
 // ============================================================
 
 export type TrackId = "foundation" | "aio" | "growth" | "support-ops";

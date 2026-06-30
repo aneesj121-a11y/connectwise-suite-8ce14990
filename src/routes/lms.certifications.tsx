@@ -5,7 +5,7 @@ import { CERTIFICATIONS, trackById } from "@/lib/lms-data";
 import { Award, Download, RefreshCw } from "lucide-react";
 
 export const Route = createFileRoute("/lms/certifications")({
-  head: () => ({ meta: [{ title: "My Certifications — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "My Certifications — Limnn Learning" }] }),
   component: Page,
 });
 

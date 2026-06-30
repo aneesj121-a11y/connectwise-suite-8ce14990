@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/lms/admin")({
-  head: () => ({ meta: [{ title: "Enablement Admin — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Enablement Admin — Limnn Learning" }] }),
   component: Page,
 });
 

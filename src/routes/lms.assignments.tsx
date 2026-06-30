@@ -7,7 +7,7 @@ import { ClipboardList, AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/lms/assignments")({
-  head: () => ({ meta: [{ title: "My Assignments — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "My Assignments — Limnn Learning" }] }),
   component: Assignments,
 });
 

@@ -5,7 +5,7 @@ import { ROLEPLAYS } from "@/lib/lms-extra";
 import { Mic, Sparkles, Play, Clock, Trophy, Target } from "lucide-react";
 
 export const Route = createFileRoute("/lms/coaching")({
-  head: () => ({ meta: [{ title: "AI Roleplay & Coaching — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "AI Roleplay & Coaching — Limnn Learning" }] }),
   component: Coaching,
 });
 

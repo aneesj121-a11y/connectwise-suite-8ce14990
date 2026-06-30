@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/lms/")({
-  head: () => ({ meta: [{ title: "My Learning — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "My Learning — Limnn Learning" }] }),
   component: TraineeDashboard,
 });
 

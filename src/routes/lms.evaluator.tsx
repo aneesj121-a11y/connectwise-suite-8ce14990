@@ -6,7 +6,7 @@ import { SUBMISSIONS, moduleById, trackById, type Submission } from "@/lib/lms-d
 import { ClipboardCheck, FileText, Inbox, MessageSquare, Sparkles, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/lms/evaluator")({
-  head: () => ({ meta: [{ title: "Evaluator — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Evaluator — Limnn Learning" }] }),
   component: Page,
 });
 

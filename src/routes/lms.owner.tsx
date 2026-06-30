@@ -4,7 +4,7 @@ import { SectionCard, StatusPill } from "@/components/enterprise/primitives";
 import { ShieldCheck, KeyRound, Globe, Webhook, Palette, Sliders } from "lucide-react";
 
 export const Route = createFileRoute("/lms/owner")({
-  head: () => ({ meta: [{ title: "LMS Configurator — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "LMS Configurator — Limnn Learning" }] }),
   component: Page,
 });
 

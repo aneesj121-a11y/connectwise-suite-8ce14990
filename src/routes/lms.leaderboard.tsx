@@ -6,7 +6,7 @@ import { LEADERBOARD, TRACKS, trackById } from "@/lib/lms-data";
 import { Trophy, Flame, Award } from "lucide-react";
 
 export const Route = createFileRoute("/lms/leaderboard")({
-  head: () => ({ meta: [{ title: "Leaderboard — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Leaderboard — Limnn Learning" }] }),
   component: Page,
 });
 

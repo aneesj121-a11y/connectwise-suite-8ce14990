@@ -1,5 +1,5 @@
 // ============================================================
-// Limnn LMS — extra mock data (Teams, Assignments, Compliance,
+// Limnn Learning — extra mock data (Teams, Assignments, Compliance,
 // Roleplay scenarios, Skill-gap matrix)
 // ============================================================
 import type { TrackId } from "./lms-data";
