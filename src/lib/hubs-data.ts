@@ -175,5 +175,11 @@ export function hubInsights(team: Team): HubInsight[] {
         { title: "DSO trending up", body: "DSO increased from 38 to 44 days in last quarter. Top driver: mid-market segment.", confidence: 81 },
         { title: "Forecast: Q4 ARR $4.2M", body: "Model projects Q4 ARR within ±4% based on current pipeline + churn rates.", confidence: 86, cta: "View forecast" },
       ];
+    case "lms":
+      return [
+        { title: "Foundation completion lag", body: "18% of new hires haven't finished Foundation in week 2. Send nudges?", confidence: 89, cta: "Nudge cohort" },
+        { title: "Quiz outlier", body: "Module 'Discovery Calls' has a 41% first-attempt fail rate — likely a question quality issue.", confidence: 84, cta: "Review questions" },
+        { title: "Top performer signal", body: "3 trainees ranked top 5% this week. Recommend fast-tracking to Growth Expert.", confidence: 81, cta: "View shortlist" },
+      ];
   }
 }
