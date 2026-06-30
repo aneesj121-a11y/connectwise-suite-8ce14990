@@ -56,6 +56,10 @@ import {
   HelpCircle,
   Sliders,
   PlaySquare,
+  ClipboardList,
+  Mic2,
+  ShieldAlert,
+  BarChartHorizontal,
 } from "lucide-react";
 
 
