@@ -253,11 +253,13 @@ function Player({ module, speed }: { module: ReturnType<typeof moduleById>; spee
   }
   return (
     <video
-      key={`${module.id}-${speed}`}
+      key={module.id}
+      ref={(el) => {
+        if (el) el.playbackRate = speed;
+      }}
       src={module.src}
       controls
       controlsList="nodownload"
-      playbackrate={speed}
       className="w-full aspect-video bg-black"
     />
   );
