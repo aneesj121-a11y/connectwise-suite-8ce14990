@@ -1346,10 +1346,10 @@ function LearningSection() {
 
       <SectionCard title="Module telemetry" subtitle="Live usage of Limnn Learning" className="lg:col-span-2">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <KpiCard icon={Users} label="Active learners (30d)" value="1,284" delta="+8.4%" deltaTone="up" />
-          <KpiCard icon={Award} label="Certifications issued" value="312" delta="+22" deltaTone="up" />
-          <KpiCard icon={ClipboardCheck} label="Quiz pass rate" value="87%" delta="+1.2pp" deltaTone="up" />
-          <KpiCard icon={BarChart3} label="Avg ramp time" value="18 d" delta="-3 d" deltaTone="up" />
+          <KpiCard icon={Users} label="Active learners (30d)" value="1,284" delta={8.4} />
+          <KpiCard icon={Award} label="Certifications issued" value="312" delta={22} />
+          <KpiCard icon={ClipboardCheck} label="Quiz pass rate" value="87%" delta={1.2} />
+          <KpiCard icon={BarChart3} label="Avg ramp time" value="18 d" delta={-3} />
         </div>
       </SectionCard>
     </div>
