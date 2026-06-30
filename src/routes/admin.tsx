@@ -7,6 +7,7 @@ import {
   Settings2, GitBranch, Cpu, ShieldAlert, Eye, EyeOff, Code2, Mail,
   Smartphone, Layers, Filter, Upload, Download, Trash2, Edit3, Lock as LockIcon,
   Sliders, BookOpen, Webhook, Key, ScrollText, Server, Zap, Brain,
+  GraduationCap, Award, ClipboardCheck, Mic, BarChart3,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useTeam, roleAtLeast, type Role } from "@/lib/team-context";
@@ -19,7 +20,8 @@ export const Route = createFileRoute("/admin")({ component: AdminCenter });
 // ---------------------------------------------------------------------------
 type SectionId =
   | "overview" | "users" | "roles" | "objects" | "modules" | "workflows" | "ai"
-  | "integrations" | "branding" | "comms" | "billing" | "data" | "security" | "audit" | "developer";
+  | "integrations" | "branding" | "comms" | "billing" | "data" | "security" | "audit" | "developer"
+  | "learning";
 
 type SectionDef = {
   id: SectionId;
@@ -41,6 +43,7 @@ const SECTIONS: SectionDef[] = [
   { id: "branding", label: "Branding & Themes", icon: Palette, minRole: "admin", group: "Build", blurb: "Logo, colors, typography & email templates" },
   { id: "comms", label: "Notifications & Channels", icon: Bell, minRole: "manager", group: "Build", blurb: "Email, SMS, push, Slack & in-app routing" },
   { id: "ai", label: "Limnn AI & Copilots", icon: Brain, minRole: "admin", group: "Intelligence", blurb: "Models, prompts, agents & guardrails" },
+  { id: "learning", label: "Limnn Learning", icon: GraduationCap, minRole: "admin", group: "Intelligence", blurb: "Tracks, certifications, evaluators, compliance & AI roleplay" },
   { id: "integrations", label: "Integrations & API", icon: Plug, minRole: "admin", group: "Operate", blurb: "Connected apps, webhooks & marketplace" },
   { id: "data", label: "Data & Storage", icon: Server, minRole: "admin", group: "Operate", blurb: "Imports, exports, retention & residency" },
   { id: "billing", label: "Billing & Licenses", icon: CreditCard, minRole: "superadmin", group: "Operate", blurb: "Seats, plan, invoices & usage caps" },
@@ -220,6 +223,7 @@ function SectionRouter({ id }: { id: SectionId }) {
     case "branding": return <BrandingSection />;
     case "comms": return <CommsSection />;
     case "ai": return <AiSection />;
+    case "learning": return <LearningSection />;
     case "integrations": return <IntegrationsSection />;
     case "data": return <DataSection />;
     case "billing": return <BillingSection />;
@@ -1210,5 +1214,164 @@ function AdminAiCopilot({ section, onCollapse }: { section: SectionDef; onCollap
         </div>
       </form>
     </aside>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// LIMNN LEARNING — module configurator (Admin/Super Admin)
+// ---------------------------------------------------------------------------
+function LearningSection() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <SectionCard title="Module status" subtitle="Enable, version & rollout control">
+        <div className="space-y-3">
+          <ToggleRow label="Limnn Learning enabled" desc="Show the Learning hub in the global switcher" on />
+          <ToggleRow label="Required for new hires" desc="Auto-assign onboarding track on user creation" on />
+          <ToggleRow label="Public catalog" desc="Allow unauthenticated preview of course titles" />
+          <Field label="Active release channel" value="stable · v2026.06" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Roles & access" subtitle="Map Limnn roles to Learning personas">
+        {[
+          { p: "Trainee", who: "All users", icon: BookOpen },
+          { p: "Evaluator", who: "Managers + designated SMEs", icon: ClipboardCheck },
+          { p: "Enablement Lead", who: "L&D admins", icon: GraduationCap },
+          { p: "Learning Owner", who: "Super Admin only", icon: Crown },
+        ].map((r) => (
+          <div key={r.p} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+            <div className="flex items-center gap-2 text-[13px]"><r.icon className="h-3.5 w-3.5 text-muted-foreground"/>{r.p}</div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-muted-foreground">{r.who}</span>
+              <button className="text-[11px] text-primary">Configure</button>
+            </div>
+          </div>
+        ))}
+      </SectionCard>
+
+      <SectionCard title="Catalog & content sources" subtitle="Where Learning pulls courses from">
+        <div className="space-y-2">
+          {[
+            { s: "Native Limnn courses", n: "84 modules", on: true },
+            { s: "SCORM 1.2 / 2004 imports", n: "12 packages", on: true },
+            { s: "xAPI / TinCan", n: "Disabled", on: false },
+            { s: "YouTube / Vimeo embeds", n: "Allowed", on: true },
+            { s: "External MOOC sync (Coursera / Udemy Biz)", n: "Not connected", on: false },
+          ].map((row) => (
+            <div key={row.s} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+              <div>
+                <div className="text-[13px]">{row.s}</div>
+                <div className="text-[11px] text-muted-foreground">{row.n}</div>
+              </div>
+              <StatusPill level={row.on ? "green" : "neutral"}>{row.on ? "Enabled" : "Off"}</StatusPill>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Certifications & credentials" subtitle="Issuance, signing & expiry">
+        <div className="space-y-3">
+          <Field label="Issuer name on certificates" value="Limnn Academy" />
+          <Field label="Digital signature key" value="cert_sig_•••a91 (rotated 12d ago)" />
+          <ToggleRow label="Auto-revoke on expiry" desc="Remove badge & email holder 7 days before expiry" on />
+          <ToggleRow label="Publish to public profile" desc="Allow learners to share LinkedIn-verifiable URL" on />
+          <Field label="Default validity period" value="365 days" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Assessments & grading" subtitle="Quiz, rubric & passing rules">
+        <div className="space-y-3">
+          <Field label="Default passing score" value="80%" />
+          <Field label="Max attempts per quiz" value="3" />
+          <ToggleRow label="Randomize question order" desc="Per-attempt shuffle from bank" on />
+          <ToggleRow label="Lock module on fail" desc="Trainee must contact Evaluator to unlock" />
+          <ToggleRow label="AI-suggested grading" desc="Show AI rubric scores to Evaluator (final call stays human)" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="AI Roleplay & Study Buddy" subtitle="Limnn AI grounded on your SOPs">
+        <div className="space-y-3">
+          <ToggleRow label="Study Buddy enabled" desc="Contextual chat in every module" on />
+          <ToggleRow label="AI Roleplay simulator" desc="Live persona calls with rubric scoring" on />
+          <Field label="Voice model" value="limnn-voice-2 · neutral" />
+          <Field label="Grounded knowledge sources" value="Playbooks, SOPs, Product wiki" />
+          <ToggleRow label="Block ungrounded answers" desc="Refuse if not in approved corpus" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Compliance & audit" subtitle="Regulatory tracking">
+        <div className="space-y-2">
+          {["SOC 2", "GDPR", "HIPAA", "PCI-DSS", "ISO 27001"].map((f) => (
+            <div key={f} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+              <div className="text-[13px]">{f}</div>
+              <div className="flex items-center gap-2">
+                <StatusPill level="green">Tracked</StatusPill>
+                <button className="text-[11px] text-primary">Mapping</button>
+              </div>
+            </div>
+          ))}
+          <ToggleRow label="Tamper-evident audit log" desc="Hash-chained, exportable as auditor packet" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Notifications & cadence" subtitle="How Learning nudges users">
+        <div className="space-y-3">
+          <ToggleRow label="Due-soon reminders" desc="Email + in-app 7/3/1 days before due" on />
+          <ToggleRow label="Manager weekly digest" desc="Team completion & at-risk roster every Monday" on />
+          <ToggleRow label="Slack / Threads pings" desc="Post into #enablement channel on milestones" on />
+          <Field label="Quiet hours" value="20:00 – 07:00 (learner local)" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Gamification & leaderboards" subtitle="XP, streaks & competitive learning">
+        <div className="space-y-3">
+          <ToggleRow label="XP & badges" desc="Award XP per module / streak" on />
+          <ToggleRow label="Team leaderboards" desc="Visible to all members of a team" on />
+          <ToggleRow label="Global leaderboard" desc="Tenant-wide ranking (opt-in)" />
+          <Field label="Season length" value="Quarterly · resets Jan / Apr / Jul / Oct" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Data, retention & export" subtitle="Where learning records live">
+        <div className="space-y-3">
+          <Field label="Records retention" value="7 years (compliance default)" />
+          <Field label="Data residency" value="EU (Frankfurt)" />
+          <ToggleRow label="Allow learner self-export" desc="Trainee can download transcript anytime" on />
+          <div className="flex gap-2 pt-1">
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium border border-border inline-flex items-center gap-1.5"><Download className="h-3.5 w-3.5"/>Export all transcripts</button>
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium border border-border inline-flex items-center gap-1.5"><Upload className="h-3.5 w-3.5"/>Import SCORM</button>
+          </div>
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Module telemetry" subtitle="Live usage of Limnn Learning" className="lg:col-span-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <KpiCard icon={Users} label="Active learners (30d)" value="1,284" delta={8.4} />
+          <KpiCard icon={Award} label="Certifications issued" value="312" delta={22} />
+          <KpiCard icon={ClipboardCheck} label="Quiz pass rate" value="87%" delta={1.2} />
+          <KpiCard icon={BarChart3} label="Avg ramp time" value="18 d" delta={-3} />
+        </div>
+      </SectionCard>
+    </div>
+  );
+}
+
+function ToggleRow({ label, desc, on }: { label: string; desc?: string; on?: boolean }) {
+  const [v, setV] = useState(!!on);
+  return (
+    <div className="flex items-start justify-between gap-3 py-1.5">
+      <div className="min-w-0">
+        <div className="text-[13px]">{label}</div>
+        {desc && <div className="text-[11px] text-muted-foreground">{desc}</div>}
+      </div>
+      <button
+        onClick={() => setV(!v)}
+        className="relative h-5 w-9 rounded-full transition-colors shrink-0"
+        style={{ background: v ? "var(--primary)" : "hsl(var(--muted))" }}
+        aria-pressed={v}
+      >
+        <span className="absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all" style={{ left: v ? "18px" : "2px" }} />
+      </button>
+    </div>
   );
 }
