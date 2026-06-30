@@ -5,7 +5,7 @@ import { TEAM_STATS, SKILLS, SKILL_MATRIX, heatColor } from "@/lib/lms-extra";
 import { BarChart3, TrendingUp, DollarSign, GitCompare } from "lucide-react";
 
 export const Route = createFileRoute("/lms/analytics")({
-  head: () => ({ meta: [{ title: "Skill-gap & ROI — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Skill-gap & ROI — Limnn Learning" }] }),
   component: Analytics,
 });
 

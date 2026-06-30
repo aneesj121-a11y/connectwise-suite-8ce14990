@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/lms/admin")({
-  head: () => ({ meta: [{ title: "Enablement Admin — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Enablement Admin — Limnn Learning" }] }),
   component: Page,
 });
 
@@ -189,7 +189,7 @@ function QuestionsTab() {
           </button>
         }
       >
-        <FilterBar chips={["All", "MCQ", "Scenario", "Compliance", "Sales", "LMS"]} active="All" />
+        <FilterBar chips={["All", "MCQ", "Scenario", "Compliance", "Sales", "Learning"]} active="All" />
         <ul className="space-y-2">
           {QUESTIONS.map((q) => (
             <li key={q.id} className="rounded-lg border border-border p-3">

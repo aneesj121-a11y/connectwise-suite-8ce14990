@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/lms/module/$id")({
-  head: ({ params }) => ({ meta: [{ title: `Module · ${params.id} — Limnn LMS` }] }),
+  head: ({ params }) => ({ meta: [{ title: `Module · ${params.id} — Limnn Learning` }] }),
   component: ModulePlayer,
 });
 

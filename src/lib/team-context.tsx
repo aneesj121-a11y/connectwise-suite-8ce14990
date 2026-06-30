@@ -257,7 +257,7 @@ export const TEAMS: Record<Team, HubDef> = {
 
   lms: {
     id: "lms",
-    label: "Limnn LMS",
+    label: "Limnn Learning",
     tagline: "Enablement, Certifications & Training Intelligence",
     accentVar: "var(--sales)",
     accentClass: "text-[color:var(--sales)]",

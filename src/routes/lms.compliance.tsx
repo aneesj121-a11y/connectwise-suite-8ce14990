@@ -5,7 +5,7 @@ import { COMPLIANCE, AUDIT_LOG } from "@/lib/lms-extra";
 import { ShieldCheck, AlertTriangle, FileCheck, Download } from "lucide-react";
 
 export const Route = createFileRoute("/lms/compliance")({
-  head: () => ({ meta: [{ title: "Compliance & Audit — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Compliance & Audit — Limnn Learning" }] }),
   component: Compliance,
 });
 

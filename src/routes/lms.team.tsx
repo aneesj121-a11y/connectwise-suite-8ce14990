@@ -6,7 +6,7 @@ import { ENROLLMENTS, trackById } from "@/lib/lms-data";
 import { Users, GraduationCap, Award, AlertTriangle, Clock4, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/lms/team")({
-  head: () => ({ meta: [{ title: "Team Stats — Limnn LMS" }] }),
+  head: () => ({ meta: [{ title: "Team Stats — Limnn Learning" }] }),
   component: TeamStats,
 });
 
