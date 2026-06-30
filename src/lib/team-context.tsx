@@ -49,6 +49,13 @@ import {
   Headphones,
   ShieldCheck,
   LayoutGrid,
+  GraduationCap,
+  Award,
+  ClipboardCheck,
+  Library as LibraryIcon,
+  HelpCircle,
+  Sliders,
+  PlaySquare,
 } from "lucide-react";
 
 
@@ -59,7 +66,8 @@ export type Team =
   | "support"
   | "chat"
   | "grid"
-  | "billing";
+  | "billing"
+  | "lms";
 
 export type Role = "agent" | "manager" | "admin" | "superadmin";
 export const ROLE_RANK: Record<Role, number> = { agent: 0, manager: 1, admin: 2, superadmin: 3 };
