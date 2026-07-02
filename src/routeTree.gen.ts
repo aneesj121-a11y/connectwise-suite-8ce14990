@@ -26,9 +26,12 @@ import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PeopleIndexRouteImport } from './routes/people.index'
 import { Route as LmsIndexRouteImport } from './routes/lms.index'
 import { Route as SupportPortalRouteImport } from './routes/support.portal'
 import { Route as SupportHelpdeskRouteImport } from './routes/support.helpdesk'
+import { Route as PeopleOrgChartRouteImport } from './routes/people.org-chart'
+import { Route as PeopleDirectoryRouteImport } from './routes/people.directory'
 import { Route as OpportunitiesIdRouteImport } from './routes/opportunities.$id'
 import { Route as MarketingSegmentsRouteImport } from './routes/marketing.segments'
 import { Route as MarketingIntentRouteImport } from './routes/marketing.intent'
@@ -72,6 +75,7 @@ import { Route as BillingInvoicesRouteImport } from './routes/billing.invoices'
 import { Route as BillingFpaRouteImport } from './routes/billing.fpa'
 import { Route as BillingCollectionsRouteImport } from './routes/billing.collections'
 import { Route as BillingArapRouteImport } from './routes/billing.arap'
+import { Route as PeopleDirectoryIdRouteImport } from './routes/people.directory.$id'
 import { Route as LmsModuleIdRouteImport } from './routes/lms.module.$id'
 
 const SupportRoute = SupportRouteImport.update({
@@ -159,6 +163,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeopleIndexRoute = PeopleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PeopleRoute,
+} as any)
 const LmsIndexRoute = LmsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -173,6 +182,16 @@ const SupportHelpdeskRoute = SupportHelpdeskRouteImport.update({
   id: '/helpdesk',
   path: '/helpdesk',
   getParentRoute: () => SupportRoute,
+} as any)
+const PeopleOrgChartRoute = PeopleOrgChartRouteImport.update({
+  id: '/org-chart',
+  path: '/org-chart',
+  getParentRoute: () => PeopleRoute,
+} as any)
+const PeopleDirectoryRoute = PeopleDirectoryRouteImport.update({
+  id: '/directory',
+  path: '/directory',
+  getParentRoute: () => PeopleRoute,
 } as any)
 const OpportunitiesIdRoute = OpportunitiesIdRouteImport.update({
   id: '/$id',
@@ -389,6 +408,11 @@ const BillingArapRoute = BillingArapRouteImport.update({
   path: '/arap',
   getParentRoute: () => BillingRoute,
 } as any)
+const PeopleDirectoryIdRoute = PeopleDirectoryIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PeopleDirectoryRoute,
+} as any)
 const LmsModuleIdRoute = LmsModuleIdRouteImport.update({
   id: '/module/$id',
   path: '/module/$id',
@@ -409,7 +433,7 @@ export interface FileRoutesByFullPath {
   '/lms': typeof LmsRouteWithChildren
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
-  '/people': typeof PeopleRoute
+  '/people': typeof PeopleRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
@@ -456,10 +480,14 @@ export interface FileRoutesByFullPath {
   '/marketing/intent': typeof MarketingIntentRoute
   '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/people/directory': typeof PeopleDirectoryRouteWithChildren
+  '/people/org-chart': typeof PeopleOrgChartRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
   '/lms/': typeof LmsIndexRoute
+  '/people/': typeof PeopleIndexRoute
   '/lms/module/$id': typeof LmsModuleIdRoute
+  '/people/directory/$id': typeof PeopleDirectoryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -474,7 +502,6 @@ export interface FileRoutesByTo {
   '/leaderboard': typeof LeaderboardRoute
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
-  '/people': typeof PeopleRoute
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
@@ -521,10 +548,14 @@ export interface FileRoutesByTo {
   '/marketing/intent': typeof MarketingIntentRoute
   '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/people/directory': typeof PeopleDirectoryRouteWithChildren
+  '/people/org-chart': typeof PeopleOrgChartRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
   '/lms': typeof LmsIndexRoute
+  '/people': typeof PeopleIndexRoute
   '/lms/module/$id': typeof LmsModuleIdRoute
+  '/people/directory/$id': typeof PeopleDirectoryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -541,7 +572,7 @@ export interface FileRoutesById {
   '/lms': typeof LmsRouteWithChildren
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
-  '/people': typeof PeopleRoute
+  '/people': typeof PeopleRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
@@ -588,10 +619,14 @@ export interface FileRoutesById {
   '/marketing/intent': typeof MarketingIntentRoute
   '/marketing/segments': typeof MarketingSegmentsRoute
   '/opportunities/$id': typeof OpportunitiesIdRoute
+  '/people/directory': typeof PeopleDirectoryRouteWithChildren
+  '/people/org-chart': typeof PeopleOrgChartRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
   '/lms/': typeof LmsIndexRoute
+  '/people/': typeof PeopleIndexRoute
   '/lms/module/$id': typeof LmsModuleIdRoute
+  '/people/directory/$id': typeof PeopleDirectoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -656,10 +691,14 @@ export interface FileRouteTypes {
     | '/marketing/intent'
     | '/marketing/segments'
     | '/opportunities/$id'
+    | '/people/directory'
+    | '/people/org-chart'
     | '/support/helpdesk'
     | '/support/portal'
     | '/lms/'
+    | '/people/'
     | '/lms/module/$id'
+    | '/people/directory/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -674,7 +713,6 @@ export interface FileRouteTypes {
     | '/leaderboard'
     | '/marketing'
     | '/opportunities'
-    | '/people'
     | '/playbooks'
     | '/settings'
     | '/support'
@@ -721,10 +759,14 @@ export interface FileRouteTypes {
     | '/marketing/intent'
     | '/marketing/segments'
     | '/opportunities/$id'
+    | '/people/directory'
+    | '/people/org-chart'
     | '/support/helpdesk'
     | '/support/portal'
     | '/lms'
+    | '/people'
     | '/lms/module/$id'
+    | '/people/directory/$id'
   id:
     | '__root__'
     | '/'
@@ -787,10 +829,14 @@ export interface FileRouteTypes {
     | '/marketing/intent'
     | '/marketing/segments'
     | '/opportunities/$id'
+    | '/people/directory'
+    | '/people/org-chart'
     | '/support/helpdesk'
     | '/support/portal'
     | '/lms/'
+    | '/people/'
     | '/lms/module/$id'
+    | '/people/directory/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -807,7 +853,7 @@ export interface RootRouteChildren {
   LmsRoute: typeof LmsRouteWithChildren
   MarketingRoute: typeof MarketingRouteWithChildren
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
-  PeopleRoute: typeof PeopleRoute
+  PeopleRoute: typeof PeopleRouteWithChildren
   PlaybooksRoute: typeof PlaybooksRoute
   SettingsRoute: typeof SettingsRoute
   SupportRoute: typeof SupportRouteWithChildren
@@ -934,6 +980,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/people/': {
+      id: '/people/'
+      path: '/'
+      fullPath: '/people/'
+      preLoaderRoute: typeof PeopleIndexRouteImport
+      parentRoute: typeof PeopleRoute
+    }
     '/lms/': {
       id: '/lms/'
       path: '/'
@@ -954,6 +1007,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/support/helpdesk'
       preLoaderRoute: typeof SupportHelpdeskRouteImport
       parentRoute: typeof SupportRoute
+    }
+    '/people/org-chart': {
+      id: '/people/org-chart'
+      path: '/org-chart'
+      fullPath: '/people/org-chart'
+      preLoaderRoute: typeof PeopleOrgChartRouteImport
+      parentRoute: typeof PeopleRoute
+    }
+    '/people/directory': {
+      id: '/people/directory'
+      path: '/directory'
+      fullPath: '/people/directory'
+      preLoaderRoute: typeof PeopleDirectoryRouteImport
+      parentRoute: typeof PeopleRoute
     }
     '/opportunities/$id': {
       id: '/opportunities/$id'
@@ -1256,6 +1323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingArapRouteImport
       parentRoute: typeof BillingRoute
     }
+    '/people/directory/$id': {
+      id: '/people/directory/$id'
+      path: '/$id'
+      fullPath: '/people/directory/$id'
+      preLoaderRoute: typeof PeopleDirectoryIdRouteImport
+      parentRoute: typeof PeopleDirectoryRoute
+    }
     '/lms/module/$id': {
       id: '/lms/module/$id'
       path: '/module/$id'
@@ -1425,6 +1499,33 @@ const OpportunitiesRouteWithChildren = OpportunitiesRoute._addFileChildren(
   OpportunitiesRouteChildren,
 )
 
+interface PeopleDirectoryRouteChildren {
+  PeopleDirectoryIdRoute: typeof PeopleDirectoryIdRoute
+}
+
+const PeopleDirectoryRouteChildren: PeopleDirectoryRouteChildren = {
+  PeopleDirectoryIdRoute: PeopleDirectoryIdRoute,
+}
+
+const PeopleDirectoryRouteWithChildren = PeopleDirectoryRoute._addFileChildren(
+  PeopleDirectoryRouteChildren,
+)
+
+interface PeopleRouteChildren {
+  PeopleDirectoryRoute: typeof PeopleDirectoryRouteWithChildren
+  PeopleOrgChartRoute: typeof PeopleOrgChartRoute
+  PeopleIndexRoute: typeof PeopleIndexRoute
+}
+
+const PeopleRouteChildren: PeopleRouteChildren = {
+  PeopleDirectoryRoute: PeopleDirectoryRouteWithChildren,
+  PeopleOrgChartRoute: PeopleOrgChartRoute,
+  PeopleIndexRoute: PeopleIndexRoute,
+}
+
+const PeopleRouteWithChildren =
+  PeopleRoute._addFileChildren(PeopleRouteChildren)
+
 interface SupportRouteChildren {
   SupportHelpdeskRoute: typeof SupportHelpdeskRoute
   SupportPortalRoute: typeof SupportPortalRoute
@@ -1452,7 +1553,7 @@ const rootRouteChildren: RootRouteChildren = {
   LmsRoute: LmsRouteWithChildren,
   MarketingRoute: MarketingRouteWithChildren,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
-  PeopleRoute: PeopleRoute,
+  PeopleRoute: PeopleRouteWithChildren,
   PlaybooksRoute: PlaybooksRoute,
   SettingsRoute: SettingsRoute,
   SupportRoute: SupportRouteWithChildren,
