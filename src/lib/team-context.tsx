@@ -294,6 +294,38 @@ export const TEAMS: Record<Team, HubDef> = {
     ],
   },
 
+  people: {
+    id: "people",
+    label: "Limnn People",
+    tagline: "HRIS, Talent, Recognition & Workforce Intelligence",
+    accentVar: "var(--people, oklch(0.58 0.18 280))",
+    accentClass: "text-[color:oklch(0.58_0.18_280)]",
+    defaultRoute: "/people",
+    hubIcon: Users,
+    hubColor: "#6366F1",
+    nav: [
+      { to: "/people", label: "Dashboard", icon: LayoutDashboard },
+      { to: "/people/directory", label: "Directory", icon: Users },
+      { to: "/people/org-chart", label: "Org Chart", icon: Network },
+      { to: "/people/recruiting/requisitions", label: "Recruiting", icon: UserPlus },
+      { to: "/people/leave", label: "Leave", icon: CalendarOff },
+      { to: "/people/schedules", label: "Schedules", icon: Clock },
+      { to: "/people/payroll", label: "Payroll", icon: Wallet },
+    ],
+    tools: [
+      { to: "/people/performance", label: "Performance", icon: TrendingUp },
+      { to: "/people/onboarding", label: "Onboarding", icon: Rocket },
+      { to: "/people/engagement", label: "Engagement", icon: Heart },
+      { to: "/people/recognition", label: "Recognition", icon: Award },
+      { to: "/people/skills", label: "Skills", icon: Puzzle },
+      { to: "/people/mobility", label: "Mobility", icon: ArrowRightLeft },
+      { to: "/people/expenses", label: "Expenses", icon: Receipt },
+      { to: "/people/compliance", label: "Compliance", icon: ShieldIcon },
+      { to: "/people/reports", label: "Reports", icon: BarChart3 },
+      { to: "/people/recruiting/ats", label: "ATS Kanban", icon: UserPlus },
+    ],
+  },
+
 };
 
 type Ctx = {
