@@ -25,6 +25,7 @@ import {
   Presentation,
   Rocket,
   Star,
+  Clock,
   MessagesSquare,
   Timer,
   Route as RouteIcon,
@@ -60,6 +61,13 @@ import {
   Mic2,
   ShieldAlert,
   BarChartHorizontal,
+  Network,
+  UserPlus,
+  CalendarOff,
+  Heart,
+  Puzzle,
+  ArrowRightLeft,
+  Shield as ShieldIcon,
 } from "lucide-react";
 
 
@@ -71,7 +79,8 @@ export type Team =
   | "chat"
   | "grid"
   | "billing"
-  | "lms";
+  | "lms"
+  | "people";
 
 export type Role = "agent" | "manager" | "admin" | "superadmin";
 export const ROLE_RANK: Record<Role, number> = { agent: 0, manager: 1, admin: 2, superadmin: 3 };
@@ -283,6 +292,38 @@ export const TEAMS: Record<Team, HubDef> = {
       { to: "/lms/admin", label: "Course Builder", icon: BookOpen, managerOnly: true },
       { to: "/lms/admin?tab=questions", label: "Question Bank", icon: HelpCircle, managerOnly: true },
       { to: "/lms/admin?tab=resources", label: "Resource Library", icon: LibraryIcon, managerOnly: true },
+    ],
+  },
+
+  people: {
+    id: "people",
+    label: "Limnn People",
+    tagline: "HRIS, Talent, Recognition & Workforce Intelligence",
+    accentVar: "var(--people, oklch(0.58 0.18 280))",
+    accentClass: "text-[color:oklch(0.58_0.18_280)]",
+    defaultRoute: "/people",
+    hubIcon: Users,
+    hubColor: "#6366F1",
+    nav: [
+      { to: "/people", label: "Dashboard", icon: LayoutDashboard },
+      { to: "/people/directory", label: "Directory", icon: Users },
+      { to: "/people/org-chart", label: "Org Chart", icon: Network },
+      { to: "/people/recruiting/requisitions", label: "Recruiting", icon: UserPlus },
+      { to: "/people/leave", label: "Leave", icon: CalendarOff },
+      { to: "/people/schedules", label: "Schedules", icon: Clock },
+      { to: "/people/payroll", label: "Payroll", icon: Wallet },
+    ],
+    tools: [
+      { to: "/people/performance", label: "Performance", icon: TrendingUp },
+      { to: "/people/onboarding", label: "Onboarding", icon: Rocket },
+      { to: "/people/engagement", label: "Engagement", icon: Heart },
+      { to: "/people/recognition", label: "Recognition", icon: Award },
+      { to: "/people/skills", label: "Skills", icon: Puzzle },
+      { to: "/people/mobility", label: "Mobility", icon: ArrowRightLeft },
+      { to: "/people/expenses", label: "Expenses", icon: Receipt },
+      { to: "/people/compliance", label: "Compliance", icon: ShieldIcon },
+      { to: "/people/reports", label: "Reports", icon: BarChart3 },
+      { to: "/people/recruiting/ats", label: "ATS Kanban", icon: UserPlus },
     ],
   },
 
