@@ -181,5 +181,11 @@ export function hubInsights(team: Team): HubInsight[] {
         { title: "Quiz outlier", body: "Module 'Discovery Calls' has a 41% first-attempt fail rate — likely a question quality issue.", confidence: 84, cta: "Review questions" },
         { title: "Top performer signal", body: "3 trainees ranked top 5% this week. Recommend fast-tracking to Growth Expert.", confidence: 81, cta: "View shortlist" },
       ];
+    case "people":
+      return [
+        { title: "Attrition risk cluster", body: "3 employees on the Engineering platform pod show >70% flight risk — combined 24 yrs tenure.", confidence: 87, cta: "Open at-risk list" },
+        { title: "Requisition SLA breach", body: "REQ-2026-0042 (Senior AE) is 41 days open — 13 days over target time-to-fill.", confidence: 91, cta: "Escalate" },
+        { title: "Overtime spike: Ops", body: "Ops overtime up 34% WoW. Likely driver: rota gap Tue–Thu night shift.", confidence: 82, cta: "Review shifts" },
+      ];
   }
 }

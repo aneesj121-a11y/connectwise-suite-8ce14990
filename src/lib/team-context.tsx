@@ -25,6 +25,7 @@ import {
   Presentation,
   Rocket,
   Star,
+  Clock,
   MessagesSquare,
   Timer,
   Route as RouteIcon,
