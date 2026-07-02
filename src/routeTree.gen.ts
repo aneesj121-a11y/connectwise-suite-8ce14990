@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as PlaybooksRouteImport } from './routes/playbooks'
+import { Route as PeopleRouteImport } from './routes/people'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as MarketingRouteImport } from './routes/marketing'
 import { Route as LmsRouteImport } from './routes/lms'
@@ -86,6 +87,11 @@ const SettingsRoute = SettingsRouteImport.update({
 const PlaybooksRoute = PlaybooksRouteImport.update({
   id: '/playbooks',
   path: '/playbooks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleRoute = PeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpportunitiesRoute = OpportunitiesRouteImport.update({
@@ -403,6 +409,7 @@ export interface FileRoutesByFullPath {
   '/lms': typeof LmsRouteWithChildren
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/people': typeof PeopleRoute
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
@@ -467,6 +474,7 @@ export interface FileRoutesByTo {
   '/leaderboard': typeof LeaderboardRoute
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/people': typeof PeopleRoute
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
@@ -533,6 +541,7 @@ export interface FileRoutesById {
   '/lms': typeof LmsRouteWithChildren
   '/marketing': typeof MarketingRouteWithChildren
   '/opportunities': typeof OpportunitiesRouteWithChildren
+  '/people': typeof PeopleRoute
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
   '/support': typeof SupportRouteWithChildren
@@ -600,6 +609,7 @@ export interface FileRouteTypes {
     | '/lms'
     | '/marketing'
     | '/opportunities'
+    | '/people'
     | '/playbooks'
     | '/settings'
     | '/support'
@@ -664,6 +674,7 @@ export interface FileRouteTypes {
     | '/leaderboard'
     | '/marketing'
     | '/opportunities'
+    | '/people'
     | '/playbooks'
     | '/settings'
     | '/support'
@@ -729,6 +740,7 @@ export interface FileRouteTypes {
     | '/lms'
     | '/marketing'
     | '/opportunities'
+    | '/people'
     | '/playbooks'
     | '/settings'
     | '/support'
@@ -795,6 +807,7 @@ export interface RootRouteChildren {
   LmsRoute: typeof LmsRouteWithChildren
   MarketingRoute: typeof MarketingRouteWithChildren
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
+  PeopleRoute: typeof PeopleRoute
   PlaybooksRoute: typeof PlaybooksRoute
   SettingsRoute: typeof SettingsRoute
   SupportRoute: typeof SupportRouteWithChildren
@@ -821,6 +834,13 @@ declare module '@tanstack/react-router' {
       path: '/playbooks'
       fullPath: '/playbooks'
       preLoaderRoute: typeof PlaybooksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people': {
+      id: '/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof PeopleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opportunities': {
@@ -1432,6 +1452,7 @@ const rootRouteChildren: RootRouteChildren = {
   LmsRoute: LmsRouteWithChildren,
   MarketingRoute: MarketingRouteWithChildren,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
+  PeopleRoute: PeopleRoute,
   PlaybooksRoute: PlaybooksRoute,
   SettingsRoute: SettingsRoute,
   SupportRoute: SupportRouteWithChildren,
