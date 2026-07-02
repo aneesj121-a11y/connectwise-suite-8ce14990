@@ -60,6 +60,13 @@ import {
   Mic2,
   ShieldAlert,
   BarChartHorizontal,
+  Network,
+  UserPlus,
+  CalendarOff,
+  Heart,
+  Puzzle,
+  ArrowRightLeft,
+  Shield as ShieldIcon,
 } from "lucide-react";
 
 
@@ -71,7 +78,8 @@ export type Team =
   | "chat"
   | "grid"
   | "billing"
-  | "lms";
+  | "lms"
+  | "people";
 
 export type Role = "agent" | "manager" | "admin" | "superadmin";
 export const ROLE_RANK: Record<Role, number> = { agent: 0, manager: 1, admin: 2, superadmin: 3 };
