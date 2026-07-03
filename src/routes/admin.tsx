@@ -1358,7 +1358,325 @@ function LearningSection() {
   );
 }
 
-function ToggleRow({ label, desc, on }: { label: string; desc?: string; on?: boolean }) {
+// ---------------------------------------------------------------------------
+// PEOPLE (HRIS)
+// ---------------------------------------------------------------------------
+function PeopleSection() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <SectionCard title="Module status" subtitle="Enable, version & rollout control">
+        <div className="space-y-3">
+          <ToggleRow label="Limnn People enabled" desc="Show the People hub in the global switcher" on />
+          <ToggleRow label="Auto-provision on hire" desc="Create employee record when ATS marks candidate Hired" on />
+          <ToggleRow label="Self-service portal" desc="Employees can update address, tax, banking" on />
+          <Field label="Active release channel" value="stable · v2026.06" />
+          <Field label="Fiscal year" value="Jul 1 – Jun 30 (Australia)" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Roles & access" subtitle="Who can see & do what in People">
+        {[
+          { p: "Employee", who: "All users · read own record", icon: Users },
+          { p: "Manager", who: "Read team records, approve leave & expenses", icon: KeyRound },
+          { p: "HR Business Partner", who: "Full HRIS access to assigned BUs", icon: Building2 },
+          { p: "Recruiter", who: "ATS + requisitions only", icon: Users },
+          { p: "Payroll Admin", who: "Payroll runs, tax, banking (sensitive)", icon: CreditCard },
+          { p: "People Owner", who: "Super Admin — schema, integrations, policy", icon: Crown },
+        ].map((r) => (
+          <div key={r.p} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+            <div className="flex items-center gap-2 text-[13px]"><r.icon className="h-3.5 w-3.5 text-muted-foreground"/>{r.p}</div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-muted-foreground">{r.who}</span>
+              <button className="text-[11px] text-primary">Configure</button>
+            </div>
+          </div>
+        ))}
+      </SectionCard>
+
+      <SectionCard title="Employee object & fields" subtitle="Customize the profile schema" className="lg:col-span-2"
+        action={<button className="text-[11px] text-primary font-medium inline-flex items-center gap-1"><Plus className="h-3 w-3"/>Add field</button>}>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-[10.5px] uppercase tracking-wide text-muted-foreground border-b border-border">
+              <th className="text-left py-2 font-medium">Field</th>
+              <th className="text-left font-medium">Type</th>
+              <th className="text-left font-medium">PII</th>
+              <th className="text-left font-medium">Required</th>
+              <th className="text-left font-medium">Visible to</th>
+              <th className="text-left font-medium"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { f: "Legal name", t: "Text", pii: true, req: true, v: "HR, Payroll" },
+              { f: "Preferred name", t: "Text", pii: false, req: false, v: "Everyone" },
+              { f: "Employee ID", t: "System", pii: false, req: true, v: "Everyone" },
+              { f: "Job title", t: "Text", pii: false, req: true, v: "Everyone" },
+              { f: "Department", t: "Picklist", pii: false, req: true, v: "Everyone" },
+              { f: "Manager", t: "Reference · Employee", pii: false, req: true, v: "Everyone" },
+              { f: "Location", t: "Picklist", pii: false, req: true, v: "Everyone" },
+              { f: "Work email", t: "Email", pii: false, req: true, v: "Everyone" },
+              { f: "Personal phone", t: "Phone", pii: true, req: false, v: "HR only" },
+              { f: "Home address", t: "Address", pii: true, req: true, v: "HR, Payroll" },
+              { f: "Date of birth", t: "Date", pii: true, req: true, v: "HR only" },
+              { f: "Tax ID / TFN", t: "Encrypted", pii: true, req: true, v: "Payroll only" },
+              { f: "Bank account", t: "Encrypted", pii: true, req: true, v: "Payroll only" },
+              { f: "Emergency contact", t: "Group", pii: true, req: true, v: "HR only" },
+              { f: "Compensation", t: "Currency", pii: true, req: true, v: "HR, Manager" },
+              { f: "Custom · T-shirt size", t: "Picklist", pii: false, req: false, v: "HR, Ops" },
+            ].map((r) => (
+              <tr key={r.f} className="border-b border-border/60 last:border-0 text-[12.5px]">
+                <td className="py-2">{r.f}</td>
+                <td className="text-muted-foreground">{r.t}</td>
+                <td>{r.pii && <StatusPill level="yellow">PII</StatusPill>}</td>
+                <td>{r.req && <span className="text-[10px] text-primary font-mono">REQ</span>}</td>
+                <td className="text-muted-foreground text-[11.5px]">{r.v}</td>
+                <td><button className="text-[11px] text-primary inline-flex items-center gap-1"><Edit3 className="h-2.5 w-2.5"/>Edit</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </SectionCard>
+
+      <SectionCard title="Departments & business units" subtitle="Org taxonomy for chart & reporting"
+        action={<button className="text-[11px] text-primary font-medium inline-flex items-center gap-1"><Plus className="h-3 w-3"/>Add dept</button>}>
+        <div className="space-y-2">
+          {[
+            { d: "Engineering", h: 82, lead: "Sarah Khan", color: "#6366F1" },
+            { d: "Sales", h: 64, lead: "Tomoko Ishida", color: "#2C69CF" },
+            { d: "Marketing", h: 38, lead: "Kenji Watanabe", color: "#EC4899" },
+            { d: "Operations", h: 28, lead: "Michael Okonjo", color: "#F59E0B" },
+            { d: "Finance", h: 20, lead: "Fatima Al-Rashid", color: "#10B981" },
+            { d: "HR", h: 15, lead: "Amara Diallo", color: "#EF4444" },
+          ].map((d) => (
+            <div key={d.d} className="flex items-center gap-3 py-2 border-b border-border/60 last:border-0">
+              <span className="h-6 w-1 rounded-full shrink-0" style={{ background: d.color }} />
+              <div className="flex-1 min-w-0">
+                <div className="text-[13px] font-medium">{d.d}</div>
+                <div className="text-[10.5px] text-muted-foreground">Lead: {d.lead} · {d.h} headcount</div>
+              </div>
+              <button className="text-[11px] text-primary">Edit</button>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Locations & entities" subtitle="Legal entities, offices & remote regions">
+        <div className="space-y-2">
+          {[
+            { l: "Sydney (HQ)", e: "Limnn Pty Ltd", tz: "AEST", h: 118 },
+            { l: "Singapore", e: "Limnn APAC Pte", tz: "SGT", h: 46 },
+            { l: "London", e: "Limnn UK Ltd", tz: "BST", h: 51 },
+            { l: "Remote — global", e: "Deel EOR", tz: "Various", h: 32 },
+          ].map((l) => (
+            <div key={l.l} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+              <div>
+                <div className="text-[13px]">{l.l}</div>
+                <div className="text-[10.5px] text-muted-foreground">{l.e} · {l.tz} · {l.h} people</div>
+              </div>
+              <StatusPill level="green">Active</StatusPill>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Recruiting & ATS" subtitle="Pipeline stages, sources & AI">
+        <div className="space-y-3">
+          <Field label="Default pipeline stages" value="Applied · Screen · Interview · Offer · Hired" />
+          <Field label="Auto-reject after (days)" value="45 days silent" />
+          <ToggleRow label="AI resume matching" desc="Score candidates vs JD on ingest" on />
+          <ToggleRow label="AI JD drafter" desc="Generate first-draft job descriptions" on />
+          <ToggleRow label="Structured interview kits" desc="Require rubric-scored feedback per round" on />
+          <ToggleRow label="Referral bonuses" desc="Track & pay via payroll" on />
+          <Field label="Careers page" value="careers.limnn.com" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Leave & time off" subtitle="Balances, accrual & policy">
+        <div className="space-y-2">
+          {[
+            { t: "Annual leave", bal: "20 days/yr · accrue monthly", carry: "5 days" },
+            { t: "Sick leave", bal: "10 days/yr · reset annually", carry: "0" },
+            { t: "Parental", bal: "18 wks paid · gender-neutral", carry: "n/a" },
+            { t: "WFH", bal: "Unlimited · manager approval", carry: "n/a" },
+            { t: "Compassionate", bal: "5 days/event", carry: "n/a" },
+          ].map((p) => (
+            <div key={p.t} className="py-2 border-b border-border/60 last:border-0 flex items-center justify-between">
+              <div>
+                <div className="text-[13px]">{p.t}</div>
+                <div className="text-[10.5px] text-muted-foreground">{p.bal} · carry-over: {p.carry}</div>
+              </div>
+              <button className="text-[11px] text-primary">Policy</button>
+            </div>
+          ))}
+          <ToggleRow label="Auto-approve WFH ≤ 2 days" desc="Skip manager approval for short WFH" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Schedules & shifts" subtitle="Working hours, rota & overtime">
+        <div className="space-y-3">
+          <Field label="Default working hours" value="Mon–Fri · 09:00–17:30 · local TZ" />
+          <Field label="Overtime threshold" value=">40 hrs/wk · 1.5x · >48 hrs/wk 2x" />
+          <ToggleRow label="Shift swap self-service" desc="Employees can propose swaps for manager approval" on />
+          <ToggleRow label="Geofence clock-in" desc="Require on-site GPS for hourly workers" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Payroll" subtitle="Providers, cycle & bands">
+        <div className="space-y-3">
+          <Field label="Pay cycle" value="Monthly · 25th of month" />
+          <Field label="Providers" value="ADP (AU, UK) · Deel EOR (global)" />
+          <Field label="Currency default" value="AUD · auto-convert on payslip" />
+          <ToggleRow label="Show payslips in portal" desc="Employees download PDF from People self-serve" on />
+          <ToggleRow label="Comp band enforcement" desc="Warn if offer outside band ±10%" on />
+          <ToggleRow label="Pay transparency" desc="Show band midpoint on internal req" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Performance & goals" subtitle="Reviews, cadence & calibration">
+        <div className="space-y-3">
+          <Field label="Review cadence" value="Bi-annual · Jan & Jul" />
+          <Field label="Rating scale" value="1–5 · anchored rubric" />
+          <ToggleRow label="360° feedback" desc="Peer + upward + manager" on />
+          <ToggleRow label="AI review copilot" desc="Draft manager reviews from artifacts (final call human)" on />
+          <ToggleRow label="Calibration required" desc="Force distribution before ratings finalize" on />
+          <ToggleRow label="Publish goals to team" desc="OKRs visible across the team by default" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Onboarding & offboarding" subtitle="Journeys, checklists & IT provisioning">
+        <div className="space-y-3">
+          <Field label="Default onboarding journey" value="30 · 60 · 90 day plan · 14 checklist items" />
+          <ToggleRow label="Auto-provision IT" desc="Trigger Okta, Google, Slack, GitHub on Day 0" on />
+          <ToggleRow label="Buddy assignment" desc="Auto-pair with a peer in same team" on />
+          <ToggleRow label="Exit interview mandatory" desc="Block final pay until completed" on />
+          <ToggleRow label="Auto-revoke on last day" desc="Deprovision all systems at 18:00 local" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Engagement & recognition" subtitle="Surveys, eNPS, rewards">
+        <div className="space-y-3">
+          <ToggleRow label="Pulse surveys" desc="Every 2 weeks · 3 questions · anonymous" on />
+          <Field label="Recognition budget" value="$50/employee/month · rolls quarterly" />
+          <ToggleRow label="Peer bonuses" desc="Employees can send $5–$25 spot bonuses" on />
+          <ToggleRow label="Public recognition wall" desc="Show badges org-wide" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Skills & mobility" subtitle="Taxonomy, matrix & internal marketplace">
+        <div className="space-y-3">
+          <Field label="Skill taxonomy" value="Lightcast · 32k skills · auto-tagged" />
+          <ToggleRow label="AI skill inference" desc="Suggest skills from role, projects, learning" on />
+          <ToggleRow label="Internal mobility board" desc="List open roles to internal employees first" on />
+          <Field label="Internal-first window" value="7 days" />
+          <ToggleRow label="Career pathing visible to all" desc="Show ladders & required skills" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Expenses & reimbursements" subtitle="Categories, limits & anomaly detection">
+        <div className="space-y-3">
+          <Field label="Meal limit" value="$60/head · $200/team dinner" />
+          <Field label="Travel policy" value="Economy <6h · Business ≥6h · Book via Navan" />
+          <ToggleRow label="Receipt required" desc="Attach for anything > $25" on />
+          <ToggleRow label="AI anomaly detection" desc="Flag duplicates, out-of-policy, unusual spend" on />
+          <ToggleRow label="Auto-approve under $50" desc="Skip manager, still audited" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="DEI & compensation equity" subtitle="Representation, pay gap & bias controls">
+        <div className="space-y-3">
+          <ToggleRow label="Self-ID demographics" desc="Voluntary · anonymized in reports" on />
+          <ToggleRow label="Pay-gap monitoring" desc="Compute gender & ethnicity gaps quarterly" on />
+          <ToggleRow label="Blind resume review" desc="Hide name, photo, school for first pass" on />
+          <ToggleRow label="Diverse slate rule" desc="Require ≥2 underrepresented candidates in final round" on />
+          <Field label="Reporting cohorts" value="Gender · Ethnicity · Age · Disability · Veteran" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Compliance frameworks" subtitle="Regulatory tracking for People data">
+        <div className="space-y-2">
+          {["GDPR (EU)", "CCPA (CA)", "Fair Work Act (AU)", "Equal Employment Opportunity", "SOX (payroll controls)", "ISO 27001"].map((f) => (
+            <div key={f} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+              <div className="text-[13px]">{f}</div>
+              <div className="flex items-center gap-2">
+                <StatusPill level="green">Tracked</StatusPill>
+                <button className="text-[11px] text-primary">Mapping</button>
+              </div>
+            </div>
+          ))}
+          <ToggleRow label="Right-to-be-forgotten workflow" desc="Redact departed employees after retention window" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Notifications & cadence" subtitle="How People pings employees & managers">
+        <div className="space-y-3">
+          <ToggleRow label="Birthday & work-anniversary" desc="Post to team channel on the day" on />
+          <ToggleRow label="Leave request pings" desc="Manager notified within 5 min" on />
+          <ToggleRow label="Weekly people digest" desc="HR summary every Monday" on />
+          <Field label="Quiet hours" value="20:00 – 07:00 (employee local)" />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="People AI" subtitle="Copilot grounded on your HRIS, ATS & payroll">
+        <div className="space-y-3">
+          <ToggleRow label="People AI enabled" desc="Floating copilot across all People pages" on />
+          <ToggleRow label="Attrition forecasting" desc="Weekly flight-risk model refresh" on />
+          <ToggleRow label="Workforce planning" desc="Scenario cards with cost impact" on />
+          <Field label="Grounded sources" value="HRIS · ATS · Payroll · Engagement · Learning" />
+          <ToggleRow label="Block PII in prompts" desc="Redact salary, DOB, tax IDs before LLM call" on />
+          <ToggleRow label="Human-in-the-loop for decisions" desc="AI can suggest, only humans approve hire/fire/promo" on />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Integrations" subtitle="Systems People syncs with">
+        <div className="space-y-2">
+          {[
+            { n: "Okta SCIM", s: "Identity provisioning", on: true },
+            { n: "Google Workspace", s: "Email + calendar sync", on: true },
+            { n: "Slack", s: "Notifications & recognition wall", on: true },
+            { n: "ADP", s: "Payroll (AU, UK)", on: true },
+            { n: "Deel EOR", s: "Global contractors", on: true },
+            { n: "Greenhouse", s: "ATS mirror", on: false },
+            { n: "Culture Amp", s: "Engagement surveys", on: true },
+            { n: "Navan", s: "Travel & expense", on: true },
+          ].map((i) => (
+            <div key={i.n} className="flex items-center justify-between py-2 border-b border-border/60 last:border-0">
+              <div>
+                <div className="text-[13px]">{i.n}</div>
+                <div className="text-[10.5px] text-muted-foreground">{i.s}</div>
+              </div>
+              <StatusPill level={i.on ? "green" : "neutral"}>{i.on ? "Connected" : "Off"}</StatusPill>
+            </div>
+          ))}
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Data, retention & export" subtitle="Where People records live">
+        <div className="space-y-3">
+          <Field label="HRIS retention" value="7 years post-departure (statutory)" />
+          <Field label="Payroll retention" value="10 years (tax)" />
+          <Field label="ATS candidate retention" value="2 years unless consent renewed" />
+          <Field label="Data residency" value="AU (Sydney) primary · EU (Frankfurt) mirror" />
+          <div className="flex gap-2 pt-1">
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium border border-border inline-flex items-center gap-1.5"><Download className="h-3.5 w-3.5"/>Export HRIS</button>
+            <button className="h-8 px-2.5 rounded-md text-xs font-medium border border-border inline-flex items-center gap-1.5"><Upload className="h-3.5 w-3.5"/>Import employees</button>
+          </div>
+        </div>
+      </SectionCard>
+
+      <SectionCard title="People telemetry" subtitle="Live usage of Limnn People" className="lg:col-span-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <KpiCard icon={Users} label="Active employees" value="247" delta={3.1} />
+          <KpiCard icon={Activity} label="Open requisitions" value="18" delta={12} />
+          <KpiCard icon={ClipboardCheck} label="Leave requests (30d)" value="94" delta={-4} />
+          <KpiCard icon={BarChart3} label="Attrition (12mo)" value="8.2%" delta={-1.4} />
+        </div>
+      </SectionCard>
+    </div>
+  );
+}
+
+
   const [v, setV] = useState(!!on);
   return (
     <div className="flex items-start justify-between gap-3 py-1.5">
