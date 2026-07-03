@@ -44,6 +44,7 @@ const SECTIONS: SectionDef[] = [
   { id: "comms", label: "Notifications & Channels", icon: Bell, minRole: "manager", group: "Build", blurb: "Email, SMS, push, Slack & in-app routing" },
   { id: "ai", label: "Limnn AI & Copilots", icon: Brain, minRole: "admin", group: "Intelligence", blurb: "Models, prompts, agents & guardrails" },
   { id: "learning", label: "Limnn Learning", icon: GraduationCap, minRole: "admin", group: "Intelligence", blurb: "Tracks, certifications, evaluators, compliance & AI roleplay" },
+  { id: "people", label: "Limnn People", icon: Building2, minRole: "admin", group: "Intelligence", blurb: "HRIS objects, ATS, leave, payroll, performance, DEI & People AI" },
   { id: "integrations", label: "Integrations & API", icon: Plug, minRole: "admin", group: "Operate", blurb: "Connected apps, webhooks & marketplace" },
   { id: "data", label: "Data & Storage", icon: Server, minRole: "admin", group: "Operate", blurb: "Imports, exports, retention & residency" },
   { id: "billing", label: "Billing & Licenses", icon: CreditCard, minRole: "superadmin", group: "Operate", blurb: "Seats, plan, invoices & usage caps" },
