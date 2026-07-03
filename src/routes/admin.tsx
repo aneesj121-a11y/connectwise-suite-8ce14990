@@ -21,7 +21,7 @@ export const Route = createFileRoute("/admin")({ component: AdminCenter });
 type SectionId =
   | "overview" | "users" | "roles" | "objects" | "modules" | "workflows" | "ai"
   | "integrations" | "branding" | "comms" | "billing" | "data" | "security" | "audit" | "developer"
-  | "learning";
+  | "learning" | "people";
 
 type SectionDef = {
   id: SectionId;
