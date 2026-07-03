@@ -225,6 +225,7 @@ function SectionRouter({ id }: { id: SectionId }) {
     case "comms": return <CommsSection />;
     case "ai": return <AiSection />;
     case "learning": return <LearningSection />;
+    case "people": return <PeopleSection />;
     case "integrations": return <IntegrationsSection />;
     case "data": return <DataSection />;
     case "billing": return <BillingSection />;
