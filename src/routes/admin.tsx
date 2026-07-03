@@ -1676,7 +1676,7 @@ function PeopleSection() {
   );
 }
 
-
+function ToggleRow({ label, desc, on }: { label: string; desc?: string; on?: boolean }) {
   const [v, setV] = useState(!!on);
   return (
     <div className="flex items-start justify-between gap-3 py-1.5">
