@@ -35,6 +35,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   const visibleNav = t.nav.filter((n) => !n.managerOnly || role === "manager");
   const visibleTools = t.tools.filter((n) => !n.managerOnly || role === "manager");
 
+  // Public marketing site bypasses the app shell entirely.
+  if (pathname === "/site" || pathname.startsWith("/site/")) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="min-h-screen flex w-full bg-background">
       {/* Sidebar */}
