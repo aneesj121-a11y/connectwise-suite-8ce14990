@@ -6,7 +6,7 @@ import { SITE_MODULES } from "@/lib/site-modules";
 import { ModuleDemo, DemoWindow } from "@/components/site/module-demos";
 import limnnLogo from "@/assets/limnn-logo.png";
 
-export const Route = createFileRoute("/site")({
+export const Route = createFileRoute("/site/")({
   head: () => ({
     meta: [
       { title: "Limnn — Take control. One platform. Less software spend." },
