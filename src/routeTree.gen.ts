@@ -27,6 +27,7 @@ import { Route as CallRouteImport } from './routes/call'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SiteIndexRouteImport } from './routes/site.index'
 import { Route as PeopleIndexRouteImport } from './routes/people.index'
 import { Route as LmsIndexRouteImport } from './routes/lms.index'
 import { Route as SupportPortalRouteImport } from './routes/support.portal'
@@ -183,6 +184,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRoute,
 } as any)
 const PeopleIndexRoute = PeopleIndexRouteImport.update({
   id: '/',
@@ -597,6 +603,7 @@ export interface FileRoutesByFullPath {
   '/support/portal': typeof SupportPortalRoute
   '/lms/': typeof LmsIndexRoute
   '/people/': typeof PeopleIndexRoute
+  '/site/': typeof SiteIndexRoute
   '/lms/module/$id': typeof LmsModuleIdRoute
   '/people/directory/$id': typeof PeopleDirectoryIdRoute
   '/people/recruiting/ats': typeof PeopleRecruitingAtsRoute
@@ -617,7 +624,6 @@ export interface FileRoutesByTo {
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
-  '/site': typeof SiteRouteWithChildren
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -681,6 +687,7 @@ export interface FileRoutesByTo {
   '/support/portal': typeof SupportPortalRoute
   '/lms': typeof LmsIndexRoute
   '/people': typeof PeopleIndexRoute
+  '/site': typeof SiteIndexRoute
   '/lms/module/$id': typeof LmsModuleIdRoute
   '/people/directory/$id': typeof PeopleDirectoryIdRoute
   '/people/recruiting/ats': typeof PeopleRecruitingAtsRoute
@@ -768,6 +775,7 @@ export interface FileRoutesById {
   '/support/portal': typeof SupportPortalRoute
   '/lms/': typeof LmsIndexRoute
   '/people/': typeof PeopleIndexRoute
+  '/site/': typeof SiteIndexRoute
   '/lms/module/$id': typeof LmsModuleIdRoute
   '/people/directory/$id': typeof PeopleDirectoryIdRoute
   '/people/recruiting/ats': typeof PeopleRecruitingAtsRoute
@@ -856,6 +864,7 @@ export interface FileRouteTypes {
     | '/support/portal'
     | '/lms/'
     | '/people/'
+    | '/site/'
     | '/lms/module/$id'
     | '/people/directory/$id'
     | '/people/recruiting/ats'
@@ -876,7 +885,6 @@ export interface FileRouteTypes {
     | '/opportunities'
     | '/playbooks'
     | '/settings'
-    | '/site'
     | '/support'
     | '/billing/arap'
     | '/billing/collections'
@@ -940,6 +948,7 @@ export interface FileRouteTypes {
     | '/support/portal'
     | '/lms'
     | '/people'
+    | '/site'
     | '/lms/module/$id'
     | '/people/directory/$id'
     | '/people/recruiting/ats'
@@ -1026,6 +1035,7 @@ export interface FileRouteTypes {
     | '/support/portal'
     | '/lms/'
     | '/people/'
+    | '/site/'
     | '/lms/module/$id'
     | '/people/directory/$id'
     | '/people/recruiting/ats'
@@ -1180,6 +1190,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/site/': {
+      id: '/site/'
+      path: '/'
+      fullPath: '/site/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/people/': {
       id: '/people/'
@@ -1862,10 +1879,12 @@ const PeopleRouteWithChildren =
 
 interface SiteRouteChildren {
   SiteModuleIdRoute: typeof SiteModuleIdRoute
+  SiteIndexRoute: typeof SiteIndexRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteModuleIdRoute: SiteModuleIdRoute,
+  SiteIndexRoute: SiteIndexRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
