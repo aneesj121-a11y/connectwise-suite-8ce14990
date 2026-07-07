@@ -783,7 +783,7 @@ function PeopleDemo({ color }: { color: string }) {
    Registry
    ============================================================ */
 export function ModuleDemo({ id, color }: { id: string; color: string }) {
-  const map: Record<string, JSX.Element> = {
+  const map: Record<string, React.ReactElement> = {
     threads: <ThreadsDemo color={color}/>,
     intelligence: <IntelligenceDemo color={color}/>,
     dialer: <DialerDemo color={color}/>,
