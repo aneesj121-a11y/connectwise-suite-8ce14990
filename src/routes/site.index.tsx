@@ -46,16 +46,27 @@ function SitePage() {
   return (
     <div data-site style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden">
       <style>{`
-        [data-site], [data-site] * { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; }
-        [data-site] .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; font-optical-sizing: auto; letter-spacing:-0.02em; }
-        [data-site] .font-mono, [data-site] .font-mono * { font-family: "JetBrains Mono Variable","JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; }
-        [data-site] .font-sans, [data-site] .font-sans * { font-family: "Inter Variable","Inter", ui-sans-serif, system-ui, sans-serif !important; }
-        [data-site] body, [data-site] { font-family: "Inter Variable","Inter",ui-sans-serif,system-ui,sans-serif !important; }
-        [data-site] h1, [data-site] h2, [data-site] h3, [data-site] h4 { font-family: "Fraunces",ui-serif,Georgia,serif !important; }
+        [data-site], [data-site] * { font-family: "Poppins", ui-sans-serif, system-ui, sans-serif !important; letter-spacing:-0.01em; }
+        [data-site] .font-display { font-family: "Poppins", ui-sans-serif, system-ui, sans-serif !important; font-weight: 800; letter-spacing:-0.035em; }
+        [data-site] h1.font-display, [data-site] h2.font-display { font-weight: 900; letter-spacing:-0.045em; }
+        [data-site] .font-mono, [data-site] .font-mono * { font-family: "JetBrains Mono Variable","JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; letter-spacing:0; }
+        [data-site] .grad-text {
+          background: ${GRAD};
+          -webkit-background-clip: text; background-clip: text;
+          -webkit-text-fill-color: transparent; color: transparent;
+        }
+        [data-site] .pzaz-btn {
+          background: ${GRAD}; color: white; font-weight:600;
+          box-shadow: 0 12px 30px -8px ${ACCENT}80, 0 4px 10px -2px ${ACCENT2}55;
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+        [data-site] .pzaz-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 20px 40px -10px ${ACCENT}aa, 0 8px 20px -4px ${ACCENT2}77; }
         [data-site] .grain::before {
           content:""; position:absolute; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply;
           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
         }
+        @keyframes blobFloat { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(20px,-30px) scale(1.08)} }
+        [data-site] .blob { animation: blobFloat 12s ease-in-out infinite; }
       `}</style>
       <Nav />
       <Hero />
