@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { ArrowUpRight, ArrowRight, Check, Minus, X, Sparkles } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Check, Minus, X, Sparkles, PlayCircle } from "lucide-react";
 import { SITE_MODULES } from "@/lib/site-modules";
 import { ModuleDemo, DemoWindow } from "@/components/site/module-demos";
+import limnnLogo from "@/assets/limnn-logo.png";
 
 export const Route = createFileRoute("/site")({
   head: () => ({
@@ -80,22 +81,16 @@ function Nav() {
           <a href="#savings" className="hover:opacity-60 transition">Savings</a>
           <a href="#compare" className="hover:opacity-60 transition">Compare</a>
         </nav>
-        <Link to="/" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1" style={{ background: INK }}>
-          Open the app <ArrowUpRight className="w-3.5 h-3.5" />
-        </Link>
+        <a href="#modules" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1.5" style={{ background: INK }}>
+          <PlayCircle className="w-3.5 h-3.5"/> Try live demos
+        </a>
       </div>
     </header>
   );
 }
 
 function LimnnMark() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 40 40">
-      <circle cx="20" cy="20" r="18" fill={INK}/>
-      <path d="M12 14 L12 26 L28 26" stroke={CREAM} strokeWidth="2.4" fill="none" strokeLinecap="round"/>
-      <circle cx="28" cy="14" r="3" fill={ACCENT}/>
-    </svg>
-  );
+  return <img src={limnnLogo} alt="Limnn" className="h-7 w-auto" />;
 }
 
 /* ---------------- HERO — custom SVG constellation ---------------- */
@@ -156,10 +151,10 @@ function Hero() {
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to="/" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
-                Open the platform
+              <a href="#modules" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
+                <PlayCircle className="w-4 h-4"/> Try a live demo
                 <ArrowRight className="w-4 h-4 transition group-hover:translate-x-0.5"/>
-              </Link>
+              </a>
               <a href="#modules" className="text-sm underline underline-offset-4 decoration-1">See the 12 modules ↓</a>
             </div>
 
@@ -497,10 +492,10 @@ function CtaSection() {
             <br/>
             <span className="italic opacity-70">One decision.</span>
           </h2>
-          <p className="mt-8 max-w-lg opacity-70">Open the platform and see what the last twelve invoices had in common.</p>
-          <Link to="/" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
-            Take control <ArrowRight className="w-4 h-4"/>
-          </Link>
+          <p className="mt-8 max-w-lg opacity-70">Every module ships with a live in-browser demo. Click any of the 12 above to try it — no signup.</p>
+          <a href="#modules" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
+            <PlayCircle className="w-4 h-4"/> Explore live demos <ArrowRight className="w-4 h-4"/>
+          </a>
         </div>
       </div>
     </section>

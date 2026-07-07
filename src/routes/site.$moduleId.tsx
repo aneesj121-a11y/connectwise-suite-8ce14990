@@ -138,7 +138,7 @@ function Hero({ mod }: { mod: SiteModule }) {
 
 function DemoSection({ mod }: { mod: SiteModule }) {
   return (
-    <section className="max-w-[1400px] mx-auto px-6 pb-24">
+    <section id="demo" className="max-w-[1400px] mx-auto px-6 pb-24 scroll-mt-20">
       <div className="flex items-end justify-between mb-6">
         <div>
           <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-2">§ Live demo</div>
@@ -215,9 +215,9 @@ function Replaces({ mod }: { mod: SiteModule }) {
             <br/><span className="italic" style={{color:mod.color}}>Keep the outcome.</span>
           </h2>
           <p className="mt-6 opacity-70 max-w-md">{mod.name} is included in your Limnn seat. There's no add-on, no premium tier for the AI, no consultant to install.</p>
-          <Link to="/" className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm" style={{background:mod.color}}>
-            Try it in the app <ArrowUpRight className="w-4 h-4"/>
-          </Link>
+          <a href="#demo" className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm" style={{background:mod.color}}>
+            See it live in the demo <ArrowUpRight className="w-4 h-4"/>
+          </a>
         </div>
         <div className="flex flex-wrap gap-3">
           {mod.replaces.map((r,i)=>(
