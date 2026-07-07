@@ -21,7 +21,11 @@ export const Route = createFileRoute("/site/")({
 
 const INK = "#0F1420";
 const CREAM = "#F6F1E6";
-const ACCENT = "#E85D3A";
+const ACCENT = "#FF4D6D";       // hot pink-red
+const ACCENT2 = "#7C3AED";      // vivid purple
+const ACCENT3 = "#22D3EE";      // cyan
+const ACCENT4 = "#FBBF24";      // amber
+const GRAD = `linear-gradient(90deg, ${ACCENT} 0%, ${ACCENT2} 55%, ${ACCENT3} 100%)`;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /* ---------------- shared ---------------- */
@@ -42,16 +46,27 @@ function SitePage() {
   return (
     <div data-site style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden">
       <style>{`
-        [data-site], [data-site] * { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; }
-        [data-site] .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; font-optical-sizing: auto; letter-spacing:-0.02em; }
-        [data-site] .font-mono, [data-site] .font-mono * { font-family: "JetBrains Mono Variable","JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; }
-        [data-site] .font-sans, [data-site] .font-sans * { font-family: "Inter Variable","Inter", ui-sans-serif, system-ui, sans-serif !important; }
-        [data-site] body, [data-site] { font-family: "Inter Variable","Inter",ui-sans-serif,system-ui,sans-serif !important; }
-        [data-site] h1, [data-site] h2, [data-site] h3, [data-site] h4 { font-family: "Fraunces",ui-serif,Georgia,serif !important; }
+        [data-site], [data-site] * { font-family: "Poppins", ui-sans-serif, system-ui, sans-serif !important; letter-spacing:-0.01em; }
+        [data-site] .font-display { font-family: "Poppins", ui-sans-serif, system-ui, sans-serif !important; font-weight: 800; letter-spacing:-0.035em; }
+        [data-site] h1.font-display, [data-site] h2.font-display { font-weight: 900; letter-spacing:-0.045em; }
+        [data-site] .font-mono, [data-site] .font-mono * { font-family: "JetBrains Mono Variable","JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; letter-spacing:0; }
+        [data-site] .grad-text {
+          background: ${GRAD};
+          -webkit-background-clip: text; background-clip: text;
+          -webkit-text-fill-color: transparent; color: transparent;
+        }
+        [data-site] .pzaz-btn {
+          background: ${GRAD}; color: white; font-weight:600;
+          box-shadow: 0 12px 30px -8px ${ACCENT}80, 0 4px 10px -2px ${ACCENT2}55;
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+        [data-site] .pzaz-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 20px 40px -10px ${ACCENT}aa, 0 8px 20px -4px ${ACCENT2}77; }
         [data-site] .grain::before {
           content:""; position:absolute; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply;
           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
         }
+        @keyframes blobFloat { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(20px,-30px) scale(1.08)} }
+        [data-site] .blob { animation: blobFloat 12s ease-in-out infinite; }
       `}</style>
       <Nav />
       <Hero />
@@ -80,7 +95,7 @@ function Nav() {
           <a href="#savings" className="hover:opacity-60 transition">Savings</a>
           <a href="#compare" className="hover:opacity-60 transition">Compare</a>
         </nav>
-        <a href="#modules" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1.5" style={{ background: INK }}>
+        <a href="#modules" className="pzaz-btn text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5">
           <PlayCircle className="w-3.5 h-3.5"/> Try live demos
         </a>
       </div>
@@ -120,6 +135,12 @@ function Hero() {
           {Array.from({length:9}).map((_,i)=><line key={"h"+i} x1={0} x2={1400} y1={i*100} y2={i*100} stroke={INK} strokeWidth="0.5"/>)}
         </svg>
       </div>
+      {/* Colorful floating blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="blob absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full opacity-40" style={{background:`radial-gradient(circle, ${ACCENT}, transparent 65%)`, filter:"blur(40px)"}}/>
+        <div className="blob absolute top-20 right-10 w-[380px] h-[380px] rounded-full opacity-40" style={{background:`radial-gradient(circle, ${ACCENT2}, transparent 65%)`, filter:"blur(50px)", animationDelay:"-4s"}}/>
+        <div className="blob absolute bottom-0 left-1/3 w-[340px] h-[340px] rounded-full opacity-35" style={{background:`radial-gradient(circle, ${ACCENT3}, transparent 65%)`, filter:"blur(60px)", animationDelay:"-8s"}}/>
+      </div>
 
       <div className="max-w-[1400px] mx-auto px-6 pt-16 pb-28 relative">
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 items-center min-h-[720px]">
@@ -129,32 +150,32 @@ function Hero() {
               <span className="w-1.5 h-1.5 rounded-full" style={{background:ACCENT}}/> One platform · Twelve modules · Zero seat-tax sprawl
             </div>
 
-            <h1 className="mt-6 font-display text-[64px] md:text-[92px] leading-[0.95]">
+            <h1 className="mt-6 font-display text-[64px] md:text-[96px] leading-[0.92]">
               Take{" "}
-              <span className="relative inline-block">
+              <span className="relative inline-block grad-text">
                 control
-                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 20" preserveAspectRatio="none">
+                <svg className="absolute -bottom-3 left-0 w-full" viewBox="0 0 300 20" preserveAspectRatio="none">
                   <motion.path
                     d="M2 12 C 80 4, 180 20, 298 8"
-                    stroke={ACCENT} strokeWidth="4" fill="none" strokeLinecap="round"
+                    stroke={ACCENT} strokeWidth="5" fill="none" strokeLinecap="round"
                     initial={{pathLength:0}} whileInView={{pathLength:1}} viewport={{once:true}} transition={{duration:1.4, delay:0.4, ease:EASE}}
                   />
                 </svg>
               </span>.
               <br/>
-              <span className="italic font-light" style={{color:`${INK}80`}}>Cut the software bill.</span>
+              <span className="grad-text">Cut the software bill.</span>
             </h1>
 
-            <p className="mt-8 text-lg max-w-[520px]" style={{color:`${INK}99`}}>
+            <p className="mt-8 text-lg max-w-[520px] font-medium" style={{color:`${INK}B0`}}>
               One AI-native operating system replaces Salesforce, Slack, Zendesk, Workday, Zuora, Jira and nine other line items — with one graph, one ledger, one login.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href="#modules" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
+              <a href="#modules" className="pzaz-btn group inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm">
                 <PlayCircle className="w-4 h-4"/> Try a live demo
-                <ArrowRight className="w-4 h-4 transition group-hover:translate-x-0.5"/>
+                <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1"/>
               </a>
-              <a href="#modules" className="text-sm underline underline-offset-4 decoration-1">See the 12 modules ↓</a>
+              <a href="#modules" className="text-sm font-semibold underline underline-offset-4 decoration-2" style={{textDecorationColor:ACCENT}}>See the 12 modules ↓</a>
             </div>
 
             <div className="mt-14 grid grid-cols-3 gap-6 max-w-[520px]">
@@ -164,7 +185,7 @@ function Hero() {
                 {k:"1", l:"Login, one ledger"},
               ].map(s=>(
                 <div key={s.l}>
-                  <div className="font-display text-4xl" style={{color:ACCENT}}>{s.k}</div>
+                  <div className="font-display text-5xl grad-text">{s.k}</div>
                   <div className="text-xs mt-1" style={{color:`${INK}80`}}>{s.l}</div>
                 </div>
               ))}
@@ -276,7 +297,7 @@ function TickerBar() {
         <motion.div className="flex gap-10 whitespace-nowrap"
           animate={{x:[0,-2000]}} transition={{duration:60, repeat:Infinity, ease:"linear"}}>
           {items.map((n,i)=>(
-            <span key={i} className="font-display text-3xl italic opacity-40 hover:opacity-100 transition">
+            <span key={i} className="font-display text-3xl opacity-50 hover:opacity-100 transition">
               <span className="line-through decoration-[3px]" style={{textDecorationColor:ACCENT}}>{n}</span>
             </span>
           ))}
@@ -297,7 +318,7 @@ function ModulesConstellation() {
             <h2 className="font-display text-6xl md:text-7xl leading-[0.95] max-w-[900px]">
               Twelve modules.
               <br/>
-              <span className="italic" style={{color:`${INK}70`}}>One graph beneath them all.</span>
+              <span className="grad-text">One graph beneath them all.</span>
             </h2>
           </div>
           <p className="text-sm max-w-sm opacity-70">Every module shares the same customers, people, records and ledger. No sync jobs. No zombie CSVs. No integration tax.</p>
@@ -389,7 +410,7 @@ function SavingsSection() {
         <h2 className="font-display text-6xl md:text-7xl leading-[0.95] max-w-3xl">
           Your CFO
           <br/>
-          <span className="italic" style={{color:ACCENT}}>will send flowers.</span>
+          <span className="grad-text">will send flowers.</span>
         </h2>
       </Reveal>
 
@@ -452,7 +473,7 @@ function ComparisonSection() {
       <Reveal>
         <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-4">§ 03 — Vs. the field</div>
         <h2 className="font-display text-5xl md:text-6xl leading-[0.95] max-w-3xl">
-          One product. <span className="italic" style={{color:`${INK}70`}}>Not twelve tabs pretending.</span>
+          One product. <span className="grad-text">Not twelve tabs pretending.</span>
         </h2>
       </Reveal>
       <Reveal delay={0.15}>
@@ -488,7 +509,7 @@ function CtaSection() {
           <h2 className="font-display text-6xl md:text-8xl leading-[0.95] max-w-4xl">
             One platform.
             <br/>
-            <span className="italic opacity-70">One decision.</span>
+            <span className="grad-text">One decision.</span>
           </h2>
           <p className="mt-8 max-w-lg opacity-70">Every module ships with a live in-browser demo. Click any of the 12 above to try it — no signup.</p>
           <a href="#modules" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
