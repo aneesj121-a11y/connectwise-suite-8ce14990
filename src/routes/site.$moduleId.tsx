@@ -44,7 +44,8 @@ function ModuleNotFound() {
 }
 
 function ModulePage() {
-  const { mod } = Route.useLoaderData();
+  const { moduleId } = Route.useLoaderData();
+  const mod = SITE_MODULES.find((m) => m.id === moduleId)!;
   return (
     <div style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden">
       <style>{`
