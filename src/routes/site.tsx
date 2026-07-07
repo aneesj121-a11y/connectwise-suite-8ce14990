@@ -81,9 +81,9 @@ function Nav() {
           <a href="#savings" className="hover:opacity-60 transition">Savings</a>
           <a href="#compare" className="hover:opacity-60 transition">Compare</a>
         </nav>
-        <Link to="/" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1" style={{ background: INK }}>
-          Open the app <ArrowUpRight className="w-3.5 h-3.5" />
-        </Link>
+        <a href="#modules" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1.5" style={{ background: INK }}>
+          <PlayCircle className="w-3.5 h-3.5"/> Try live demos
+        </a>
       </div>
     </header>
   );
