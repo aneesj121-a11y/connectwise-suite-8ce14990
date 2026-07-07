@@ -57,10 +57,10 @@ function SitePage() {
         }
         [data-site] .pzaz-btn {
           background: ${GRAD}; color: white; font-weight:600;
-          box-shadow: 0 12px 30px -8px ${ACCENT}80, 0 4px 10px -2px ${ACCENT2}55;
+          box-shadow: 0 10px 24px -10px ${ACCENT}66, 0 3px 8px -2px ${ACCENT2}33;
           transition: transform .25s ease, box-shadow .25s ease;
         }
-        [data-site] .pzaz-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 20px 40px -10px ${ACCENT}aa, 0 8px 20px -4px ${ACCENT2}77; }
+        [data-site] .pzaz-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 32px -10px ${ACCENT}88, 0 6px 14px -4px ${ACCENT2}55; }
         [data-site] .grain::before {
           content:""; position:absolute; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply;
           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -137,9 +137,9 @@ function Hero() {
       </div>
       {/* Colorful floating blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="blob absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full opacity-40" style={{background:`radial-gradient(circle, ${ACCENT}, transparent 65%)`, filter:"blur(40px)"}}/>
-        <div className="blob absolute top-20 right-10 w-[380px] h-[380px] rounded-full opacity-40" style={{background:`radial-gradient(circle, ${ACCENT2}, transparent 65%)`, filter:"blur(50px)", animationDelay:"-4s"}}/>
-        <div className="blob absolute bottom-0 left-1/3 w-[340px] h-[340px] rounded-full opacity-35" style={{background:`radial-gradient(circle, ${ACCENT3}, transparent 65%)`, filter:"blur(60px)", animationDelay:"-8s"}}/>
+        <div className="blob absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full opacity-25" style={{background:`radial-gradient(circle, ${ACCENT}, transparent 70%)`, filter:"blur(60px)"}}/>
+        <div className="blob absolute top-20 right-10 w-[380px] h-[380px] rounded-full opacity-20" style={{background:`radial-gradient(circle, ${ACCENT2}, transparent 70%)`, filter:"blur(70px)", animationDelay:"-4s"}}/>
+        <div className="blob absolute bottom-0 left-1/3 w-[340px] h-[340px] rounded-full opacity-18" style={{background:`radial-gradient(circle, ${ACCENT3}, transparent 70%)`, filter:"blur(80px)", animationDelay:"-8s"}}/>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 pt-16 pb-28 relative">
