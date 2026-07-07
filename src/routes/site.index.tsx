@@ -21,7 +21,11 @@ export const Route = createFileRoute("/site/")({
 
 const INK = "#0F1420";
 const CREAM = "#F6F1E6";
-const ACCENT = "#E85D3A";
+const ACCENT = "#FF4D6D";       // hot pink-red
+const ACCENT2 = "#7C3AED";      // vivid purple
+const ACCENT3 = "#22D3EE";      // cyan
+const ACCENT4 = "#FBBF24";      // amber
+const GRAD = `linear-gradient(90deg, ${ACCENT} 0%, ${ACCENT2} 55%, ${ACCENT3} 100%)`;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /* ---------------- shared ---------------- */
