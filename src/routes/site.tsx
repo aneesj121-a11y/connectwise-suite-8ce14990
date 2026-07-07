@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { ArrowUpRight, ArrowRight, Check, Minus, X, Sparkles } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Check, Minus, X, Sparkles, PlayCircle } from "lucide-react";
 import { SITE_MODULES } from "@/lib/site-modules";
 import { ModuleDemo, DemoWindow } from "@/components/site/module-demos";
+import limnnLogo from "@/assets/limnn-logo.png";
 
 export const Route = createFileRoute("/site")({
   head: () => ({
