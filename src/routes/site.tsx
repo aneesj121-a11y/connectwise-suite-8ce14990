@@ -216,11 +216,10 @@ function Constellation() {
           const r1=310, r2=320;
           return <line key={i} x1={cx+Math.cos(a)*r1} y1={cy+Math.sin(a)*r1} x2={cx+Math.cos(a)*r2} y2={cy+Math.sin(a)*r2} stroke={INK} strokeOpacity={i%5===0?0.4:0.15}/>;
         })}
-        {/* center core */}
-        <circle cx={cx} cy={cy} r="60" fill={INK}/>
-        <circle cx={cx} cy={cy} r="60" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeOpacity="0.6"/>
-        <text x={cx} y={cy-4} textAnchor="middle" fill={CREAM} fontSize="14" fontFamily="Fraunces, serif" fontStyle="italic">Limnn</text>
-        <text x={cx} y={cy+14} textAnchor="middle" fill={CREAM} fontSize="8" letterSpacing="3" opacity="0.6">OS</text>
+        {/* center core — brand mark */}
+        <circle cx={cx} cy={cy} r="64" fill={CREAM} stroke="#2C56D6" strokeWidth="2"/>
+        <circle cx={cx} cy={cy} r="72" fill="none" stroke="#2C56D6" strokeWidth="1" strokeOpacity="0.35"/>
+        <image href={limnnLogo} x={cx-28} y={cy-32} width="56" height="64" preserveAspectRatio="xMidYMid meet"/>
       </svg>
 
       {/* Orbits with real module icons — HTML so lucide renders crisp */}
