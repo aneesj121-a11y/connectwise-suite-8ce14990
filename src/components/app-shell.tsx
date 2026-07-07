@@ -52,8 +52,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             src={limnnLogo}
             alt="limnn"
             className="h-7 w-auto"
-            width={1536}
-            height={512}
+            width={255}
+            height={308}
           />
           <span
             className="ml-1 text-[11px] uppercase tracking-[0.18em]"
