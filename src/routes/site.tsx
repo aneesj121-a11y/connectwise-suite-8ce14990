@@ -151,10 +151,10 @@ function Hero() {
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to="/" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
-                Open the platform
+              <a href="#modules" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
+                <PlayCircle className="w-4 h-4"/> Try a live demo
                 <ArrowRight className="w-4 h-4 transition group-hover:translate-x-0.5"/>
-              </Link>
+              </a>
               <a href="#modules" className="text-sm underline underline-offset-4 decoration-1">See the 12 modules ↓</a>
             </div>
 
