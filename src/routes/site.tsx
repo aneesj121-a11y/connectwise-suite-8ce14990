@@ -360,7 +360,7 @@ function SavingsSection() {
                       initial={{ width: 0 }}
                       whileInView={{ width: `${(i.seat / 170) * 100}%` }}
                       viewport={{ once: true }}
-                      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 1, ease: EASE }}
                       className="h-full rounded-full"
                       style={{ background: CREAM }}
                     />
