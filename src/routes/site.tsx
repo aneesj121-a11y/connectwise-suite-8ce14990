@@ -90,13 +90,7 @@ function Nav() {
 }
 
 function LimnnMark() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 40 40">
-      <circle cx="20" cy="20" r="18" fill={INK}/>
-      <path d="M12 14 L12 26 L28 26" stroke={CREAM} strokeWidth="2.4" fill="none" strokeLinecap="round"/>
-      <circle cx="28" cy="14" r="3" fill={ACCENT}/>
-    </svg>
-  );
+  return <img src={limnnLogo} alt="Limnn" className="h-7 w-auto" />;
 }
 
 /* ---------------- HERO — custom SVG constellation ---------------- */
