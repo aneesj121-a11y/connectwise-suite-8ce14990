@@ -31,6 +31,7 @@ import { Route as PeopleIndexRouteImport } from './routes/people.index'
 import { Route as LmsIndexRouteImport } from './routes/lms.index'
 import { Route as SupportPortalRouteImport } from './routes/support.portal'
 import { Route as SupportHelpdeskRouteImport } from './routes/support.helpdesk'
+import { Route as SiteModuleIdRouteImport } from './routes/site.$moduleId'
 import { Route as PeopleSkillsRouteImport } from './routes/people.skills'
 import { Route as PeopleSchedulesRouteImport } from './routes/people.schedules'
 import { Route as PeopleReportsRouteImport } from './routes/people.reports'
@@ -202,6 +203,11 @@ const SupportHelpdeskRoute = SupportHelpdeskRouteImport.update({
   id: '/helpdesk',
   path: '/helpdesk',
   getParentRoute: () => SupportRoute,
+} as any)
+const SiteModuleIdRoute = SiteModuleIdRouteImport.update({
+  id: '/$moduleId',
+  path: '/$moduleId',
+  getParentRoute: () => SiteRoute,
 } as any)
 const PeopleSkillsRoute = PeopleSkillsRouteImport.update({
   id: '/skills',
@@ -527,7 +533,7 @@ export interface FileRoutesByFullPath {
   '/people': typeof PeopleRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
-  '/site': typeof SiteRoute
+  '/site': typeof SiteRouteWithChildren
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -586,6 +592,7 @@ export interface FileRoutesByFullPath {
   '/people/reports': typeof PeopleReportsRoute
   '/people/schedules': typeof PeopleSchedulesRoute
   '/people/skills': typeof PeopleSkillsRoute
+  '/site/$moduleId': typeof SiteModuleIdRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
   '/lms/': typeof LmsIndexRoute
@@ -610,7 +617,7 @@ export interface FileRoutesByTo {
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
-  '/site': typeof SiteRoute
+  '/site': typeof SiteRouteWithChildren
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -669,6 +676,7 @@ export interface FileRoutesByTo {
   '/people/reports': typeof PeopleReportsRoute
   '/people/schedules': typeof PeopleSchedulesRoute
   '/people/skills': typeof PeopleSkillsRoute
+  '/site/$moduleId': typeof SiteModuleIdRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
   '/lms': typeof LmsIndexRoute
@@ -696,7 +704,7 @@ export interface FileRoutesById {
   '/people': typeof PeopleRouteWithChildren
   '/playbooks': typeof PlaybooksRoute
   '/settings': typeof SettingsRoute
-  '/site': typeof SiteRoute
+  '/site': typeof SiteRouteWithChildren
   '/support': typeof SupportRouteWithChildren
   '/billing/arap': typeof BillingArapRoute
   '/billing/collections': typeof BillingCollectionsRoute
@@ -755,6 +763,7 @@ export interface FileRoutesById {
   '/people/reports': typeof PeopleReportsRoute
   '/people/schedules': typeof PeopleSchedulesRoute
   '/people/skills': typeof PeopleSkillsRoute
+  '/site/$moduleId': typeof SiteModuleIdRoute
   '/support/helpdesk': typeof SupportHelpdeskRoute
   '/support/portal': typeof SupportPortalRoute
   '/lms/': typeof LmsIndexRoute
@@ -842,6 +851,7 @@ export interface FileRouteTypes {
     | '/people/reports'
     | '/people/schedules'
     | '/people/skills'
+    | '/site/$moduleId'
     | '/support/helpdesk'
     | '/support/portal'
     | '/lms/'
@@ -925,6 +935,7 @@ export interface FileRouteTypes {
     | '/people/reports'
     | '/people/schedules'
     | '/people/skills'
+    | '/site/$moduleId'
     | '/support/helpdesk'
     | '/support/portal'
     | '/lms'
@@ -1010,6 +1021,7 @@ export interface FileRouteTypes {
     | '/people/reports'
     | '/people/schedules'
     | '/people/skills'
+    | '/site/$moduleId'
     | '/support/helpdesk'
     | '/support/portal'
     | '/lms/'
@@ -1037,7 +1049,7 @@ export interface RootRouteChildren {
   PeopleRoute: typeof PeopleRouteWithChildren
   PlaybooksRoute: typeof PlaybooksRoute
   SettingsRoute: typeof SettingsRoute
-  SiteRoute: typeof SiteRoute
+  SiteRoute: typeof SiteRouteWithChildren
   SupportRoute: typeof SupportRouteWithChildren
 }
 
@@ -1196,6 +1208,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/support/helpdesk'
       preLoaderRoute: typeof SupportHelpdeskRouteImport
       parentRoute: typeof SupportRoute
+    }
+    '/site/$moduleId': {
+      id: '/site/$moduleId'
+      path: '/$moduleId'
+      fullPath: '/site/$moduleId'
+      preLoaderRoute: typeof SiteModuleIdRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/people/skills': {
       id: '/people/skills'
@@ -1841,6 +1860,16 @@ const PeopleRouteChildren: PeopleRouteChildren = {
 const PeopleRouteWithChildren =
   PeopleRoute._addFileChildren(PeopleRouteChildren)
 
+interface SiteRouteChildren {
+  SiteModuleIdRoute: typeof SiteModuleIdRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteModuleIdRoute: SiteModuleIdRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 interface SupportRouteChildren {
   SupportHelpdeskRoute: typeof SupportHelpdeskRoute
   SupportPortalRoute: typeof SupportPortalRoute
@@ -1871,7 +1900,7 @@ const rootRouteChildren: RootRouteChildren = {
   PeopleRoute: PeopleRouteWithChildren,
   PlaybooksRoute: PlaybooksRoute,
   SettingsRoute: SettingsRoute,
-  SiteRoute: SiteRoute,
+  SiteRoute: SiteRouteWithChildren,
   SupportRoute: SupportRouteWithChildren,
 }
 export const routeTree = rootRouteImport
