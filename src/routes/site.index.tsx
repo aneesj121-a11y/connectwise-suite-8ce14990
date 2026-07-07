@@ -144,32 +144,32 @@ function Hero() {
               <span className="w-1.5 h-1.5 rounded-full" style={{background:ACCENT}}/> One platform · Twelve modules · Zero seat-tax sprawl
             </div>
 
-            <h1 className="mt-6 font-display text-[64px] md:text-[92px] leading-[0.95]">
+            <h1 className="mt-6 font-display text-[64px] md:text-[96px] leading-[0.92]">
               Take{" "}
-              <span className="relative inline-block">
+              <span className="relative inline-block grad-text">
                 control
-                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 20" preserveAspectRatio="none">
+                <svg className="absolute -bottom-3 left-0 w-full" viewBox="0 0 300 20" preserveAspectRatio="none">
                   <motion.path
                     d="M2 12 C 80 4, 180 20, 298 8"
-                    stroke={ACCENT} strokeWidth="4" fill="none" strokeLinecap="round"
+                    stroke={ACCENT} strokeWidth="5" fill="none" strokeLinecap="round"
                     initial={{pathLength:0}} whileInView={{pathLength:1}} viewport={{once:true}} transition={{duration:1.4, delay:0.4, ease:EASE}}
                   />
                 </svg>
               </span>.
               <br/>
-              <span className="italic font-light" style={{color:`${INK}80`}}>Cut the software bill.</span>
+              <span className="grad-text">Cut the software bill.</span>
             </h1>
 
-            <p className="mt-8 text-lg max-w-[520px]" style={{color:`${INK}99`}}>
+            <p className="mt-8 text-lg max-w-[520px] font-medium" style={{color:`${INK}B0`}}>
               One AI-native operating system replaces Salesforce, Slack, Zendesk, Workday, Zuora, Jira and nine other line items — with one graph, one ledger, one login.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href="#modules" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
+              <a href="#modules" className="pzaz-btn group inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm">
                 <PlayCircle className="w-4 h-4"/> Try a live demo
-                <ArrowRight className="w-4 h-4 transition group-hover:translate-x-0.5"/>
+                <ArrowRight className="w-4 h-4 transition group-hover:translate-x-1"/>
               </a>
-              <a href="#modules" className="text-sm underline underline-offset-4 decoration-1">See the 12 modules ↓</a>
+              <a href="#modules" className="text-sm font-semibold underline underline-offset-4 decoration-2" style={{textDecorationColor:ACCENT}}>See the 12 modules ↓</a>
             </div>
 
             <div className="mt-14 grid grid-cols-3 gap-6 max-w-[520px]">
