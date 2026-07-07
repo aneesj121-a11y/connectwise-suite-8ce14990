@@ -41,15 +41,15 @@ function Reveal({ children, className, delay = 0 }: { children: React.ReactNode;
 
 function SitePage() {
   return (
-    <div style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden"
-      /* editorial font stack — no Inter/Poppins */
-      >
+    <div data-site style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden">
       <style>{`
-        .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif; font-optical-sizing: auto; font-variation-settings: "SOFT" 100,"WONK" 0; letter-spacing:-0.02em; }
-        .font-mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
-        .font-sans { font-family: "Söhne","Inter Tight",ui-sans-serif,system-ui,sans-serif; }
-        body, html { font-family: "Söhne","Inter Tight",ui-sans-serif,system-ui,sans-serif; }
-        .grain::before {
+        [data-site], [data-site] * { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; }
+        [data-site] .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; font-optical-sizing: auto; letter-spacing:-0.02em; }
+        [data-site] .font-mono, [data-site] .font-mono * { font-family: "JetBrains Mono Variable","JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; }
+        [data-site] .font-sans, [data-site] .font-sans * { font-family: "Inter Variable","Inter", ui-sans-serif, system-ui, sans-serif !important; }
+        [data-site] body, [data-site] { font-family: "Inter Variable","Inter",ui-sans-serif,system-ui,sans-serif !important; }
+        [data-site] h1, [data-site] h2, [data-site] h3, [data-site] h4 { font-family: "Fraunces",ui-serif,Georgia,serif !important; }
+        [data-site] .grain::before {
           content:""; position:absolute; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply;
           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
         }
