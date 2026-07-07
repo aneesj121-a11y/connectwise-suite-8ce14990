@@ -179,7 +179,7 @@ function Hero() {
                 {k:"1", l:"Login, one ledger"},
               ].map(s=>(
                 <div key={s.l}>
-                  <div className="font-display text-4xl" style={{color:ACCENT}}>{s.k}</div>
+                  <div className="font-display text-5xl grad-text">{s.k}</div>
                   <div className="text-xs mt-1" style={{color:`${INK}80`}}>{s.l}</div>
                 </div>
               ))}
@@ -291,7 +291,7 @@ function TickerBar() {
         <motion.div className="flex gap-10 whitespace-nowrap"
           animate={{x:[0,-2000]}} transition={{duration:60, repeat:Infinity, ease:"linear"}}>
           {items.map((n,i)=>(
-            <span key={i} className="font-display text-3xl italic opacity-40 hover:opacity-100 transition">
+            <span key={i} className="font-display text-3xl opacity-50 hover:opacity-100 transition">
               <span className="line-through decoration-[3px]" style={{textDecorationColor:ACCENT}}>{n}</span>
             </span>
           ))}
@@ -312,7 +312,7 @@ function ModulesConstellation() {
             <h2 className="font-display text-6xl md:text-7xl leading-[0.95] max-w-[900px]">
               Twelve modules.
               <br/>
-              <span className="italic" style={{color:`${INK}70`}}>One graph beneath them all.</span>
+              <span className="grad-text">One graph beneath them all.</span>
             </h2>
           </div>
           <p className="text-sm max-w-sm opacity-70">Every module shares the same customers, people, records and ledger. No sync jobs. No zombie CSVs. No integration tax.</p>
@@ -404,7 +404,7 @@ function SavingsSection() {
         <h2 className="font-display text-6xl md:text-7xl leading-[0.95] max-w-3xl">
           Your CFO
           <br/>
-          <span className="italic" style={{color:ACCENT}}>will send flowers.</span>
+          <span className="grad-text">will send flowers.</span>
         </h2>
       </Reveal>
 
@@ -467,7 +467,7 @@ function ComparisonSection() {
       <Reveal>
         <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-4">§ 03 — Vs. the field</div>
         <h2 className="font-display text-5xl md:text-6xl leading-[0.95] max-w-3xl">
-          One product. <span className="italic" style={{color:`${INK}70`}}>Not twelve tabs pretending.</span>
+          One product. <span className="grad-text">Not twelve tabs pretending.</span>
         </h2>
       </Reveal>
       <Reveal delay={0.15}>
@@ -503,7 +503,7 @@ function CtaSection() {
           <h2 className="font-display text-6xl md:text-8xl leading-[0.95] max-w-4xl">
             One platform.
             <br/>
-            <span className="italic opacity-70">One decision.</span>
+            <span className="grad-text">One decision.</span>
           </h2>
           <p className="mt-8 max-w-lg opacity-70">Every module ships with a live in-browser demo. Click any of the 12 above to try it — no signup.</p>
           <a href="#modules" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
