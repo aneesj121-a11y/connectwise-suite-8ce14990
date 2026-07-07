@@ -8,11 +8,11 @@ export const Route = createFileRoute("/site/$moduleId")({
   loader: ({ params }) => {
     const mod = SITE_MODULES.find((m) => m.id === params.moduleId);
     if (!mod) throw notFound();
-    return { mod };
+    return { moduleId: mod.id };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Module not found — Limnn" }, { name: "robots", content: "noindex" }] };
-    const { mod } = loaderData;
+    const mod = loaderData ? SITE_MODULES.find((m) => m.id === loaderData.moduleId) : undefined;
+    if (!mod) return { meta: [{ title: "Module not found — Limnn" }, { name: "robots", content: "noindex" }] };
     return {
       meta: [
         { title: `${mod.name} — ${mod.tagline}` },
@@ -44,7 +44,8 @@ function ModuleNotFound() {
 }
 
 function ModulePage() {
-  const { mod } = Route.useLoaderData();
+  const { moduleId } = Route.useLoaderData();
+  const mod = SITE_MODULES.find((m) => m.id === moduleId)!;
   return (
     <div style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden">
       <style>{`
