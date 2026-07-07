@@ -95,7 +95,7 @@ function Nav() {
           <a href="#savings" className="hover:opacity-60 transition">Savings</a>
           <a href="#compare" className="hover:opacity-60 transition">Compare</a>
         </nav>
-        <a href="#modules" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1.5" style={{ background: INK }}>
+        <a href="#modules" className="pzaz-btn text-xs px-5 py-2.5 rounded-full flex items-center gap-1.5">
           <PlayCircle className="w-3.5 h-3.5"/> Try live demos
         </a>
       </div>
