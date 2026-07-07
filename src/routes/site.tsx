@@ -1,32 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
-import {
-  ArrowUpRight,
-  ArrowRight,
-  Check,
-  Minus,
-  X,
-  Sparkles,
-} from "lucide-react";
-import limnnLogo from "@/assets/limnn-logo.png";
+import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { ArrowUpRight, ArrowRight, Check, Minus, X, Sparkles } from "lucide-react";
 import { SITE_MODULES } from "@/lib/site-modules";
+import { ModuleDemo, DemoWindow } from "@/components/site/module-demos";
 
 export const Route = createFileRoute("/site")({
   head: () => ({
     meta: [
       { title: "Limnn — Take control. One platform. Less software spend." },
-      {
-        name: "description",
-        content:
-          "Limnn replaces the sprawl of point tools — CRM, dialer, support, billing, HRIS, LMS — under one AI-native platform. Take control. Reduce your software spending.",
-      },
+      { name: "description", content: "Limnn replaces 12+ SaaS tools — CRM, dialer, support, billing, HRIS, LMS — under one AI-native operating system. Take control. Cut software spend by up to 89%." },
       { property: "og:title", content: "Limnn — One platform. Less spend." },
-      {
-        property: "og:description",
-        content:
-          "Replace 12+ SaaS subscriptions with a single AI-native operating system for your revenue, service, finance and people teams.",
-      },
+      { property: "og:description", content: "Replace the sprawl of point tools with a single AI-native platform for your revenue, service, finance and people teams." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -36,44 +21,43 @@ export const Route = createFileRoute("/site")({
 
 const INK = "#0F1420";
 const CREAM = "#F6F1E6";
-const BLUE = "#2C69CF";
 const ACCENT = "#E85D3A";
-
-/* ---------------- Animation primitives ---------------- */
 const EASE = [0.22, 1, 0.36, 1] as const;
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
-} as const;
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
-};
 
+/* ---------------- shared ---------------- */
 function Reveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
-      className={className}
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="show"
+    <motion.div className={className}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ ...fadeUp.show.transition, delay }}
-    >
-      {children}
-    </motion.div>
+      transition={{ duration: 0.7, ease: EASE, delay }}
+    >{children}</motion.div>
   );
 }
 
 function SitePage() {
   return (
-    <div style={{ background: CREAM, color: INK }} className="min-h-screen font-sans antialiased overflow-x-hidden">
+    <div style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden"
+      /* editorial font stack — no Inter/Poppins */
+      >
+      <style>{`
+        .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif; font-optical-sizing: auto; font-variation-settings: "SOFT" 100,"WONK" 0; letter-spacing:-0.02em; }
+        .font-mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .font-sans { font-family: "Söhne","Inter Tight",ui-sans-serif,system-ui,sans-serif; }
+        body, html { font-family: "Söhne","Inter Tight",ui-sans-serif,system-ui,sans-serif; }
+        .grain::before {
+          content:""; position:absolute; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        }
+      `}</style>
       <Nav />
       <Hero />
-      <Marquee />
-      <ModulesSection />
+      <TickerBar />
+      <ModulesConstellation />
+      <ModulesList />
       <SavingsSection />
       <ComparisonSection />
       <CtaSection />
@@ -82,300 +66,375 @@ function SitePage() {
   );
 }
 
-/* ---------------- Nav ---------------- */
+/* ---------------- NAV ---------------- */
 function Nav() {
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="sticky top-0 z-40 backdrop-blur-md"
-      style={{ background: `${CREAM}cc`, borderBottom: `1px solid ${INK}14` }}
-    >
-      <div className="mx-auto max-w-[1240px] px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 backdrop-blur-md" style={{ background: `${CREAM}CC`, borderBottom: "1px solid rgba(15,20,32,0.08)" }}>
+      <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
         <Link to="/site" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-md grid place-items-center" style={{ background: INK }}>
-            <img src={limnnLogo} alt="Limnn" className="h-4 w-auto invert" />
-          </div>
-          <span className="font-display font-semibold tracking-tight text-lg">limnn</span>
+          <LimnnMark />
+          <span className="font-display text-xl">Limnn</span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm">
-          <a href="#modules" className="hover:opacity-70">Platform</a>
-          <a href="#savings" className="hover:opacity-70">Savings</a>
-          <a href="#compare" className="hover:opacity-70">Compare</a>
-          <a href="#cta" className="hover:opacity-70">Pricing</a>
+          <a href="#modules" className="hover:opacity-60 transition">Modules</a>
+          <a href="#savings" className="hover:opacity-60 transition">Savings</a>
+          <a href="#compare" className="hover:opacity-60 transition">Compare</a>
         </nav>
-        <div className="flex items-center gap-2">
-          <Link to="/" className="hidden md:inline-flex h-9 items-center px-3 rounded-md text-sm font-medium hover:bg-black/5">
-            Sign in
-          </Link>
-          <a href="#cta" className="inline-flex h-9 items-center gap-1.5 px-4 rounded-md text-sm font-medium text-white" style={{ background: INK }}>
-            Book a demo <ArrowRight className="h-3.5 w-3.5" />
-          </a>
-        </div>
+        <Link to="/" className="text-xs px-4 py-2 rounded-full text-white flex items-center gap-1" style={{ background: INK }}>
+          Open the app <ArrowUpRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
-    </motion.header>
+    </header>
   );
 }
 
-/* ---------------- Hero ---------------- */
+function LimnnMark() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 40 40">
+      <circle cx="20" cy="20" r="18" fill={INK}/>
+      <path d="M12 14 L12 26 L28 26" stroke={CREAM} strokeWidth="2.4" fill="none" strokeLinecap="round"/>
+      <circle cx="28" cy="14" r="3" fill={ACCENT}/>
+    </svg>
+  );
+}
+
+/* ---------------- HERO — custom SVG constellation ---------------- */
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start","end start"] });
+  const y = useTransform(scrollYProgress, [0,1], [0, 120]);
+  const reduce = useReducedMotion();
+
+  // mouse parallax
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const smx = useSpring(mx, { stiffness: 60, damping: 15 });
+  const smy = useSpring(my, { stiffness: 60, damping: 15 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden">
-      <motion.div style={{ y, opacity }} className="mx-auto max-w-[1240px] px-6 pt-20 pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 h-7 rounded-full text-[11px] font-mono uppercase tracking-[0.14em]"
-          style={{ background: `${INK}0d`, color: INK }}
-        >
-          <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: ACCENT }} />
-          One platform · 12 modules · zero seat sprawl
-        </motion.div>
+    <section ref={ref} className="relative overflow-hidden grain"
+      onMouseMove={(e)=>{
+        if(reduce) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set(((e.clientX - r.left)/r.width - 0.5)*30);
+        my.set(((e.clientY - r.top)/r.height - 0.5)*30);
+      }}>
+      {/* Background editorial rules */}
+      <div className="absolute inset-0 pointer-events-none">
+        <svg className="w-full h-full opacity-[0.07]" viewBox="0 0 1400 900" preserveAspectRatio="none">
+          {Array.from({length:14}).map((_,i)=><line key={i} x1={i*100} x2={i*100} y1={0} y2={900} stroke={INK} strokeWidth="0.5"/>)}
+          {Array.from({length:9}).map((_,i)=><line key={"h"+i} x1={0} x2={1400} y1={i*100} y2={i*100} stroke={INK} strokeWidth="0.5"/>)}
+        </svg>
+      </div>
 
-        <motion.h1
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-          className="mt-8 font-serif font-normal leading-[0.95] tracking-[-0.02em]"
-          style={{ fontSize: "clamp(48px, 8vw, 128px)" }}
-        >
-          <motion.span variants={fadeUp} className="block">Take control.</motion.span>
-          <motion.span variants={fadeUp} className="block">
-            <span style={{ color: ACCENT }}>Reduce</span> your software spending.
-          </motion.span>
-          <motion.span variants={fadeUp} className="block italic opacity-70">All under one platform.</motion.span>
-        </motion.h1>
+      <div className="max-w-[1400px] mx-auto px-6 pt-16 pb-28 relative">
+        <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 items-center min-h-[720px]">
+          {/* Left — copy */}
+          <motion.div style={{ y }} className="relative z-10">
+            <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full border" style={{borderColor:`${INK}20`, background:`${INK}05`}}>
+              <span className="w-1.5 h-1.5 rounded-full" style={{background:ACCENT}}/> One platform · Twelve modules · Zero seat-tax sprawl
+            </div>
 
-        <Reveal delay={0.2}>
-          <p className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed text-black/70">
-            Limnn is the operating system for modern companies. Replace the spaghetti of CRM,
-            dialer, support, billing, HRIS, LMS and project tools with a single AI-native platform
-            that your teams actually enjoy using.
-          </p>
-        </Reveal>
+            <h1 className="mt-6 font-display text-[64px] md:text-[92px] leading-[0.95]">
+              Take{" "}
+              <span className="relative inline-block">
+                control
+                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 20" preserveAspectRatio="none">
+                  <motion.path
+                    d="M2 12 C 80 4, 180 20, 298 8"
+                    stroke={ACCENT} strokeWidth="4" fill="none" strokeLinecap="round"
+                    initial={{pathLength:0}} whileInView={{pathLength:1}} viewport={{once:true}} transition={{duration:1.4, delay:0.4, ease:EASE}}
+                  />
+                </svg>
+              </span>.
+              <br/>
+              <span className="italic font-light" style={{color:`${INK}80`}}>Cut the software bill.</span>
+            </h1>
 
-        <Reveal delay={0.3}>
-          <div className="mt-10 flex flex-wrap gap-3 items-center">
-            <a href="#cta" className="inline-flex h-12 items-center gap-2 px-6 rounded-md text-base font-medium text-white hover:scale-[1.02] transition-transform" style={{ background: INK }}>
-              Start free trial <ArrowRight className="h-4 w-4" />
-            </a>
-            <Link to="/" className="inline-flex h-12 items-center gap-2 px-6 rounded-md text-base font-medium border hover:bg-black/5 transition" style={{ borderColor: `${INK}22` }}>
-              Explore the workspace <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </Reveal>
+            <p className="mt-8 text-lg max-w-[520px]" style={{color:`${INK}99`}}>
+              One AI-native operating system replaces Salesforce, Slack, Zendesk, Workday, Zuora, Jira and nine other line items — with one graph, one ledger, one login.
+            </p>
 
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl"
-        >
-          {[
-            { k: "12", v: "Modules included" },
-            { k: "~62%", v: "Avg. tooling saved" },
-            { k: "1", v: "Contract, 1 login" },
-            { k: "14 days", v: "To migrate" },
-          ].map((s) => (
-            <motion.div key={s.v} variants={fadeUp}>
-              <div className="font-serif text-4xl md:text-5xl" style={{ color: INK }}>{s.k}</div>
-              <div className="mt-1 text-xs uppercase tracking-[0.14em] text-black/50">{s.v}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <Link to="/" className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-medium" style={{background:INK}}>
+                Open the platform
+                <ArrowRight className="w-4 h-4 transition group-hover:translate-x-0.5"/>
+              </Link>
+              <a href="#modules" className="text-sm underline underline-offset-4 decoration-1">See the 12 modules ↓</a>
+            </div>
+
+            <div className="mt-14 grid grid-cols-3 gap-6 max-w-[520px]">
+              {[
+                {k:"12", l:"Modules, one graph"},
+                {k:"−89%", l:"Avg. tool spend cut"},
+                {k:"1", l:"Login, one ledger"},
+              ].map(s=>(
+                <div key={s.l}>
+                  <div className="font-display text-4xl" style={{color:ACCENT}}>{s.k}</div>
+                  <div className="text-xs mt-1" style={{color:`${INK}80`}}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right — Constellation art */}
+          <motion.div style={{ x: smx, y: smy }} className="relative h-[600px]">
+            <Constellation />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom cut line */}
+      <div className="border-t border-black/10"/>
     </section>
   );
 }
 
-/* ---------------- Marquee ---------------- */
-function Marquee() {
-  const tools = [
-    "Salesforce", "Zendesk", "Gong", "HubSpot", "Zuora", "Marketo", "Aircall", "Gainsight",
-    "Jira", "Workday", "BambooHR", "Docebo", "Chargebee", "Intercom", "6sense", "Linear",
-    "PandaDoc", "Rippling", "Freshdesk", "DealHub",
+/* Custom orbital constellation with all 12 modules */
+function Constellation() {
+  const reduce = useReducedMotion();
+  const cx = 300, cy = 300;
+  const orbits = [
+    { r: 130, ids: ["threads","intelligence","dialer","sales"], speed: 40 },
+    { r: 220, ids: ["marketing","cs","support","cpq"], speed: 60 },
+    { r: 290, ids: ["billing","grid","learning","people"], speed: 80 },
   ];
   return (
-    <section className="py-10 border-y" style={{ borderColor: `${INK}14`, background: INK, color: CREAM }}>
-      <div className="text-center text-[11px] uppercase tracking-[0.2em] opacity-60 mb-4">
-        Cancel the sprawl · replace them all
+    <div className="absolute inset-0">
+      <svg viewBox="0 0 600 600" className="w-full h-full">
+        <defs>
+          <radialGradient id="core" cx="50%" cy="50%">
+            <stop offset="0%" stopColor={ACCENT} stopOpacity="0.4"/>
+            <stop offset="100%" stopColor={ACCENT} stopOpacity="0"/>
+          </radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        {/* halo */}
+        <circle cx={cx} cy={cy} r="280" fill="url(#core)"/>
+        {/* orbit rings */}
+        {orbits.map((o,i)=>(
+          <circle key={i} cx={cx} cy={cy} r={o.r} fill="none" stroke={INK} strokeOpacity="0.12" strokeWidth="1" strokeDasharray="2 5"/>
+        ))}
+        {/* radial ticks */}
+        {Array.from({length:60}).map((_,i)=>{
+          const a=(i/60)*Math.PI*2;
+          const r1=310, r2=320;
+          return <line key={i} x1={cx+Math.cos(a)*r1} y1={cy+Math.sin(a)*r1} x2={cx+Math.cos(a)*r2} y2={cy+Math.sin(a)*r2} stroke={INK} strokeOpacity={i%5===0?0.4:0.15}/>;
+        })}
+        {/* center core */}
+        <circle cx={cx} cy={cy} r="60" fill={INK}/>
+        <circle cx={cx} cy={cy} r="60" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeOpacity="0.6"/>
+        <text x={cx} y={cy-4} textAnchor="middle" fill={CREAM} fontSize="14" fontFamily="Fraunces, serif" fontStyle="italic">Limnn</text>
+        <text x={cx} y={cy+14} textAnchor="middle" fill={CREAM} fontSize="8" letterSpacing="3" opacity="0.6">OS</text>
+      </svg>
+
+      {/* Orbits with real module icons — HTML so lucide renders crisp */}
+      {orbits.map((orbit, oi)=>(
+        <motion.div key={oi} className="absolute inset-0"
+          animate={reduce?{}:{rotate: 360}}
+          transition={{duration: orbit.speed, ease:"linear", repeat:Infinity}}
+        >
+          {orbit.ids.map((id, i)=>{
+            const mod = SITE_MODULES.find(m=>m.id===id)!;
+            const angle = (i/orbit.ids.length)*Math.PI*2 - Math.PI/2;
+            const x = 50 + (Math.cos(angle)*orbit.r/6);
+            const y = 50 + (Math.sin(angle)*orbit.r/6);
+            return (
+              <motion.div key={id}
+                animate={reduce?{}:{rotate: -360}}
+                transition={{duration: orbit.speed, ease:"linear", repeat:Infinity}}
+                className="absolute -translate-x-1/2 -translate-y-1/2"
+                style={{left:`${x}%`, top:`${y}%`}}
+              >
+                <Link to="/site/$moduleId" params={{moduleId: mod.id}}
+                  className="group flex flex-col items-center">
+                  <motion.div
+                    whileHover={{scale:1.15, y:-2}}
+                    className="w-12 h-12 rounded-2xl grid place-items-center shadow-[0_8px_20px_-8px_rgba(15,20,32,0.4)] border border-black/10"
+                    style={{background:"white"}}
+                  >
+                    <mod.Icon className="w-5 h-5" style={{color:mod.color}}/>
+                  </motion.div>
+                  <div className="mt-1.5 text-[9px] uppercase tracking-widest opacity-70 whitespace-nowrap group-hover:opacity-100">
+                    {mod.short}
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------------- Ticker ---------------- */
+function TickerBar() {
+  const replaced = ["Salesforce","Slack","Zendesk","Workday","Zuora","Jira","Gainsight","Marketo","Aircall","Gong","Greenhouse","PandaDoc","NetSuite","Rippling","Docebo","6sense","Intercom","BambooHR","Chargebee","DealHub"];
+  const items = [...replaced, ...replaced];
+  return (
+    <section className="border-b border-black/10 overflow-hidden py-6" style={{background:INK, color:CREAM}}>
+      <div className="flex items-center gap-8 text-[11px] uppercase tracking-[0.2em] mb-4 justify-center">
+        <span className="opacity-50">Replaces</span>
+        <span className="w-6 h-px bg-current opacity-30"/>
+        <span>20+ line items on your SaaS ledger</span>
       </div>
-      <div className="overflow-hidden">
-        <div className="flex gap-10 animate-[scroll_50s_linear_infinite] whitespace-nowrap font-serif text-3xl md:text-4xl">
-          {[...tools, ...tools].map((t, i) => (
-            <span key={i} className="flex items-center gap-10 opacity-80">
-              <span className="line-through decoration-[3px]" style={{ textDecorationColor: ACCENT }}>{t}</span>
-              <span className="text-lg" style={{ color: ACCENT }}>×</span>
+      <div className="relative">
+        <motion.div className="flex gap-10 whitespace-nowrap"
+          animate={{x:[0,-2000]}} transition={{duration:60, repeat:Infinity, ease:"linear"}}>
+          {items.map((n,i)=>(
+            <span key={i} className="font-display text-3xl italic opacity-40 hover:opacity-100 transition">
+              <span className="line-through decoration-[3px]" style={{textDecorationColor:ACCENT}}>{n}</span>
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- Modules constellation intro ---------------- */
+function ModulesConstellation() {
+  return (
+    <section id="modules" className="max-w-[1400px] mx-auto px-6 py-32">
+      <Reveal>
+        <div className="grid md:grid-cols-[1fr_auto] items-end gap-8">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-4">§ 01 — The Twelve</div>
+            <h2 className="font-display text-6xl md:text-7xl leading-[0.95] max-w-[900px]">
+              Twelve modules.
+              <br/>
+              <span className="italic" style={{color:`${INK}70`}}>One graph beneath them all.</span>
+            </h2>
+          </div>
+          <p className="text-sm max-w-sm opacity-70">Every module shares the same customers, people, records and ledger. No sync jobs. No zombie CSVs. No integration tax.</p>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+/* ---------------- Modules list — each row is dramatic ---------------- */
+function ModulesList() {
+  return (
+    <section className="border-y border-black/10">
+      {SITE_MODULES.map((m, i)=>(
+        <ModuleRow key={m.id} m={m} index={i}/>
+      ))}
+    </section>
+  );
+}
+
+function ModuleRow({ m, index }: { m: typeof SITE_MODULES[number]; index: number }) {
+  const [hover, setHover] = useState(false);
+  return (
+    <Link to="/site/$moduleId" params={{moduleId:m.id}}
+      onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
+      className="group block relative overflow-hidden border-b border-black/10 last:border-0">
+      <motion.div
+        className="absolute inset-0 origin-left"
+        initial={false}
+        animate={{scaleX: hover?1:0}}
+        transition={{duration:0.6, ease:EASE}}
+        style={{background: m.color, opacity:0.08}}
+      />
+      <div className="relative max-w-[1400px] mx-auto px-6 py-10 grid grid-cols-[80px_1fr_auto_60px] gap-6 items-center">
+        <div className="font-mono text-xs opacity-40">— {String(index+1).padStart(2,"0")}</div>
+        <div className="flex items-center gap-6">
+          <motion.div
+            animate={{scale: hover?1.1:1, rotate: hover?-6:0}}
+            transition={{duration:0.5, ease:EASE}}
+            className="w-14 h-14 rounded-2xl grid place-items-center shrink-0 shadow-[0_10px_30px_-10px_rgba(15,20,32,0.3)]"
+            style={{background:"white", border:`1px solid ${m.color}30`}}
+          >
+            <m.Icon className="w-6 h-6" style={{color:m.color}}/>
+          </motion.div>
+          <div className="min-w-0">
+            <div className="font-display text-4xl md:text-5xl leading-none">{m.name}</div>
+            <div className="mt-2 text-sm opacity-70 truncate">{m.tagline}</div>
+          </div>
+        </div>
+        <div className="hidden lg:flex flex-wrap gap-1.5 justify-end max-w-md">
+          <span className="text-[10px] uppercase tracking-widest opacity-40 w-full text-right mb-1">Replaces</span>
+          {m.replaces.map(r=>(
+            <span key={r} className="text-[11px] px-2 py-1 rounded-full border" style={{borderColor:`${INK}20`, background:CREAM}}>
+              <span className="line-through opacity-60">{r}</span>
             </span>
           ))}
         </div>
+        <motion.div animate={{x: hover?6:0}} transition={{duration:0.4, ease:EASE}}
+          className="w-12 h-12 rounded-full grid place-items-center border border-black/20 justify-self-end">
+          <ArrowUpRight className="w-5 h-5"/>
+        </motion.div>
       </div>
-      <style>{`@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
-    </section>
-  );
-}
-
-/* ---------------- Modules — one line each, each links to its own page ---------------- */
-function ModulesSection() {
-  return (
-    <section id="modules" className="py-24">
-      <div className="mx-auto max-w-[1240px] px-6">
-        <Reveal>
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-12">
-            <div>
-              <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-black/50 mb-3">The platform</div>
-              <h2 className="font-serif text-5xl md:text-6xl leading-[0.95] tracking-tight max-w-2xl">
-                Twelve modules.<br />One line each.<br /><span className="italic opacity-60">One bill.</span>
-              </h2>
-            </div>
-            <p className="max-w-md text-black/60 leading-relaxed">
-              Click any module for its own animated page — features, workflow and preview. Turn on what
-              you need. Cancel the rest of your stack.
-            </p>
-          </div>
-        </Reveal>
-
-        <motion.ol
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="divide-y"
-          style={{ borderTop: `1px solid ${INK}22`, borderBottom: `1px solid ${INK}22`, borderColor: `${INK}14` }}
-        >
-          {SITE_MODULES.map((m, i) => (
-            <motion.li key={m.id} variants={fadeUp} style={{ borderColor: `${INK}14` }}>
-              <Link
-                to="/site/$moduleId"
-                params={{ moduleId: m.id }}
-                className="group w-full flex items-center gap-6 py-6 md:py-7 text-left transition-colors relative"
-              >
-                <span
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                  style={{ background: `linear-gradient(90deg, ${m.color}0a, transparent 70%)` }}
-                />
-                <span className="font-mono text-xs text-black/40 w-10 shrink-0 relative">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <motion.span
-                  whileHover={{ rotate: 8, scale: 1.08 }}
-                  className="h-10 w-10 shrink-0 rounded-md grid place-items-center relative"
-                  style={{ background: `${m.color}18`, color: m.color }}
-                >
-                  <m.Icon className="h-5 w-5" />
-                </motion.span>
-                <span className="font-display text-2xl md:text-3xl font-medium tracking-tight shrink-0 relative transition-colors group-hover:text-[color:var(--mc)]"
-                  style={{ ["--mc" as string]: m.color } as React.CSSProperties}>
-                  {m.name}
-                </span>
-                <span className="hidden md:block flex-1 text-black/50 truncate relative">— {m.tagline}</span>
-                <span className="hidden md:flex items-center gap-1.5 shrink-0 relative">
-                  {m.replaces.slice(0, 2).map((r) => (
-                    <span key={r} className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded" style={{ background: `${INK}0a`, color: `${INK}99` }}>
-                      replaces {r}
-                    </span>
-                  ))}
-                </span>
-                <ArrowUpRight
-                  className="h-5 w-5 shrink-0 relative transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  style={{ color: m.color }}
-                />
-              </Link>
-            </motion.li>
-          ))}
-        </motion.ol>
-
-        <Reveal>
-          <div className="mt-8 text-sm text-black/60 flex items-center gap-2">
-            <Sparkles className="h-4 w-4" style={{ color: ACCENT }} />
-            Each module is a first-class product — click any row to see it.
-          </div>
-        </Reveal>
-      </div>
-    </section>
+    </Link>
   );
 }
 
 /* ---------------- Savings ---------------- */
 function SavingsSection() {
-  const items = [
-    { tool: "Salesforce Sales Cloud", seat: 165 },
-    { tool: "Zendesk Suite", seat: 115 },
-    { tool: "Gong", seat: 145 },
-    { tool: "Aircall", seat: 70 },
-    { tool: "Gainsight", seat: 90 },
-    { tool: "Marketo", seat: 120 },
-    { tool: "Jira + Confluence", seat: 22 },
-    { tool: "Workday HCM", seat: 100 },
-    { tool: "Chargebee", seat: 55 },
-    { tool: "Lessonly", seat: 30 },
+  const tools = [
+    {n:"Salesforce Sales Cloud", price:165},
+    {n:"Slack Business+", price:15},
+    {n:"Zendesk Suite", price:115},
+    {n:"Workday HCM", price:100},
+    {n:"Zuora Billing", price:70},
+    {n:"Jira + Confluence", price:22},
+    {n:"Gong", price:100},
+    {n:"Marketo", price:80},
+    {n:"Aircall", price:40},
+    {n:"Greenhouse", price:60},
+    {n:"Gainsight", price:90},
+    {n:"PandaDoc", price:35},
   ];
-  const stackTotal = items.reduce((s, i) => s + i.seat, 0);
-  const limnn = 89;
+  const total = tools.reduce((s,t)=>s+t.price,0);
+  const limnn = 99;
   return (
-    <section id="savings" className="py-24" style={{ background: INK, color: CREAM }}>
-      <div className="mx-auto max-w-[1240px] px-6 grid lg:grid-cols-2 gap-16 items-center">
+    <section id="savings" className="max-w-[1400px] mx-auto px-6 py-32">
+      <Reveal>
+        <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-4">§ 02 — The Math</div>
+        <h2 className="font-display text-6xl md:text-7xl leading-[0.95] max-w-3xl">
+          Your CFO
+          <br/>
+          <span className="italic" style={{color:ACCENT}}>will send flowers.</span>
+        </h2>
+      </Reveal>
+
+      <div className="mt-16 grid lg:grid-cols-2 gap-10">
+        {/* Stack of tools */}
         <Reveal>
-          <div className="text-[11px] font-mono uppercase tracking-[0.18em] opacity-60 mb-3">Reduce spend</div>
-          <h2 className="font-serif text-5xl md:text-6xl leading-[0.95] tracking-tight">
-            You're paying <span style={{ color: ACCENT }}>${stackTotal.toLocaleString()}</span><br />
-            per seat, per month.
-          </h2>
-          <p className="mt-6 text-lg opacity-70 max-w-lg">
-            Ten typical SaaS subscriptions add up fast — before you count the integrations,
-            admins and consultants keeping them stitched together. Limnn is one product, one price.
-          </p>
-          <div className="mt-8 flex items-baseline gap-4">
-            <div className="font-serif text-7xl" style={{ color: CREAM }}>${limnn}</div>
-            <div className="opacity-70">/ user / month · everything included</div>
-          </div>
-          <div className="mt-4 inline-flex items-center gap-2 px-3 h-8 rounded-full text-sm font-medium" style={{ background: `${ACCENT}22`, color: ACCENT }}>
-            Save {Math.round((1 - limnn / stackTotal) * 100)}% vs. today's stack
+          <div className="rounded-2xl p-8" style={{background:"#EEE8DB"}}>
+            <div className="flex items-center justify-between mb-6">
+              <div className="text-xs uppercase tracking-widest opacity-60">Best-of-breed stack</div>
+              <div className="font-display text-4xl">${total}<span className="text-sm opacity-60 font-sans">/seat/mo</span></div>
+            </div>
+            <div className="space-y-2">
+              {tools.map((t,i)=>(
+                <motion.div key={t.n} initial={{opacity:0, x:-10}} whileInView={{opacity:1, x:0}} viewport={{once:true}} transition={{delay:i*0.05}}
+                  className="flex items-center justify-between text-sm py-2 border-b border-black/5">
+                  <span className="line-through opacity-60">{t.n}</span>
+                  <span className="font-mono opacity-60">${t.price}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </Reveal>
-
-        <Reveal delay={0.15}>
-          <div className="rounded-2xl p-6" style={{ background: "#ffffff08", border: "1px solid #ffffff14" }}>
-            <div className="text-[10px] uppercase tracking-[0.18em] opacity-60 mb-4">Your current stack</div>
-            <motion.ul
-              variants={stagger}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="space-y-2"
-            >
-              {items.map((i) => (
-                <motion.li key={i.tool} variants={fadeUp} className="flex items-center gap-3">
-                  <span className="flex-1 text-sm">{i.tool}</span>
-                  <div className="w-40 h-1.5 rounded-full overflow-hidden" style={{ background: "#ffffff10" }}>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${(i.seat / 170) * 100}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, ease: EASE }}
-                      className="h-full rounded-full"
-                      style={{ background: CREAM }}
-                    />
-                  </div>
-                  <span className="font-mono text-xs w-14 text-right opacity-80">${i.seat}</span>
-                </motion.li>
-              ))}
-            </motion.ul>
-            <div className="mt-6 pt-4 border-t flex items-center" style={{ borderColor: "#ffffff14" }}>
-              <span className="flex-1 font-medium">Total / seat / month</span>
-              <span className="font-serif text-2xl" style={{ color: ACCENT }}>${stackTotal}</span>
+        <Reveal delay={0.2}>
+          <div className="rounded-2xl p-8 text-white h-full flex flex-col relative overflow-hidden" style={{background:INK}}>
+            <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full opacity-30" style={{background:`radial-gradient(circle, ${ACCENT}, transparent 70%)`}}/>
+            <div className="text-xs uppercase tracking-widest opacity-60 mb-2">Limnn — everything</div>
+            <div className="font-display text-[120px] leading-none">${limnn}<span className="text-2xl opacity-60 font-sans">/seat/mo</span></div>
+            <div className="mt-6 h-2 rounded-full bg-white/10 overflow-hidden">
+              <motion.div initial={{width:"100%"}} whileInView={{width:`${(limnn/total)*100}%`}} viewport={{once:true}} transition={{duration:1.4, ease:EASE}}
+                className="h-full rounded-full" style={{background:ACCENT}}/>
             </div>
-            <div className="mt-2 flex items-center">
-              <span className="flex-1 font-medium">Limnn (all 12 modules)</span>
-              <span className="font-serif text-2xl">${limnn}</span>
+            <div className="mt-2 text-xs opacity-60 flex justify-between">
+              <span>Limnn</span><span>Legacy stack</span>
+            </div>
+            <div className="mt-auto pt-10">
+              <div className="text-sm opacity-70">You keep</div>
+              <div className="font-display text-6xl" style={{color:ACCENT}}>${total-limnn}<span className="text-lg opacity-60 font-sans">/seat/mo</span></div>
+              <div className="mt-2 text-xs opacity-60">On 500 seats, that's ${((total-limnn)*500*12/1000).toFixed(0)}k a year.</div>
             </div>
           </div>
         </Reveal>
@@ -384,53 +443,43 @@ function SavingsSection() {
   );
 }
 
-/* ---------------- Comparison ---------------- */
+/* ---------------- Compare table ---------------- */
 function ComparisonSection() {
   const rows = [
-    { f: "One login for the whole company", l: true, s: false, p: "partial" as const },
-    { f: "AI copilot grounded on your data", l: true, s: "partial" as const, p: false },
-    { f: "CRM + Dialer + Support + Billing", l: true, s: false, p: false },
-    { f: "HRIS + LMS in the same product", l: true, s: false, p: false },
-    { f: "Per-seat pricing that stops growing", l: true, s: false, p: false },
-    { f: "No integration tax between modules", l: true, s: false, p: false },
-    { f: "Native mobile + web + voice", l: true, s: "partial" as const, p: "partial" as const },
+    {c:"One graph across CRM, support, billing, HR", l:true, s:false, b:false},
+    {c:"AI native — grounded on your data", l:true, s:false, b:false},
+    {c:"No per-module seat tax", l:true, s:false, b:false},
+    {c:"Consultants required to launch", l:false, s:true, b:true},
+    {c:"Sync jobs between tools", l:false, s:true, b:true},
+    {c:"6-month implementation", l:false, s:true, b:false},
+    {c:"Kill 12+ SaaS contracts", l:true, s:false, b:false},
   ];
-  const Cell = ({ v }: { v: true | false | "partial" }) =>
-    v === true ? <Check className="h-4 w-4" style={{ color: "#059669" }} />
-      : v === "partial" ? <Minus className="h-4 w-4 text-black/40" />
-      : <X className="h-4 w-4 text-black/30" />;
-
   return (
-    <section id="compare" className="py-24">
-      <div className="mx-auto max-w-[1240px] px-6">
-        <Reveal>
-          <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-black/50 mb-3">
-            Why not just stitch tools?
+    <section id="compare" className="max-w-[1400px] mx-auto px-6 py-24">
+      <Reveal>
+        <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-4">§ 03 — Vs. the field</div>
+        <h2 className="font-display text-5xl md:text-6xl leading-[0.95] max-w-3xl">
+          One product. <span className="italic" style={{color:`${INK}70`}}>Not twelve tabs pretending.</span>
+        </h2>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <div className="mt-12 rounded-2xl overflow-hidden border border-black/10">
+          <div className="grid grid-cols-[1.5fr_1fr_1fr_1fr] text-xs uppercase tracking-widest px-6 py-4" style={{background:INK, color:CREAM}}>
+            <div className="opacity-60">Capability</div>
+            <div className="text-center font-medium" style={{color:ACCENT}}>Limnn</div>
+            <div className="text-center opacity-60">Legacy suite</div>
+            <div className="text-center opacity-60">Stitched stack</div>
           </div>
-          <h2 className="font-serif text-5xl md:text-6xl leading-[0.95] tracking-tight max-w-2xl">
-            Integrations aren't a strategy.<br /><span className="italic opacity-60">One system is.</span>
-          </h2>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="mt-12 rounded-2xl overflow-hidden" style={{ border: `1px solid ${INK}18` }}>
-            <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr] text-sm">
-              <div className="px-5 py-4 font-medium" style={{ background: `${INK}05` }}>Capability</div>
-              <div className="px-5 py-4 text-center font-display font-semibold" style={{ background: INK, color: CREAM }}>Limnn</div>
-              <div className="px-5 py-4 text-center text-black/60" style={{ background: `${INK}05` }}>Best-of-breed stack</div>
-              <div className="px-5 py-4 text-center text-black/60" style={{ background: `${INK}05` }}>Legacy suite</div>
-              {rows.map((r) => (
-                <div key={r.f} className="contents">
-                  <div className="px-5 py-4 border-t" style={{ borderColor: `${INK}10` }}>{r.f}</div>
-                  <div className="px-5 py-4 border-t flex items-center justify-center" style={{ borderColor: `${INK}10`, background: `${BLUE}08` }}><Cell v={r.l} /></div>
-                  <div className="px-5 py-4 border-t flex items-center justify-center" style={{ borderColor: `${INK}10` }}><Cell v={r.s} /></div>
-                  <div className="px-5 py-4 border-t flex items-center justify-center" style={{ borderColor: `${INK}10` }}><Cell v={r.p} /></div>
-                </div>
-              ))}
+          {rows.map((r,i)=>(
+            <div key={i} className={`grid grid-cols-[1.5fr_1fr_1fr_1fr] items-center px-6 py-5 text-sm ${i%2===0?"bg-white":"bg-[#FBF8F2]"}`}>
+              <div>{r.c}</div>
+              <div className="grid place-items-center">{r.l ? <Check className="w-5 h-5" style={{color:ACCENT}}/> : <X className="w-5 h-5 opacity-30"/>}</div>
+              <div className="grid place-items-center opacity-60">{r.s ? <Check className="w-5 h-5"/> : <Minus className="w-5 h-5 opacity-30"/>}</div>
+              <div className="grid place-items-center opacity-60">{r.b ? <Check className="w-5 h-5"/> : <Minus className="w-5 h-5 opacity-30"/>}</div>
             </div>
-          </div>
-        </Reveal>
-      </div>
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 }
@@ -438,50 +487,21 @@ function ComparisonSection() {
 /* ---------------- CTA ---------------- */
 function CtaSection() {
   return (
-    <section id="cta" className="py-24">
-      <div className="mx-auto max-w-[1240px] px-6">
-        <Reveal>
-          <div className="rounded-3xl p-10 md:p-16 relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${INK}, #1a2540)`, color: CREAM }}>
-            <motion.div
-              animate={{ scale: [1, 1.1, 1], rotate: [0, 15, 0] }}
-              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-40"
-              style={{ background: `radial-gradient(closest-side, ${ACCENT}, transparent)` }}
-            />
-            <motion.div
-              animate={{ scale: [1, 1.15, 1], rotate: [0, -20, 0] }}
-              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -left-10 -bottom-10 h-72 w-72 rounded-full opacity-30"
-              style={{ background: `radial-gradient(closest-side, ${BLUE}, transparent)` }}
-            />
-
-            <div className="relative grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
-              <div>
-                <div className="text-[11px] font-mono uppercase tracking-[0.18em] opacity-60 mb-3">Take control</div>
-                <h2 className="font-serif text-5xl md:text-6xl leading-[0.95] tracking-tight">
-                  Cancel a dozen contracts.<br /><span style={{ color: ACCENT }}>Keep the work.</span>
-                </h2>
-                <p className="mt-5 opacity-70 max-w-lg">
-                  Free 30-day trial, all modules on. White-glove migration from your current stack.
-                  Named implementation lead. No credit card required to start.
-                </p>
-              </div>
-              <div className="rounded-xl p-6" style={{ background: "#ffffff0d", border: "1px solid #ffffff1c" }}>
-                <div className="flex flex-col gap-3">
-                  <a href="#" className="inline-flex h-12 items-center justify-center gap-2 rounded-md text-base font-medium hover:scale-[1.02] transition-transform" style={{ background: CREAM, color: INK }}>
-                    Start free trial <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <a href="#" className="inline-flex h-12 items-center justify-center gap-2 rounded-md text-base font-medium border hover:bg-white/10 transition" style={{ borderColor: "#ffffff33", color: CREAM }}>
-                    Book a demo
-                  </a>
-                  <div className="text-[11px] font-mono uppercase tracking-[0.14em] opacity-50 text-center mt-2">
-                    SOC 2 · GDPR · HIPAA · ISO 27001
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Reveal>
+    <section className="max-w-[1400px] mx-auto px-6 py-32">
+      <div className="relative rounded-3xl overflow-hidden p-14 md:p-20 grain" style={{background:INK, color:CREAM}}>
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full" style={{background:`radial-gradient(circle, ${ACCENT}40, transparent 60%)`}}/>
+        <div className="relative">
+          <Sparkles className="w-6 h-6 mb-6" style={{color:ACCENT}}/>
+          <h2 className="font-display text-6xl md:text-8xl leading-[0.95] max-w-4xl">
+            One platform.
+            <br/>
+            <span className="italic opacity-70">One decision.</span>
+          </h2>
+          <p className="mt-8 max-w-lg opacity-70">Open the platform and see what the last twelve invoices had in common.</p>
+          <Link to="/" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
+            Take control <ArrowRight className="w-4 h-4"/>
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -490,57 +510,13 @@ function CtaSection() {
 /* ---------------- Footer ---------------- */
 function Footer() {
   return (
-    <footer className="pt-16 pb-10 border-t" style={{ borderColor: `${INK}14` }}>
-      <div className="mx-auto max-w-[1240px] px-6 grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10">
-        <div>
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md grid place-items-center" style={{ background: INK }}>
-              <img src={limnnLogo} alt="Limnn" className="h-4 w-auto invert" />
-            </div>
-            <span className="font-display font-semibold tracking-tight text-lg">limnn</span>
-          </div>
-          <p className="mt-4 text-sm text-black/60 max-w-xs">
-            One platform for every team. Take control. Reduce spend. Ship faster.
-          </p>
-        </div>
-        <FooterCol title="Platform" items={SITE_MODULES.slice(0, 6).map((m) => ({ name: m.short, id: m.id }))} />
-        <FooterCol title="Back office" items={SITE_MODULES.slice(6).map((m) => ({ name: m.short, id: m.id }))} />
-        <FooterColStatic title="Company" items={["About", "Customers", "Security", "Careers", "Contact"]} />
+    <footer className="border-t border-black/10 py-10 max-w-[1400px] mx-auto px-6 flex flex-wrap items-center gap-6 justify-between">
+      <div className="flex items-center gap-2">
+        <LimnnMark/>
+        <span className="font-display text-lg">Limnn</span>
+        <span className="text-xs opacity-50 ml-2">One platform. Less spend.</span>
       </div>
-      <div className="mx-auto max-w-[1240px] px-6 mt-10 pt-6 border-t flex flex-wrap justify-between gap-4 text-xs text-black/50" style={{ borderColor: `${INK}14` }}>
-        <span>© {new Date().getFullYear()} Limnn, Inc. All rights reserved.</span>
-        <span className="font-mono uppercase tracking-[0.14em]">Made for teams that want their afternoons back.</span>
-      </div>
+      <div className="text-xs opacity-50">© 2026 Limnn. Cut the SaaS bill.</div>
     </footer>
-  );
-}
-
-function FooterCol({ title, items }: { title: string; items: { name: string; id: string }[] }) {
-  return (
-    <div>
-      <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-black/50 mb-3">{title}</div>
-      <ul className="space-y-2 text-sm">
-        {items.map((i) => (
-          <li key={i.id}>
-            <Link to="/site/$moduleId" params={{ moduleId: i.id }} className="hover:opacity-70">
-              {i.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function FooterColStatic({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div>
-      <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-black/50 mb-3">{title}</div>
-      <ul className="space-y-2 text-sm">
-        {items.map((i) => (
-          <li key={i}><a href="#" className="hover:opacity-70">{i}</a></li>
-        ))}
-      </ul>
-    </div>
   );
 }
