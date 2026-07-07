@@ -492,10 +492,10 @@ function CtaSection() {
             <br/>
             <span className="italic opacity-70">One decision.</span>
           </h2>
-          <p className="mt-8 max-w-lg opacity-70">Open the platform and see what the last twelve invoices had in common.</p>
-          <Link to="/" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
-            Take control <ArrowRight className="w-4 h-4"/>
-          </Link>
+          <p className="mt-8 max-w-lg opacity-70">Every module ships with a live in-browser demo. Click any of the 12 above to try it — no signup.</p>
+          <a href="#modules" className="mt-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium" style={{background:CREAM, color:INK}}>
+            <PlayCircle className="w-4 h-4"/> Explore live demos <ArrowRight className="w-4 h-4"/>
+          </a>
         </div>
       </div>
     </section>
