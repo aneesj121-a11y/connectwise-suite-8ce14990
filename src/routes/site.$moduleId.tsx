@@ -138,7 +138,7 @@ function Hero({ mod }: { mod: SiteModule }) {
 
 function DemoSection({ mod }: { mod: SiteModule }) {
   return (
-    <section className="max-w-[1400px] mx-auto px-6 pb-24">
+    <section id="demo" className="max-w-[1400px] mx-auto px-6 pb-24 scroll-mt-20">
       <div className="flex items-end justify-between mb-6">
         <div>
           <div className="text-[11px] uppercase tracking-[0.2em] opacity-60 mb-2">§ Live demo</div>
