@@ -135,6 +135,12 @@ function Hero() {
           {Array.from({length:9}).map((_,i)=><line key={"h"+i} x1={0} x2={1400} y1={i*100} y2={i*100} stroke={INK} strokeWidth="0.5"/>)}
         </svg>
       </div>
+      {/* Colorful floating blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="blob absolute -top-24 -left-16 w-[420px] h-[420px] rounded-full opacity-40" style={{background:`radial-gradient(circle, ${ACCENT}, transparent 65%)`, filter:"blur(40px)"}}/>
+        <div className="blob absolute top-20 right-10 w-[380px] h-[380px] rounded-full opacity-40" style={{background:`radial-gradient(circle, ${ACCENT2}, transparent 65%)`, filter:"blur(50px)", animationDelay:"-4s"}}/>
+        <div className="blob absolute bottom-0 left-1/3 w-[340px] h-[340px] rounded-full opacity-35" style={{background:`radial-gradient(circle, ${ACCENT3}, transparent 65%)`, filter:"blur(60px)", animationDelay:"-8s"}}/>
+      </div>
 
       <div className="max-w-[1400px] mx-auto px-6 pt-16 pb-28 relative">
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 items-center min-h-[720px]">
