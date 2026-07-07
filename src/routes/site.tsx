@@ -41,15 +41,15 @@ function Reveal({ children, className, delay = 0 }: { children: React.ReactNode;
 
 function SitePage() {
   return (
-    <div style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden"
-      /* editorial font stack — no Inter/Poppins */
-      >
+    <div data-site style={{ background: CREAM, color: INK }} className="min-h-screen antialiased overflow-x-hidden">
       <style>{`
-        .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif; font-optical-sizing: auto; font-variation-settings: "SOFT" 100,"WONK" 0; letter-spacing:-0.02em; }
-        .font-mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
-        .font-sans { font-family: "Söhne","Inter Tight",ui-sans-serif,system-ui,sans-serif; }
-        body, html { font-family: "Söhne","Inter Tight",ui-sans-serif,system-ui,sans-serif; }
-        .grain::before {
+        [data-site], [data-site] * { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; }
+        [data-site] .font-display { font-family: "Fraunces","Cormorant Garamond",ui-serif,Georgia,serif !important; font-optical-sizing: auto; letter-spacing:-0.02em; }
+        [data-site] .font-mono, [data-site] .font-mono * { font-family: "JetBrains Mono Variable","JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important; }
+        [data-site] .font-sans, [data-site] .font-sans * { font-family: "Inter Variable","Inter", ui-sans-serif, system-ui, sans-serif !important; }
+        [data-site] body, [data-site] { font-family: "Inter Variable","Inter",ui-sans-serif,system-ui,sans-serif !important; }
+        [data-site] h1, [data-site] h2, [data-site] h3, [data-site] h4 { font-family: "Fraunces",ui-serif,Georgia,serif !important; }
+        [data-site] .grain::before {
           content:""; position:absolute; inset:0; pointer-events:none; opacity:.06; mix-blend-mode:multiply;
           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
         }
@@ -216,11 +216,10 @@ function Constellation() {
           const r1=310, r2=320;
           return <line key={i} x1={cx+Math.cos(a)*r1} y1={cy+Math.sin(a)*r1} x2={cx+Math.cos(a)*r2} y2={cy+Math.sin(a)*r2} stroke={INK} strokeOpacity={i%5===0?0.4:0.15}/>;
         })}
-        {/* center core */}
-        <circle cx={cx} cy={cy} r="60" fill={INK}/>
-        <circle cx={cx} cy={cy} r="60" fill="none" stroke={ACCENT} strokeWidth="1.5" strokeOpacity="0.6"/>
-        <text x={cx} y={cy-4} textAnchor="middle" fill={CREAM} fontSize="14" fontFamily="Fraunces, serif" fontStyle="italic">Limnn</text>
-        <text x={cx} y={cy+14} textAnchor="middle" fill={CREAM} fontSize="8" letterSpacing="3" opacity="0.6">OS</text>
+        {/* center core — brand mark */}
+        <circle cx={cx} cy={cy} r="64" fill={CREAM} stroke="#2C56D6" strokeWidth="2"/>
+        <circle cx={cx} cy={cy} r="72" fill="none" stroke="#2C56D6" strokeWidth="1" strokeOpacity="0.35"/>
+        <image href={limnnLogo} x={cx-28} y={cy-32} width="56" height="64" preserveAspectRatio="xMidYMid meet"/>
       </svg>
 
       {/* Orbits with real module icons — HTML so lucide renders crisp */}
