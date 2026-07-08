@@ -13,20 +13,45 @@ import {
 export function DemoWindow({
   color, label, children,
 }: { color: string; label: string; children: React.ReactNode }) {
+  const workspace = label.replace(/^limnn\s*·\s*/i, "");
   return (
     <div className="relative rounded-2xl overflow-hidden border border-black/10 bg-white shadow-[0_40px_100px_-40px_rgba(15,20,32,0.35)]">
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-black/[0.06] bg-[#FAF7F1]">
+      {/* Title bar */}
+      <div className="flex items-center gap-3 px-4 py-2.5 border-b border-black/[0.06] bg-gradient-to-b from-[#F1EADB] to-[#EFE8D8]">
         <div className="flex gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-          <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+          <div className="w-3 h-3 rounded-full bg-[#FF5F57] shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-[#FEBC2E] shadow-inner" />
+          <div className="w-3 h-3 rounded-full bg-[#28C840] shadow-inner" />
         </div>
-        <div className="mx-auto text-[11px] tracking-widest uppercase text-black/50 font-medium">
-          <span style={{ color }} className="mr-2">●</span>
-          {label}
+        <div className="flex-1 flex justify-center">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-black/[0.04] border border-black/5 text-[11px] text-black/60 font-mono max-w-xl w-full justify-center">
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />
+            <span className="opacity-40">app.limnn.com/</span>
+            <span className="font-semibold text-black/70">{workspace}</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-black/40">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Live
         </div>
       </div>
+      {/* Tab strip */}
+      <div className="flex items-center gap-1 px-3 pt-1.5 border-b border-black/[0.06] bg-[#FBF8F2] text-[11px]">
+        <div className="px-3 py-1.5 rounded-t-md border border-b-0 border-black/[0.08] bg-white font-medium flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />
+          {workspace}
+        </div>
+        <div className="px-3 py-1.5 text-black/40">Inbox</div>
+        <div className="px-3 py-1.5 text-black/40">Reports</div>
+        <div className="ml-auto text-black/40 pr-1">⌘K</div>
+      </div>
       <div className="relative">{children}</div>
+      {/* Status footer */}
+      <div className="flex items-center gap-4 px-4 py-2 border-t border-black/[0.06] bg-[#FBF8F2] text-[10px] uppercase tracking-widest text-black/40">
+        <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full" style={{ background: color }} /> Limnn OS · v4.2</span>
+        <span>· One graph · One ledger · One login</span>
+        <span className="ml-auto">Synced 2s ago</span>
+      </div>
     </div>
   );
 }
